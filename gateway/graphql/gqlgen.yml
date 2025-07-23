@@ -1,0 +1,23 @@
+schema:
+  - schema.graphql
+
+exec:
+  filename: generated/generated.go
+  package: generated
+
+model:
+  filename: model/models_gen.go
+  package: model
+
+resolver:
+  layout: follow-schema
+  dir: resolver
+  package: resolver
+
+models:
+  Account:
+    model: github.com/zenvisjr/building-scalable-microservices/gateway/internals/models.Account
+    fields:
+      orders:
+        resolver: true
+
