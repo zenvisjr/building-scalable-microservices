@@ -2,6 +2,7 @@ package order
 
 import (
 	"context"
+	"log"
 	"time"
 
 	"github.com/segmentio/ksuid"
@@ -28,7 +29,6 @@ type OrderedProduct struct {
 	Quantity    uint32  `json:"quantity"`
 }
 
-
 type orderService struct {
 	repo Repository
 }
@@ -38,24 +38,28 @@ func NewOrderService(r Repository) (Service, error) {
 }
 
 func (o *orderService) PostOrder(ctx context.Context, accountID string, orders []OrderedProduct) (*Order, error) {
+	log.Printf("🔥 PostOrder service called with %d products", len(orders))
+
 	order := &Order{
 		ID:        ksuid.New().String(),
 		CreatedAt: time.Now().UTC(),
 		AccountID: accountID,
 		Products:  orders,
 	}
-	totalPrice := 0.0
+	order.TotalPrice = 0.0
 	for _, placedOrder := range orders {
-		totalPrice += placedOrder.Price * float64(placedOrder.Quantity)
+		order.TotalPrice += placedOrder.Price * float64(placedOrder.Quantity)
 	}
-	order.TotalPrice = totalPrice
+
+	log.Printf("🔥 About to save order: TotalPrice=%f, Products=%d", order.TotalPrice, len(order.Products))
 
 	err := o.repo.PutOrder(ctx, *order)
 	if err != nil {
 		return nil, err
 	}
-	return order, nil
 
+	log.Printf("🔥 Order saved, returning: TotalPrice=%f, Products=%d", order.TotalPrice, len(order.Products))
+	return order, nil
 }
 
 func (o *orderService) GetOrdersByAccount(ctx context.Context, accountID string) ([]Order, error) {

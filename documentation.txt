@@ -3,3 +3,54 @@ envconfig.Process()
 github.com/segmentio/ksuid
 go get github.com/avast/retry-go
 blank import for postgres
+
+
+remove previously installed docker
+docker compose down -v --remove-orphans
+docker rmi $(docker images --filter=reference='building-scalable-microservices-*' -q)
+
+build docker
+docker compose build -
+OR
+docker compose build --no-cache (if u dont want cache)
+
+run docker
+docker compose up -d
+
+build and run docker
+docker compose up -d --build
+
+to check running dockers
+docker ps
+
+
+doccker errors:
+
+gateway main.go
+Config struct had all filed starting with small letters
+envconfig was written as envservice
+in order, catalog, account url dosent has SERVICE in it -> `envconfig:"ORDER_SERVICE_URL"`
+
+added this for handlers
+	h.Use(extension.Introspection{}) // <-- add this line
+	h.AddTransport(transport.POST{})
+	h.AddTransport(transport.GET{})
+	h.AddTransport(transport.MultipartForm{})
+
+important thing missed: 
+database url VS account and catalog url 
+DATABASE_URL
+ACCOUNT_SERVICE_URL
+CATALOG_SERVICE_URL
+
+i put DATABASE_SEVICE_URL everywhere so connection was refused
+
+also i made account table in postgres insted of accounts
+
+
+how to enter a docker annd ping another doccker from it
+find container name: docker ps
+enter container: docker exec -it <container_name> /bin/bash
+ping another docker: ping <container_name>
+
+

@@ -1,4 +1,5 @@
 
+
 services:
   account:
     build:
@@ -7,10 +8,8 @@ services:
     depends_on:
       - account_db
     environment:
-      DATABASE_URL: postgres://akhil:123456@account_db:5432/akhil?sslmode=disable
+      DATABASE_URL: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
     restart: on-failure
-    ports:
-      - "7001:8080"
 
   catalog:
     build:
@@ -21,8 +20,6 @@ services:
     environment:
       DATABASE_URL: http://catalog_db:9200
     restart: on-failure
-    ports:
-      - "7002:8080"
 
   order:
     build:
@@ -31,47 +28,34 @@ services:
     depends_on:
       - order_db
     environment:
-      DATABASE_URL: postgres://zenvis:123456@order_db:5432/zenvis?sslmode=disable
-      ACCOUNT_SERVICE_URL: http://account:8080
-      CATALOG_SERVICE_URL: http://catalog:8080
+      DATABASE_URL: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+      ACCOUNT_SERVICE_URL: account:8080
+      CATALOG_SERVICE_URL: catalog:8080
     restart: on-failure
-    ports:
-      - "7003:8080"
 
   gateway:
     build:
       context: .
       dockerfile: ./gateway/app.dockerfile
+    ports:
+      - 8000:8080
     depends_on:
       - account
       - catalog
-      - order
     environment:
-      ACCOUNT_SERVICE_URL: http://account:8080
-      CATALOG_SERVICE_URL: http://catalog:8080
-      ORDER_SERVICE_URL: http://order:8080
-    ports:
-      - "8000:8080"
+      ACCOUNT_SERVICE_URL: account:8080
+      CATALOG_SERVICE_URL: catalog:8080
+      ORDER_SERVICE_URL: order:8080
     restart: on-failure
 
   account_db:
-    image: postgres:14
+    build:
+      context: ./account
+      dockerfile: ./db.dockerfile
     environment:
       POSTGRES_DB: zenvis
       POSTGRES_USER: zenvis
-      POSTGRES_PASSWORD: 123456
-    ports:
-      - "5433:5432"
-    restart: unless-stopped
-
-  order_db:
-    image: postgres:14
-    environment:
-      POSTGRES_DB: zenvis
-      POSTGRES_USER: zenvis
-      POSTGRES_PASSWORD: 123456
-    ports:
-      - "5434:5432"
+      POSTGRES_PASSWORD: 467578
     restart: unless-stopped
 
   catalog_db:
@@ -79,6 +63,13 @@ services:
     environment:
       ES_JAVA_OPTS: -Xms1g -Xmx1g
       discovery.type: single-node
-    ports:
-      - "9200:9200"
+
+  order_db:
+    build:
+      context: ./order
+      dockerfile: ./db.dockerfile
+    environment:
+      POSTGRES_DB: zenvis
+      POSTGRES_USER: zenvis
+      POSTGRES_PASSWORD: 467578
     restart: unless-stopped

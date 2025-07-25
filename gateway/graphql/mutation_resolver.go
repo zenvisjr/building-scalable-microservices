@@ -16,7 +16,7 @@ type mutationResolver struct {
 }
 
 func (m *mutationResolver) CreateAccount(ctx context.Context, input AccountInput) (*Account, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 	account, err := m.server.accountClient.PostAccount(ctx, input.Name)
 	if err != nil {
@@ -32,7 +32,7 @@ func (m *mutationResolver) CreateAccount(ctx context.Context, input AccountInput
 }
 
 func (m *mutationResolver) CreateProduct(ctx context.Context, input ProductInput) (*Product, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
 	product, err := m.server.catalogClient.PostProduct(ctx, input.Name, input.Description, input.Price)
@@ -51,7 +51,10 @@ func (m *mutationResolver) CreateProduct(ctx context.Context, input ProductInput
 }
 
 func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*Order, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	// ADD THIS LINE FIRST
+	
+	
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
 	var products []order.OrderedProduct
@@ -64,16 +67,27 @@ func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*
 			Quantity: uint32(p.Quantity),
 		})
 	}
-
+	log.Println("🚀 CreateOrder mutation called!")
 	order, err := m.server.orderClient.PostOrder(ctx, input.AccountID, products)
 	if err != nil {
-		log.Println(err)
+		log.Println("❌ Error from orderClient.PostOrder:", err)
 		return nil, err
 	}
 
 	newOrder := &Order{
 		ID: order.ID,
 		CreatedAt: order.CreatedAt.Format(time.RFC1123),
+		TotalPrice: order.TotalPrice,
+		Products: []*OrderedProduct{},
+	}
+	for _, p := range order.Products {
+		newOrder.Products = append(newOrder.Products, &OrderedProduct{
+			ID: p.ProductID,
+			Name: p.Name,
+			Description: p.Description,
+			Price: p.Price,
+			Quantity: int(p.Quantity),
+		})
 	}
 	
 	return newOrder, nil

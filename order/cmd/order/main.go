@@ -13,7 +13,7 @@ import (
 type Config struct {
 	DatabaseURL string `envconfig:"DATABASE_URL"`
 	AccountURL  string `envconfig:"ACCOUNT_SERVICE_URL"`
-	CatalogURL  string `envcongif:"CATALOG_SERVICE_URL"`
+	CatalogURL  string `envconfig:"CATALOG_SERVICE_URL"`
 }
 
 func main() {

@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"context"
+	"log"
 
 	"github.com/segmentio/ksuid"
 )
@@ -56,6 +57,7 @@ func (s *catalogService) GetProducts(ctx context.Context, skip uint64, take uint
 }
 
 func (s *catalogService) GetProductsByIDs(ctx context.Context, ids []string) ([]Product, error) {
+	log.Printf("🔥 finally GetProductsByIDs called with Ids=%v", ids)
 	return s.repo.ListProductsWithIDs(ctx, ids)
 }
 

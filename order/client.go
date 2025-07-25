@@ -56,15 +56,24 @@ func(c *Client) PostOrder(ctx context.Context, id string, products []OrderedProd
 	}
 	newOrder := resp.Order
 
+	ordered := []OrderedProduct{}
+	for _, p := range newOrder.Products {
+		ordered = append(ordered, OrderedProduct{
+			ProductID:   p.ProductId,
+			Name:        p.Name,
+			Description: p.Description,
+			Price:       p.Price,
+			Quantity:    p.Quantity,
+		})
+	}
+	
 	return &Order{
-		ID: newOrder.Id,
-		CreatedAt: newOrder.CreatedAt.AsTime(),
-		AccountID: newOrder.AccountId,
+		ID:         newOrder.Id,
+		CreatedAt:  newOrder.CreatedAt.AsTime(),
+		AccountID:  newOrder.AccountId,
 		TotalPrice: newOrder.TotalPrice,
-		Products: products,
-	}, nil
-
-
+		Products:   ordered,
+	}, nil	
 }
 
 func(c *Client) GetOrdersForAccount(ctx context.Context, id string) ([]Order, error) {

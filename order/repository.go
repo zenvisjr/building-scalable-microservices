@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
+
+	"github.com/lib/pq"
 )
 
 type Repository interface {
@@ -48,6 +50,7 @@ func (p *postgresRepository) PutOrder(ctx context.Context, order Order) error {
 		}
 	}()
 
+	// FIRST: Insert the order record
 	_, err = tx.ExecContext(
 		ctx,
 		"INSERT INTO orders(id, created_at, account_id, total_price) VALUES($1, $2, $3, $4)",
@@ -56,28 +59,28 @@ func (p *postgresRepository) PutOrder(ctx context.Context, order Order) error {
 	if err != nil {
 		return err
 	}
-	stmt, err := tx.PrepareContext(
-		ctx,
-		"INSERT INTO order_products(order_id, product_id, quantity) VALUES ($1, $2, $3)",
-	)
+
+	// SECOND: Insert order products using COPY
+	stmt, err := tx.PrepareContext(ctx, pq.CopyIn("order_products", "order_id", "product_id", "quantity"))
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
 
 	for _, p := range order.Products {
-		_, err := stmt.ExecContext(ctx, order.ID, p.ProductID, p.Quantity)
+		_, err = stmt.ExecContext(ctx, order.ID, p.ProductID, p.Quantity)
 		if err != nil {
 			return err
 		}
 	}
+	
 	_, err = stmt.ExecContext(ctx)
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
-
 func (p *postgresRepository) ListOrdersForAccount(ctx context.Context, accountID string) ([]Order, error) {
 	rows, err := p.db.QueryContext(
 		ctx,

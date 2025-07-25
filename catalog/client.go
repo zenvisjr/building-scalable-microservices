@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"context"
+	"log"
 
 	"github.com/zenvisjr/building-scalable-microservices/catalog/pb"
 	"google.golang.org/grpc"
@@ -49,7 +50,7 @@ func (c *Client) PostProduct(ctx context.Context, name, description string, pric
 	}, nil
 }
 
-func(c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
+func (c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
 	req := &pb.GetProductRequest{
 		Id: id,
 	}
@@ -66,19 +67,21 @@ func(c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
 	}, nil
 }
 
-func(c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids []string, query string) ([]Product, error) {
-
+func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids []string, query string) ([]Product, error) {
+	log.Printf("🔥 GetProducts called with Skip=%d, Take=%d, Ids=%v, Query=%q", skip, take, ids, query)
 	req := &pb.GetProductsRequest{
-			Skip: skip,
-			Take: take,
-			Ids: ids,
-			Query: query,
+		Skip:  skip,
+		Take:  take,
+		Ids:   ids,
+		Query: query,
 	}
 
 	resp, err := c.service.GetProducts(ctx, req)
 	if err != nil {
+		log.Printf("❌ Error getting products from catalog: %v", err)
 		return nil, err
 	}
+	log.Printf("🔥 Catalog returned %d products", len(resp.Products))
 	products := make([]Product, len(resp.Products))
 	for i, p := range resp.Products {
 		products[i] = Product{
@@ -88,6 +91,6 @@ func(c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids [
 			Price:       p.Price,
 		}
 	}
+	log.Printf("🔥 Returning %d products", len(products))
 	return products, nil
 }
-

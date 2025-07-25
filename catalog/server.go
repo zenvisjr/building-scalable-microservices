@@ -3,6 +3,7 @@ package catalog
 import (
 	"context"
 	"fmt"
+	"log"
 	"net"
 
 	"github.com/zenvisjr/building-scalable-microservices/catalog/pb"
@@ -67,13 +68,14 @@ func (g *grpcServer) GetProduct(ctx context.Context, req *pb.GetProductRequest) 
 
 func (g *grpcServer) GetProducts(ctx context.Context, req *pb.GetProductsRequest) (*pb.GetProductsResponse, error) {
 	var (
-		err      error
-		resp     []Product
+		err  error
+		resp []Product
 	)
 
 	if len(req.GetQuery()) > 0 {
 		resp, err = g.service.SearchProducts(ctx, req.GetQuery(), req.GetSkip(), req.GetTake())
 	} else if len(req.GetIds()) != 0 {
+		log.Printf("🔥 GetProductsByIDs called with Ids=%v", req.GetIds())
 		resp, err = g.service.GetProductsByIDs(ctx, req.GetIds())
 	} else {
 		resp, err = g.service.GetProducts(ctx, req.GetSkip(), req.GetTake())
@@ -82,7 +84,7 @@ func (g *grpcServer) GetProducts(ctx context.Context, req *pb.GetProductsRequest
 	if err != nil {
 		return nil, err
 	}
-
+	log.Printf("🔥 GetProducts returned %d products", len(resp))
 	products := make([]*pb.Product, len(resp))
 	for i, p := range resp {
 		products[i] = &pb.Product{
@@ -92,6 +94,7 @@ func (g *grpcServer) GetProducts(ctx context.Context, req *pb.GetProductsRequest
 			Price:       p.Price,
 		}
 	}
+	log.Printf("🔥 Returning %d products", len(products))
 	response := &pb.GetProductsResponse{
 		Products: products,
 	}

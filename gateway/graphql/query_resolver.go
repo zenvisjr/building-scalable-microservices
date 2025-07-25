@@ -11,7 +11,7 @@ type queryResolver struct {
 }
 
 func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id *string) ([]*Account, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
 	if id != nil {
@@ -49,7 +49,7 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 }
 
 func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, query *string, id *string) ([]*Product, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
 	if id != nil {

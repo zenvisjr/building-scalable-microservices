@@ -1,20 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/handler/extension"
+	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/zenvisjr/building-scalable-microservices/gateway/graphql"
 )
 
 type AppConfig struct {
-	accountURL string `envservice:"ACCOUNT_SERVICE_URL"`
-	catalogURL string `envservice:"CATALOG_SERVICE_URL"`
-	orderURL   string `envservice:"ORDER_SERVICE_URL"`
+	AccountURL string `envconfig:"ACCOUNT_SERVICE_URL"`
+	CatalogURL string `envconfig:"CATALOG_SERVICE_URL"`
+	OrderURL   string `envconfig:"ORDER_SERVICE_URL"`
 }
 
 func main() {
@@ -24,23 +26,28 @@ func main() {
 		log.Fatal("Failed to load configuration", err)
 	}
 
-	server, err := graphql.NewGraphQLServer(config.accountURL, config.catalogURL, config.orderURL)
+	server, err := graphql.NewGraphQLServer(config.AccountURL, config.CatalogURL, config.OrderURL)
 	if err != nil {
 		log.Fatal("Failed to create GraphQL server", err)
 	}
 
 	es := server.ToExecutableSchema()
+	if es == nil {
+		log.Fatal("Failed to create executable schema")
+	}
 
 	h := handler.New(es)
+	h.Use(extension.Introspection{}) // <-- add this line
+	h.AddTransport(transport.POST{})
+	h.AddTransport(transport.GET{})
+	h.AddTransport(transport.MultipartForm{})
+	// h.AddTransport(transport.WebSocket{
+	// 	KeepAliveP
+	// })
 
 	http.Handle("/graphql", h)
 	http.Handle("/playground", playground.Handler("zenvis", "/graphql"))
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	log.Printf("Listening on :%s...\n", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	fmt.Println("Listening on :8080...")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
+	"github.com/avast/retry-go"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/zenvisjr/building-scalable-microservices/account"
-	"github.com/avast/retry-go"
 )
 
 //we need to do 2 things

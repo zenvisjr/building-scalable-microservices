@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/olivere/elastic/v7"
 )
@@ -26,8 +27,8 @@ type elasticRepository struct {
 }
 
 type productDocument struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 }
 
@@ -104,30 +105,93 @@ func (p *elasticRepository) ListProducts(ctx context.Context, skip uint64, take 
 	return products, nil
 }
 
-func (p *elasticRepository) ListProductsWithIDs(ctx context.Context, ids []string) ([]Product, error) {
+// func (p *elasticRepository) ListProductsWithIDs(ctx context.Context, ids []string) ([]Product, error) {
+// 	log.Printf("🔥 finally ListProductsWithIDs called with Ids=%v", ids)
+// 	term := make([]interface{}, len(ids))
+// 	for i, id := range ids {
+// 		term[i] = id
+// 	}
+// 	log.Printf("🔥 finally ListProductsWithIDs called with Ids=%v after creating term", term)
+// 	res, err := p.client.Search().Index("catalog").Query(elastic.NewTermsQuery("id.keyword", term...)).Do(ctx)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	log.Printf("we get response from elasticsearch %v with length %d", res, len(res.Hits.Hits))
+// 	products := []Product{}
+// 	for _, hit := range res.Hits.Hits {
+// 		product := &productDocument{}
+// 		if err := json.Unmarshal(hit.Source, &product); err != nil {
+// 			continue
+// 		}
+// 		products = append(products, Product{
+// 			Name:        product.Name,
+// 			ID:          hit.Id,
+// 			Description: product.Description,
+// 			Price:       product.Price,
+// 		})
+// 	}
+// 	log.Printf("no of products fetched from elasticsearch %v", len(products))
 
-	term := make([]interface{}, len(ids))
-	for i, id := range ids {
-		term[i] = id
+// 	return products, nil
+// }
+
+func (r *elasticRepository) ListProductsWithIDs(ctx context.Context, ids []string) ([]Product, error) {
+	log.Printf("🔥 ListProductsWithIDs called with Ids=%v", ids)
+	
+	items := []*elastic.MultiGetItem{}
+	for _, id := range ids {
+		items = append(
+			items,
+			elastic.NewMultiGetItem().
+				Index("catalog").
+				// Type("product").
+				Id(id),
+		)
 	}
-	res, err := p.client.Search().Index("catalog").Query(elastic.NewTermsQuery("id.keyword", term...)).Do(ctx)
+	
+	res, err := r.client.MultiGet().Add(items...).Do(ctx)
 	if err != nil {
+		log.Printf("❌ MultiGet error: %v", err)
 		return nil, err
 	}
+	
+	log.Printf("🔥 MultiGet returned %d docs", len(res.Docs))
+	
 	products := []Product{}
-	for _, hit := range res.Hits.Hits {
-		product := &productDocument{}
-		if err := json.Unmarshal(hit.Source, &product); err != nil {
+	for i, doc := range res.Docs {
+		log.Printf("🔥 Processing doc %d:", i)
+		log.Printf("🔥   Doc ID: %s", doc.Id)
+		log.Printf("🔥   Doc Found: %t", doc.Found)
+		log.Printf("🔥   Doc Source: %s", string(doc.Source))
+		
+		if !doc.Found {
+			log.Printf("❌ Document not found for ID: %s", doc.Id)
 			continue
 		}
+		
+		if doc.Source == nil {
+			log.Printf("❌ Document source is nil for ID: %s", doc.Id)
+			continue
+		}
+		
+		p := productDocument{}
+		if err = json.Unmarshal(doc.Source, &p); err != nil {
+			log.Printf("❌ JSON unmarshal error: %v", err)
+			log.Printf("❌ Raw source: %s", string(doc.Source))
+			continue
+		}
+		
+		log.Printf("✅ Successfully unmarshaled: Name=%s, Price=%f", p.Name, p.Price)
+		
 		products = append(products, Product{
-			Name:        product.Name,
-			ID:          hit.Id,
-			Description: product.Description,
-			Price:       product.Price,
+			ID:          doc.Id,
+			Name:        p.Name,
+			Description: p.Description,
+			Price:       p.Price,
 		})
 	}
-
+	
+	log.Printf("🔥 Final result: %d products", len(products))
 	return products, nil
 }
 
