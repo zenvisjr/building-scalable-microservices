@@ -49,8 +49,8 @@ func main() {
 	// defer r.Close()
 
 	fmt.Println("Connected to database on ", config.DatabaseURL)
-	fmt.Println("Listening on :8081...")
+	fmt.Println("Listening on :8080...")
 	s := catalog.NewCatalogService(r)
-	log.Fatal(catalog.ListenGRPC(s, 8081))
+	log.Fatal(catalog.ListenGRPC(s, 8080))
 
 }

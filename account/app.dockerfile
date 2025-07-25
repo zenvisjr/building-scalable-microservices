@@ -5,7 +5,7 @@ FROM golang:1.21-alpine AS build
 RUN apk --no-cache add gcc g++ make ca-certificates
 
 # Set working directory inside container
-WORKDIR /app
+WORKDIR /build
 
 # Copy only necessary files
 COPY go.mod go.sum ./
@@ -13,15 +13,15 @@ COPY vendor/ vendor/
 COPY account/ account/
 
 # Build the binary from the account microservice
-RUN go build -mod=vendor -o /go/bin/account ./account/cmd/account
+RUN go build -mod=vendor -o /account ./account/cmd/account
 
 # Stage 2: Runtime
 FROM alpine:latest
 
-WORKDIR /root/
+WORKDIR /app
 
 # Copy the built binary only
-COPY --from=build /go/bin/account .
+COPY --from=build /build/account .
 
 # Expose port
 EXPOSE 8080

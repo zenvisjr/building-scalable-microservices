@@ -82,8 +82,8 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Accounts func(childComplexity int, pagination Pagination, id *string) int
-		Products func(childComplexity int, pagination Pagination, query *string, id *string) int
+		Accounts func(childComplexity int, pagination *Pagination, id *string) int
+		Products func(childComplexity int, pagination *Pagination, query *string, id *string) int
 	}
 }
 
@@ -96,8 +96,8 @@ type MutationResolver interface {
 	CreateOrder(ctx context.Context, input OrderInput) (*Order, error)
 }
 type QueryResolver interface {
-	Accounts(ctx context.Context, pagination Pagination, id *string) ([]*Account, error)
-	Products(ctx context.Context, pagination Pagination, query *string, id *string) ([]*Product, error)
+	Accounts(ctx context.Context, pagination *Pagination, id *string) ([]*Account, error)
+	Products(ctx context.Context, pagination *Pagination, query *string, id *string) ([]*Product, error)
 }
 
 type executableSchema struct {
@@ -277,7 +277,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Query.Accounts(childComplexity, args["pagination"].(Pagination), args["id"].(*string)), true
+		return e.complexity.Query.Accounts(childComplexity, args["pagination"].(*Pagination), args["id"].(*string)), true
 
 	case "Query.products":
 		if e.complexity.Query.Products == nil {
@@ -289,7 +289,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Query.Products(childComplexity, args["pagination"].(Pagination), args["query"].(*string), args["id"].(*string)), true
+		return e.complexity.Query.Products(childComplexity, args["pagination"].(*Pagination), args["query"].(*string), args["id"].(*string)), true
 
 	}
 	return 0, false
@@ -550,18 +550,18 @@ func (ec *executionContext) field_Query_accounts_args(ctx context.Context, rawAr
 func (ec *executionContext) field_Query_accounts_argsPagination(
 	ctx context.Context,
 	rawArgs map[string]any,
-) (Pagination, error) {
+) (*Pagination, error) {
 	if _, ok := rawArgs["pagination"]; !ok {
-		var zeroVal Pagination
+		var zeroVal *Pagination
 		return zeroVal, nil
 	}
 
 	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("pagination"))
 	if tmp, ok := rawArgs["pagination"]; ok {
-		return ec.unmarshalNPagination2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx, tmp)
+		return ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx, tmp)
 	}
 
-	var zeroVal Pagination
+	var zeroVal *Pagination
 	return zeroVal, nil
 }
 
@@ -606,18 +606,18 @@ func (ec *executionContext) field_Query_products_args(ctx context.Context, rawAr
 func (ec *executionContext) field_Query_products_argsPagination(
 	ctx context.Context,
 	rawArgs map[string]any,
-) (Pagination, error) {
+) (*Pagination, error) {
 	if _, ok := rawArgs["pagination"]; !ok {
-		var zeroVal Pagination
+		var zeroVal *Pagination
 		return zeroVal, nil
 	}
 
 	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("pagination"))
 	if tmp, ok := rawArgs["pagination"]; ok {
-		return ec.unmarshalNPagination2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx, tmp)
+		return ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx, tmp)
 	}
 
-	var zeroVal Pagination
+	var zeroVal *Pagination
 	return zeroVal, nil
 }
 
@@ -1710,7 +1710,7 @@ func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Accounts(rctx, fc.Args["pagination"].(Pagination), fc.Args["id"].(*string))
+		return ec.resolvers.Query().Accounts(rctx, fc.Args["pagination"].(*Pagination), fc.Args["id"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1773,7 +1773,7 @@ func (ec *executionContext) _Query_products(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Products(rctx, fc.Args["pagination"].(Pagination), fc.Args["query"].(*string), fc.Args["id"].(*string))
+		return ec.resolvers.Query().Products(rctx, fc.Args["pagination"].(*Pagination), fc.Args["query"].(*string), fc.Args["id"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4017,14 +4017,14 @@ func (ec *executionContext) unmarshalInputPagination(ctx context.Context, obj an
 		switch k {
 		case "skip":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("skip"))
-			data, err := ec.unmarshalNInt2int(ctx, v)
+			data, err := ec.unmarshalOInt2ᚖint(ctx, v)
 			if err != nil {
 				return it, err
 			}
 			it.Skip = data
 		case "take":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("take"))
-			data, err := ec.unmarshalNInt2int(ctx, v)
+			data, err := ec.unmarshalOInt2ᚖint(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -5072,11 +5072,6 @@ func (ec *executionContext) unmarshalNOrderedProductInput2ᚖgithubᚗcomᚋzenv
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNPagination2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx context.Context, v any) (Pagination, error) {
-	res, err := ec.unmarshalInputPagination(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
 func (ec *executionContext) marshalNProduct2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐProduct(ctx context.Context, sel ast.SelectionSet, v Product) graphql.Marshaler {
 	return ec._Product(ctx, sel, &v)
 }
@@ -5457,6 +5452,24 @@ func (ec *executionContext) marshalOID2ᚖstring(ctx context.Context, sel ast.Se
 	return res
 }
 
+func (ec *executionContext) unmarshalOInt2ᚖint(ctx context.Context, v any) (*int, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql.UnmarshalInt(v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.SelectionSet, v *int) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	_ = sel
+	_ = ctx
+	res := graphql.MarshalInt(*v)
+	return res
+}
+
 func (ec *executionContext) unmarshalOOrderedProductInput2ᚕᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐOrderedProductInputᚄ(ctx context.Context, v any) ([]*OrderedProductInput, error) {
 	if v == nil {
 		return nil, nil
@@ -5473,6 +5486,14 @@ func (ec *executionContext) unmarshalOOrderedProductInput2ᚕᚖgithubᚗcomᚋz
 		}
 	}
 	return res, nil
+}
+
+func (ec *executionContext) unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx context.Context, v any) (*Pagination, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputPagination(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v any) (*string, error) {

@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option go_package = "github.com/zenvisjr/building-scalable-microservices/order/pb;pb";
+
+import "google/protobuf/timestamp.proto";
+
+service OrderService {
+    rpc PostOrder(PostOrderRequest) returns(PostOrderResponse);
+    rpc GetOrdersForAccount(GetOrdersForAccountRequest) returns (GetOrdersForAccountResponse);
+
+}
+message Order {
+    message OrderedProduct {
+        string productId = 1;
+        string name = 2;
+        string description = 3;
+        double price = 4;
+        uint32 quantity = 5;
+    }
+    string id = 1;
+    // time.Time createdat = 2;
+    google.protobuf.Timestamp createdAt = 2;
+    string accountId = 3;
+    double totalPrice = 4;
+    repeated OrderedProduct products = 5;
+}
+
+// message OrderedProduct {
+//     string id = 1;
+//     string name = 2;
+//     string description = 3;
+//     double price = 4;
+//     uint32 quantity = 5;
+
+// }
+message PostOrderRequest {
+    message OrderedProduct {
+        string productId = 1;
+        uint32 quantity = 5;
+    }
+
+    string accountId = 3;
+    repeated OrderedProduct products = 2;
+}
+
+message PostOrderResponse {
+    Order order = 1;
+
+}
+
+message GetOrdersRequest {
+    string productId = 1;
+
+}
+
+message GetOrdersResponse {
+    Order order = 1;
+
+}
+
+message GetOrdersForAccountRequest {
+    string accountId = 1;
+}
+
+message GetOrdersForAccountResponse {
+    repeated Order orders = 1;
+}
+

@@ -7,10 +7,11 @@ import (
 )
 
 type Product struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
 	Price       float64 `json:"price"`
+	Quantity    uint32  `json:"quantity"`
 }
 
 type Service interface {
@@ -30,11 +31,11 @@ func NewCatalogService(repo Repository) Service {
 }
 
 func (s *catalogService) PostProduct(ctx context.Context, name, description string, price float64) (*Product, error) {
-	product := Product {
-		ID: ksuid.New().String(),
-		Name: name,
+	product := Product{
+		ID:          ksuid.New().String(),
+		Name:        name,
 		Description: description,
-		Price: price,
+		Price:       price,
 	}
 	if err := s.repo.PutProduct(ctx, product); err != nil {
 		return nil, err
@@ -50,9 +51,8 @@ func (s *catalogService) GetProducts(ctx context.Context, skip uint64, take uint
 	if take > 100 || (take == 0 && skip == 0) {
 		take = 100
 	}
-		
-	
-	return s.repo.ListProducts(ctx, skip, take	)
+
+	return s.repo.ListProducts(ctx, skip, take)
 }
 
 func (s *catalogService) GetProductsByIDs(ctx context.Context, ids []string) ([]Product, error) {

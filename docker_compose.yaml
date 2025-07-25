@@ -1,8 +1,85 @@
+version: "3.7"
+
 services:
   account:
+    build:
+      context: .
+      dockerfile: ./account/app.dockerfile
+    depends_on:
+      - account_db
+    environment:
+      DATABASE_URL: postgres://akhil:123456@account_db:5432/akhil?sslmode=disable
+    restart: on-failure
+    ports:
+      - "7001:8080"
+
   catalog:
+    build:
+      context: .
+      dockerfile: ./catalog/app.dockerfile
+    depends_on:
+      - catalog_db
+    environment:
+      DATABASE_URL: http://catalog_db:9200
+    restart: on-failure
+    ports:
+      - "7002:8080"
+
   order:
+    build:
+      context: .
+      dockerfile: ./order/app.dockerfile
+    depends_on:
+      - order_db
+    environment:
+      DATABASE_URL: postgres://zenvis:123456@order_db:5432/zenvis?sslmode=disable
+      ACCOUNT_SERVICE_URL: http://account:8080
+      CATALOG_SERVICE_URL: http://catalog:8080
+    restart: on-failure
+    ports:
+      - "7003:8080"
+
   graphql:
+    build:
+      context: .
+      dockerfile: ./graphql/app.dockerfile
+    depends_on:
+      - account
+      - catalog
+      - order
+    environment:
+      ACCOUNT_SERVICE_URL: http://account:8080
+      CATALOG_SERVICE_URL: http://catalog:8080
+      ORDER_SERVICE_URL: http://order:8080
+    ports:
+      - "8000:8080"
+    restart: on-failure
+
   account_db:
-  catalog_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: zenvis
+      POSTGRES_USER: zenvis
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
   order_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: zenvis
+      POSTGRES_USER: zenvis
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5434:5432"
+    restart: unless-stopped
+
+  catalog_db:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+    environment:
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      discovery.type: single-node
+    ports:
+      - "9200:9200"
+    restart: unless-stopped

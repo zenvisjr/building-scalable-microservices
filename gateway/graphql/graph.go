@@ -1,8 +1,10 @@
 package graphql
 
 import (
+	"github.com/99designs/gqlgen/graphql"
 	"github.com/zenvisjr/building-scalable-microservices/account"
-	"github.com/zenvisjr/building-scalable-microservices/catalog"	"github.com/zenvisjr/building-scalable-microservices/order"
+	"github.com/zenvisjr/building-scalable-microservices/catalog"
+	"github.com/zenvisjr/building-scalable-microservices/order"
 )
 
 type Server struct {
@@ -58,9 +60,8 @@ func (s *Server) Account() AccountResolver {
 	}
 }
 
-func(s *Server) ToExecutableSchema() graphql.ExecutableSchema{
+func (s *Server) ToExecutableSchema() graphql.ExecutableSchema {
 	return NewExecutableSchema(Config{
 		Resolvers: s,
 	})
 }
-

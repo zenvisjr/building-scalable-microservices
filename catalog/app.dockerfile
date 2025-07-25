@@ -5,7 +5,7 @@ FROM golang:1.21-alpine AS build
 RUN apk --no-cache add gcc g++ make ca-certificates
 
 # Set working directory inside builder container
-WORKDIR /app
+WORKDIR /build
 
 # Copy necessary files for build
 COPY go.mod go.sum ./
@@ -13,15 +13,15 @@ COPY vendor/ vendor/
 COPY catalog/ catalog/
 
 # Build the catalog service binary
-RUN go build -mod=vendor -o /go/bin/catalog ./catalog/cmd/catalog
+RUN go build -mod=vendor -o catalog ./catalog/cmd/catalog
 
 # Stage 2: Create a minimal runtime image
 FROM alpine:latest
 
-WORKDIR /root/
+WORKDIR /app
 
 # Copy the compiled binary
-COPY --from=build /go/bin/catalog .
+COPY --from=build /build/catalog .
 
 # Expose the port the catalog service listens on
 EXPOSE 8080
