@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM golang:1.21-alpine AS build
+FROM golang:1.23.3-alpine AS build
 
 # Install required build tools
 RUN apk --no-cache add gcc g++ make ca-certificates
@@ -13,7 +13,7 @@ COPY vendor/ vendor/
 COPY account/ account/
 
 # Build the binary from the account microservice
-RUN go build -mod=vendor -o /account ./account/cmd/account
+RUN go build -mod vendor -o /go/bin/app ./account/cmd/account
 
 # Stage 2: Runtime
 FROM alpine:latest
@@ -21,11 +21,11 @@ FROM alpine:latest
 WORKDIR /app
 
 # Copy the built binary only
-COPY --from=build /build/account .
+COPY --from=build /go/bin/app .
 
 # Expose port
 EXPOSE 8080
 
 # Run the binary
-CMD ["./account"]
+CMD ["./app"]
 

@@ -1,4 +1,3 @@
-version: "3.7"
 
 services:
   account:
@@ -39,10 +38,10 @@ services:
     ports:
       - "7003:8080"
 
-  graphql:
+  gateway:
     build:
       context: .
-      dockerfile: ./graphql/app.dockerfile
+      dockerfile: ./gateway/app.dockerfile
     depends_on:
       - account
       - catalog

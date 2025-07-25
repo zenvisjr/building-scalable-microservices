@@ -1,5 +1,5 @@
 # ----------- Stage 1: Build -----------
-    FROM golang:1.20-alpine AS build
+    FROM golang:1.23.3-alpine AS build
 
     # Install required build tools
     RUN apk --no-cache add gcc g++ make git ca-certificates
@@ -18,21 +18,21 @@
     COPY gateway/ gateway/
     
 # Build the gateway service (entrypoint at gateway/main.go)
-    RUN go build -mod=vendor -o graph ./gateway
+    RUN go build -mod vendor -o /go/bin/app ./gateway
     
     
     # ----------- Stage 2: Run -----------
-    FROM alpine:3.20
+    FROM alpine:latest
     
     # Set working directory
     WORKDIR /app
     
     # Copy the compiled binary
-    COPY --from=build /graph .
+    COPY --from=build /go/bin/app .
     
     # Expose the GraphQL server port
     EXPOSE 8080
     
     # Run the server
-    CMD ["./graph"]
+    CMD ["./app"]
     
