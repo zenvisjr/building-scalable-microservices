@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"log"
+	"context"
 	"time"
 
 	"github.com/avast/retry-go"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 	"github.com/zenvisjr/building-scalable-microservices/order"
 )
 
@@ -16,22 +16,39 @@ type Config struct {
 	CatalogURL  string `envconfig:"CATALOG_SERVICE_URL"`
 }
 
+var (
+	ctx context.Context
+	Logs *logger.Logs
+	err error
+)
+
 func main() {
+	ctx = context.Background()
+	var err error
+
+	// Initialize logger for order
+	Logs, err = logger.InitLogger("order")
+	if err != nil {
+		panic("Failed to initialize logger: " + err.Error())
+	}
+	defer Logs.Close()
+
+	// Load configuration
 	var config Config
 	if err := envconfig.Process("", &config); err != nil {
-		log.Fatal("Failed to load configuration", err)
+		Logs.Fatal(ctx, "Failed to load configuration: "+err.Error())
 	}
+	Logs.Info(ctx, "Starting order service...")
 
-	var (
-		r   order.Repository
-		err error
-	)
-
+	// Connect to Postgres with retry
+	var r order.Repository
 	err = retry.Do(
 		func() error {
 			r, err = order.NewPostgresRepository(config.DatabaseURL)
 			if err != nil {
-				log.Println("Failed to connect to database", err)
+				Logs.Error(ctx, "Failed to connect to database: "+err.Error())
+			} else {
+				Logs.Info(ctx, "Connected to database: "+config.DatabaseURL)
 			}
 			return err
 		},
@@ -41,14 +58,20 @@ func main() {
 	)
 
 	if err != nil {
-		log.Fatal("Unrecoverable DB error", err)
+		Logs.Fatal(ctx, "Unrecoverable DB error: "+err.Error())
 	}
 	defer r.Close()
-	fmt.Println("Connected to database on ", config.DatabaseURL)
-	fmt.Println("Listening on :8080...")
+
+	// Create OrderService
+	Logs.Info(ctx, "Creating order service with dependencies")
 	s, err := order.NewOrderService(r)
 	if err != nil {
-		log.Fatal(err)
+		Logs.Fatal(ctx, "Failed to create order service: "+err.Error())
 	}
-	log.Fatal(order.ListenGRPC(s, config.AccountURL, config.CatalogURL, 8080))
+
+	// Start gRPC server
+	Logs.Info(ctx, "Starting gRPC server for order service on port 8080")
+	if err := order.ListenGRPC(s, config.AccountURL, config.CatalogURL, 8080); err != nil {
+		Logs.Fatal(ctx, "Failed to start gRPC server: "+err.Error())
+	}
 }

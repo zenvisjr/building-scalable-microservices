@@ -16,6 +16,7 @@
     COPY catalog/ catalog/
     COPY order/ order/
     COPY gateway/ gateway/
+    COPY logger/ logger/
     
 # Build the gateway service (entrypoint at gateway/main.go)
     RUN go build -mod vendor -o /go/bin/app ./gateway

@@ -2,6 +2,15 @@ module github.com/zenvisjr/building-scalable-microservices
 
 go 1.23.3
 
+// Local module replacements
+replace github.com/zenvisjr/building-scalable-microservices/logger => ./logger
+
+replace github.com/zenvisjr/building-scalable-microservices/account => ./account
+
+replace github.com/zenvisjr/building-scalable-microservices/catalog => ./catalog
+
+replace github.com/zenvisjr/building-scalable-microservices/order => ./order
+
 require (
 	github.com/99designs/gqlgen v0.17.76
 	github.com/avast/retry-go v3.0.0+incompatible
@@ -11,19 +20,28 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/segmentio/ksuid v1.0.4
 	github.com/vektah/gqlparser/v2 v2.5.30
+	go.uber.org/zap v1.27.0
 	google.golang.org/grpc v1.74.2
 	google.golang.org/protobuf v1.36.6
 )
 
 require (
 	github.com/agnivade/levenshtein v1.2.1 // indirect
+	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.3.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
+	github.com/prometheus/client_golang v1.22.0 // indirect
+	github.com/prometheus/client_model v0.6.1 // indirect
+	github.com/prometheus/common v0.62.0 // indirect
+	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/sosodev/duration v1.3.1 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/text v0.26.0 // indirect

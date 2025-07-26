@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"log"
+	"context"
 	"net/http"
 
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -11,6 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/zenvisjr/building-scalable-microservices/gateway/graphql"
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
 
 type AppConfig struct {
@@ -19,35 +19,53 @@ type AppConfig struct {
 	OrderURL   string `envconfig:"ORDER_SERVICE_URL"`
 }
 
+var (
+	ctx context.Context
+	Logs *logger.Logs
+	err error
+)
+
+
 func main() {
-	var config AppConfig
-	err := envconfig.Process("", &config)
+	ctx = context.Background()
+
+	Logs, err = logger.InitLogger("gateway")
 	if err != nil {
-		log.Fatal("Failed to load configuration", err)
+		panic("Failed to initialize logger: " + err.Error())
+	}
+	defer Logs.Close()
+
+	Logs.Info(ctx, "Starting GraphQL gateway service...")
+
+	// Load environment config
+	var config AppConfig
+	if err := envconfig.Process("", &config); err != nil {
+		Logs.Fatal(ctx, "Failed to load environment config: "+err.Error())
 	}
 
+	// Create GraphQL server
 	server, err := graphql.NewGraphQLServer(config.AccountURL, config.CatalogURL, config.OrderURL)
 	if err != nil {
-		log.Fatal("Failed to create GraphQL server", err)
+		Logs.Fatal(ctx, "Failed to create GraphQL server: "+err.Error())
 	}
 
 	es := server.ToExecutableSchema()
 	if es == nil {
-		log.Fatal("Failed to create executable schema")
+		Logs.Fatal(ctx, "Failed to create executable schema")
 	}
 
+	// Setup GraphQL handler
 	h := handler.New(es)
-	h.Use(extension.Introspection{}) // <-- add this line
+	h.Use(extension.Introspection{})
 	h.AddTransport(transport.POST{})
 	h.AddTransport(transport.GET{})
 	h.AddTransport(transport.MultipartForm{})
-	// h.AddTransport(transport.WebSocket{
-	// 	KeepAliveP
-	// })
 
 	http.Handle("/graphql", h)
 	http.Handle("/playground", playground.Handler("zenvis", "/graphql"))
 
-	fmt.Println("Listening on :8080...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	Logs.Info(ctx, "GraphQL gateway listening on :8080")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		Logs.Fatal(ctx, "Failed to start HTTP server: "+err.Error())
+	}
 }

@@ -54,3 +54,42 @@ enter container: docker exec -it <container_name> /bin/bash
 ping another docker: ping <container_name>
 
 
+build and restart only 1 service
+docker compose build <service-name>
+docker compose up -d <service-name>
+
+error in logger
+2025/07/26 10:32:37 Failed to log to remote service: rpc error: code = Unavailable desc = dns: A record lookup error: lookup logger-service on 127.0.0.11:53: server misbehaving
+because in grpc.NewClient() url i was using logger-service:9000 insted of logger:9000
+as in docker-compose.yml file the service name is logger not logger-service
+
+
+mounting centralized.log file
+without mounting only file will be created but no logs will be written on it
+logs are written on container 
+access it using:
+docker exec -it building-scalable-microservices_logger_1 cat centralized.log
+when u mount it, logs are written on file
+to mount add:
+volumes:
+    - ./logger/logs/centralized.log:/root/centralized.log
+make sure to make the directory and file before running docker
+as docker will assume path to be directory so a directory will be created of name centralized.log
+update openFile path to /root/centralized.log
+
+
+dont use var Logs = logger.GetGlobalLogger() globally
+use it inside function because to use if we must first initLogger()
+
+all microservices need to connect to logger so explose LOGGER_SERVICE_URL: 9000 in every microservices in docker compose
+
+
+
+
+
+
+new features implemented
+
+centralized logging with grpc
+grpc logging interceptor
+local logging with zap

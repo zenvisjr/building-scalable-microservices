@@ -11,6 +11,7 @@ WORKDIR /build
 COPY go.mod go.sum ./
 COPY vendor/ vendor/
 COPY account/ account/
+COPY logger/ logger/
 
 # Build the binary from the account microservice
 RUN go build -mod vendor -o /go/bin/app ./account/cmd/account

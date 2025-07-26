@@ -1,40 +1,52 @@
 package main
 
 import (
-	"fmt"
-	"log"
+	"context"
 	"time"
 
 	"github.com/avast/retry-go"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/zenvisjr/building-scalable-microservices/catalog"
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
-
-//we need to do 2 things
-//1. connect to database
-//2. start the gRPC server
 
 type Config struct {
 	DatabaseURL string `envconfig:"DATABASE_URL"`
 }
 
+var (
+	ctx context.Context
+	Logs *logger.Logs
+	err error
+)
+
 func main() {
+	ctx = context.Background()
+
+	// Initialize logger for catalog
+	Logs, err := logger.InitLogger("catalog")
+	if err != nil {
+		panic("Failed to initialize logger: " + err.Error())
+	}
+	defer Logs.Close()
+
+	Logs.Info(ctx, "Starting catalog service...")
+
+	// Load env config
 	var config Config
 	if err := envconfig.Process("", &config); err != nil {
-		log.Fatal("Failed to load configuration", err)
+		Logs.Fatal(ctx, "Failed to load configuration: "+err.Error())
 	}
 
-	var (
-		r   catalog.Repository
-		err error
-	)
-
+	// Connect to Elastic DB with retry
+	var r catalog.Repository
 	err = retry.Do(
 		func() error {
-
 			r, err = catalog.NewElasticRepository(config.DatabaseURL)
 			if err != nil {
-				log.Println("Failed to connect to database", err)
+				Logs.Error(ctx, "Failed to connect to Elasticsearch: "+err.Error())
+			} else {
+				Logs.Info(ctx, "Connected to Elasticsearch at "+config.DatabaseURL)
 			}
 			return err
 		},
@@ -44,13 +56,13 @@ func main() {
 	)
 
 	if err != nil {
-		log.Fatal("Unrecoverable DB error", err)
+		Logs.Fatal(ctx, "Unrecoverable DB error: "+err.Error())
 	}
-	// defer r.Close()
 
-	fmt.Println("Connected to database on ", config.DatabaseURL)
-	fmt.Println("Listening on :8080...")
+	// Start gRPC server
+	Logs.Info(ctx, "Starting gRPC server for catalog microservice on port 8080")
 	s := catalog.NewCatalogService(r)
-	log.Fatal(catalog.ListenGRPC(s, 8080))
-
+	if err := catalog.ListenGRPC(s, 8080); err != nil {
+		Logs.Fatal(ctx, "Failed to start gRPC server: "+err.Error())
+	}
 }

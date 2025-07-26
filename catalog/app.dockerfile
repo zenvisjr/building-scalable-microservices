@@ -11,6 +11,7 @@ WORKDIR /build
 COPY go.mod go.sum ./
 COPY vendor/ vendor/
 COPY catalog/ catalog/
+COPY logger/ logger/
 
 # Build the catalog service binary
 RUN go build -mod vendor -o /go/bin/app ./catalog/cmd/catalog

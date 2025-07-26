@@ -2,27 +2,35 @@ package account
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/zenvisjr/building-scalable-microservices/account/pb"
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-//newClient do 2 things
-//1. connect to gRPC server
-//2. create a service client
+// var logs = logger.GetGlobalLogger()
 
 type Client struct {
 	conn    *grpc.ClientConn
 	service pb.AccountServiceClient
 }
 
+// Connects to gRPC server and initializes service client
 func NewClient(address string) (*Client, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Connecting to Account gRPC service at " + address)
+
 	conn, err := grpc.NewClient(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
+		Logs.Warn(context.Background(), "Failed to connect to Account gRPC: "+err.Error())
 		return nil, err
 	}
+
+	Logs.LocalOnlyInfo("Connected to Account gRPC service")
 	service := pb.NewAccountServiceClient(conn)
+
 	return &Client{
 		conn:    conn,
 		service: service,
@@ -30,32 +38,39 @@ func NewClient(address string) (*Client, error) {
 }
 
 func (c *Client) Close() {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Closing gRPC connection to Account service")
 	c.conn.Close()
 }
 
 func (c *Client) PostAccount(ctx context.Context, name string) (*Account, error) {
-	resp, err := c.service.PostAccount(ctx,
-		&pb.PostAccountRequest{
-			Name: name,
-		})
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Sending PostAccount request for name: " + name)
+
+	resp, err := c.service.PostAccount(ctx, &pb.PostAccountRequest{Name: name})
 	if err != nil {
+		Logs.Error(ctx, "PostAccount RPC failed: "+err.Error())
 		return nil, err
 	}
+
+	Logs.Info(ctx, "Account created with ID: "+resp.Account.Id)
 	return &Account{
 		ID:   resp.Account.Id,
 		Name: resp.Account.Name,
 	}, nil
-
 }
 
 func (c *Client) GetAccount(ctx context.Context, id string) (*Account, error) {
-	resp, err := c.service.GetAccount(ctx,
-		&pb.GetAccountRequest{
-			Id: id,
-		})
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Fetching account with ID: " + id)
+
+	resp, err := c.service.GetAccount(ctx, &pb.GetAccountRequest{Id: id})
 	if err != nil {
+		Logs.Error(ctx, "GetAccount RPC failed: "+err.Error())
 		return nil, err
 	}
+
+	Logs.Info(ctx, "Fetched account: "+resp.Account.Name)
 	return &Account{
 		ID:   resp.Account.Id,
 		Name: resp.Account.Name,
@@ -63,14 +78,17 @@ func (c *Client) GetAccount(ctx context.Context, id string) (*Account, error) {
 }
 
 func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]Account, error) {
-	resp, err := c.service.GetAccounts(ctx,
-		&pb.GetAccountsRequest{
-			Skip: skip,
-			Take: take,
-		})
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo(fmt.Sprintf("Fetching accounts with pagination: skip=%d take=%d", skip, take))
+
+	resp, err := c.service.GetAccounts(ctx, &pb.GetAccountsRequest{Skip: skip, Take: take})
 	if err != nil {
+		Logs.Error(ctx, "GetAccounts RPC failed: "+err.Error())
 		return nil, err
 	}
+
+	Logs.Info(ctx, fmt.Sprintf("Fetched %d accounts", len(resp.Accounts)))
+
 	accounts := make([]Account, len(resp.Accounts))
 	for i, acc := range resp.Accounts {
 		accounts[i] = Account{
@@ -80,4 +98,3 @@ func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]A
 	}
 	return accounts, nil
 }
-

@@ -1,37 +1,59 @@
 package main
 
 import (
-	"fmt"
-	"log"
+	"context"
 	"time"
 
 	"github.com/avast/retry-go"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/zenvisjr/building-scalable-microservices/account"
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
-
-//we need to do 2 things
-//1. connect to database
-//2. start the gRPC server
 
 type Config struct {
 	DatabaseURL string `envconfig:"DATABASE_URL"`
 }
+var (
+	ctx context.Context
+	Logs *logger.Logs
+	err error
+)
 
 func main() {
+	ctx = context.Background()
+
+	// Initialize the centralized logger
+	Logs, err = logger.InitLogger("account"); 
+	if err != nil {
+		panic("Failed to initialize logger: " + err.Error())
+	}
+	defer Logs.Close()
+
+	// Local trace of service start
+	Logs.LocalOnlyInfo("Account service bootstrapping...")
+
+	// Notify centralized logger
+	Logs.Info(ctx, "Starting account service")
+
+	// Load configuration
 	var config Config
 	if err := envconfig.Process("", &config); err != nil {
-		log.Fatal("Failed to load configuration", err)
+		Logs.Fatal(ctx, "Failed to load configuration: "+err.Error())
 	}
 
 	var r account.Repository
 
-	err := retry.Do(
+	// Retry DB connection
+	err = retry.Do(
 		func() error {
 			var err error
 			r, err = account.NewPostgresRepository(config.DatabaseURL)
 			if err != nil {
-				log.Println("Failed to connect to database", err)
+				Logs.Warn(ctx, "Failed to connect to database: "+err.Error())
+				Logs.LocalOnlyInfo("Retrying DB connection...")
+			} else {
+				Logs.LocalOnlyInfo("Connected to DB successfully.")
+				Logs.Info(ctx, "Connected to database: " + config.DatabaseURL)
 			}
 			return err
 		},
@@ -41,13 +63,15 @@ func main() {
 	)
 
 	if err != nil {
-		log.Fatal("Unrecoverable DB error", err)
+		Logs.Fatal(ctx, "Unrecoverable DB error: "+err.Error())
 	}
 	defer r.Close()
 
-	fmt.Println("Connected to database on ", config.DatabaseURL)
-	fmt.Println("Listening on :8080...")
-	s := account.NewAccountService(r)
-	log.Fatal(account.ListenGRPC(s, 8080))
+	Logs.LocalOnlyInfo("Launching gRPC server...")
+	Logs.Info(ctx, "Starting gRPC server for account service on port 8080")
 
+	s := account.NewAccountService(r)
+	if err := account.ListenGRPC(s, 8080); err != nil {
+		Logs.Fatal(ctx, "Failed to start gRPC server: "+err.Error())
+	}
 }

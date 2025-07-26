@@ -2,10 +2,11 @@ package order
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"time"
 
 	"github.com/segmentio/ksuid"
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
 
 type Service interface {
@@ -38,7 +39,8 @@ func NewOrderService(r Repository) (Service, error) {
 }
 
 func (o *orderService) PostOrder(ctx context.Context, accountID string, orders []OrderedProduct) (*Order, error) {
-	log.Printf("🔥 PostOrder service called with %d products", len(orders))
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo(fmt.Sprintf("PostOrder called with %d products", len(orders)))
 
 	order := &Order{
 		ID:        ksuid.New().String(),
@@ -46,25 +48,34 @@ func (o *orderService) PostOrder(ctx context.Context, accountID string, orders [
 		AccountID: accountID,
 		Products:  orders,
 	}
+
 	order.TotalPrice = 0.0
 	for _, placedOrder := range orders {
 		order.TotalPrice += placedOrder.Price * float64(placedOrder.Quantity)
 	}
 
-	log.Printf("🔥 About to save order: TotalPrice=%f, Products=%d", order.TotalPrice, len(order.Products))
+	Logs.LocalOnlyInfo(fmt.Sprintf("Prepared order: TotalPrice=%.2f, Products=%d", order.TotalPrice, len(order.Products)))
 
 	err := o.repo.PutOrder(ctx, *order)
 	if err != nil {
+		Logs.Error(ctx, "Failed to save order: "+err.Error())
 		return nil, err
 	}
 
-	log.Printf("🔥 Order saved, returning: TotalPrice=%f, Products=%d", order.TotalPrice, len(order.Products))
+	Logs.Info(ctx, fmt.Sprintf("Order saved: ID=%s, TotalPrice=%.2f", order.ID, order.TotalPrice))
 	return order, nil
 }
 
 func (o *orderService) GetOrdersByAccount(ctx context.Context, accountID string) ([]Order, error) {
-	// order := &Or
-	// return  o.repo.PutOrder(ctx, order)
-	return o.repo.ListOrdersForAccount(ctx, accountID)
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Fetching orders for account: "+accountID)
 
+	orders, err := o.repo.ListOrdersForAccount(ctx, accountID)
+	if err != nil {
+		Logs.Error(ctx, "Failed to fetch orders: "+err.Error())
+		return nil, err
+	}
+
+	Logs.LocalOnlyInfo(fmt.Sprintf("Fetched %d orders for account %s", len(orders), accountID))
+	return orders, nil
 }

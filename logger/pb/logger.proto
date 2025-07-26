@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package="github.com/zenvisjr/building-scalable-microservices/pb;pb";
+
+
+service LoggerService {
+    rpc Log(LogRequest) returns (LogResponse);  
+}
+
+message LogRequest {
+    string service = 1;
+    string level = 2;
+    string msg = 3;
+    string timestamp = 4;
+    string method = 5;
+}
+
+message LogResponse {
+    bool ok = 1;
+}

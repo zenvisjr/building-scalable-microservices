@@ -2,9 +2,9 @@ package catalog
 
 import (
 	"context"
-	"log"
 
 	"github.com/zenvisjr/building-scalable-microservices/catalog/pb"
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -12,26 +12,37 @@ import (
 type Client struct {
 	conn    *grpc.ClientConn
 	service pb.CatalogServiceClient
+	logs    *logger.Logs
 }
 
 func NewClient(address string) (*Client, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Connecting to Catalog gRPC service at " + address)
+
 	conn, err := grpc.NewClient(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
+		Logs.Error(context.Background(), "Failed to connect to catalog gRPC: "+err.Error())
 		return nil, err
 	}
+
+	Logs.LocalOnlyInfo("Connected to Catalog gRPC service")
 
 	service := pb.NewCatalogServiceClient(conn)
 	return &Client{
 		conn:    conn,
 		service: service,
+		logs:    Logs,
 	}, nil
 }
 
 func (c *Client) Close() {
+	c.logs.LocalOnlyInfo("Closing Catalog client connection")
 	c.conn.Close()
 }
 
 func (c *Client) PostProduct(ctx context.Context, name, description string, price float64) (*Product, error) {
+	c.logs.Info(ctx, "Posting new product to catalog")
+
 	req := &pb.PostProductRequest{
 		Name:        name,
 		Description: description,
@@ -40,8 +51,12 @@ func (c *Client) PostProduct(ctx context.Context, name, description string, pric
 
 	resp, err := c.service.PostProduct(ctx, req)
 	if err != nil {
+		c.logs.Error(ctx, "PostProduct failed: "+err.Error())
 		return nil, err
 	}
+
+	c.logs.Info(ctx, "Product posted successfully with ID: "+resp.Product.Id)
+
 	return &Product{
 		ID:          resp.Product.Id,
 		Name:        resp.Product.Name,
@@ -51,14 +66,17 @@ func (c *Client) PostProduct(ctx context.Context, name, description string, pric
 }
 
 func (c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
-	req := &pb.GetProductRequest{
-		Id: id,
-	}
+	c.logs.Info(ctx, "Fetching product by ID: "+id)
 
+	req := &pb.GetProductRequest{Id: id}
 	resp, err := c.service.GetProduct(ctx, req)
 	if err != nil {
+		c.logs.Error(ctx, "GetProduct failed: "+err.Error())
 		return nil, err
 	}
+
+	c.logs.Info(ctx, "Product fetched: " + resp.Product.Name)
+
 	return &Product{
 		ID:          resp.Product.Id,
 		Name:        resp.Product.Name,
@@ -68,7 +86,8 @@ func (c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
 }
 
 func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids []string, query string) ([]Product, error) {
-	log.Printf("🔥 GetProducts called with Skip=%d, Take=%d, Ids=%v, Query=%q", skip, take, ids, query)
+	c.logs.Info(ctx, "Fetching products with pagination")
+
 	req := &pb.GetProductsRequest{
 		Skip:  skip,
 		Take:  take,
@@ -78,10 +97,12 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 
 	resp, err := c.service.GetProducts(ctx, req)
 	if err != nil {
-		log.Printf("❌ Error getting products from catalog: %v", err)
+		c.logs.Error(ctx, "GetProducts failed: "+err.Error())
 		return nil, err
 	}
-	log.Printf("🔥 Catalog returned %d products", len(resp.Products))
+
+	c.logs.Info(ctx, "Fetched products from catalog: count = "+logger.IntToStr(len(resp.Products)))
+
 	products := make([]Product, len(resp.Products))
 	for i, p := range resp.Products {
 		products[i] = Product{
@@ -91,6 +112,6 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 			Price:       p.Price,
 		}
 	}
-	log.Printf("🔥 Returning %d products", len(products))
+
 	return products, nil
 }

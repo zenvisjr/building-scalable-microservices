@@ -6,9 +6,11 @@ services:
       context: .
       dockerfile: ./account/app.dockerfile
     depends_on:
+      - logger
       - account_db
     environment:
       DATABASE_URL: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+      LOGGER_SERVICE_URL: logger:9000
     restart: on-failure
 
   catalog:
@@ -16,9 +18,11 @@ services:
       context: .
       dockerfile: ./catalog/app.dockerfile
     depends_on:
+      - logger
       - catalog_db
     environment:
       DATABASE_URL: http://catalog_db:9200
+      LOGGER_SERVICE_URL: logger:9000
     restart: on-failure
 
   order:
@@ -26,11 +30,13 @@ services:
       context: .
       dockerfile: ./order/app.dockerfile
     depends_on:
+      - logger
       - order_db
     environment:
       DATABASE_URL: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
       ACCOUNT_SERVICE_URL: account:8080
       CATALOG_SERVICE_URL: catalog:8080
+      LOGGER_SERVICE_URL: logger:9000
     restart: on-failure
 
   gateway:
@@ -42,11 +48,29 @@ services:
     depends_on:
       - account
       - catalog
+      - order
+      - logger
     environment:
       ACCOUNT_SERVICE_URL: account:8080
       CATALOG_SERVICE_URL: catalog:8080
       ORDER_SERVICE_URL: order:8080
+      LOGGER_SERVICE_URL: logger:9000
     restart: on-failure
+
+  logger:
+    volumes:
+    - ./logger/logs/centralized.log:/root/centralized.log
+    build:
+      context: .
+      dockerfile: ./logger/app.dockerfile
+
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      LOGGER_SERVICE_URL: logger:9000
+    
+
 
   account_db:
     build:
