@@ -43,11 +43,14 @@ func (c *Client) Close() {
 	c.conn.Close()
 }
 
-func (c *Client) PostAccount(ctx context.Context, name string) (*Account, error) {
+func (c *Client) PostAccount(ctx context.Context, name string, email string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Sending PostAccount request for name: " + name)
 
-	resp, err := c.service.PostAccount(ctx, &pb.PostAccountRequest{Name: name})
+	resp, err := c.service.PostAccount(ctx, &pb.PostAccountRequest{
+		Name: name,
+		Email: email,
+	})
 	if err != nil {
 		Logs.Error(ctx, "PostAccount RPC failed: "+err.Error())
 		return nil, err
@@ -57,6 +60,7 @@ func (c *Client) PostAccount(ctx context.Context, name string) (*Account, error)
 	return &Account{
 		ID:   resp.Account.Id,
 		Name: resp.Account.Name,
+		Email: resp.Account.Email,
 	}, nil
 }
 
@@ -74,7 +78,8 @@ func (c *Client) GetAccount(ctx context.Context, id string) (*Account, error) {
 	return &Account{
 		ID:   resp.Account.Id,
 		Name: resp.Account.Name,
-	}, nil
+		Email: resp.Account.Email,
+		}, nil
 }
 
 func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]Account, error) {
@@ -94,7 +99,24 @@ func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]A
 		accounts[i] = Account{
 			ID:   acc.Id,
 			Name: acc.Name,
+			Email: acc.Email,
 		}
 	}
 	return accounts, nil
+}
+
+func (c *Client) GetEmail(ctx context.Context, name string) (*Account, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Fetching email for account with name: " + name)
+
+	resp, err := c.service.GetEmail(ctx, &pb.GetEmailRequest{Name: name})
+	if err != nil {
+		Logs.Error(ctx, "GetEmail RPC failed: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Fetched email: "+resp.Email)
+	return &Account{
+		Email: resp.Email,
+	}, nil
 }

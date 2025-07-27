@@ -10,7 +10,7 @@ type queryResolver struct {
 	server *Server
 }
 
-func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id *string) ([]*Account, error) {
+func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error) {
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
@@ -23,7 +23,21 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 		return []*Account{{
 			ID:   res.ID,
 			Name: res.Name,
+			Email: res.Email,
 		}}, nil
+	}
+
+	if name != nil {
+		res, err := q.server.accountClient.GetEmail(ctx, *name)
+		if err != nil {
+			log.Println(err)
+			return nil, err
+		}
+		return []*Account{
+			{
+				Email: res.Email,
+			},
+		}, nil
 	}
 
 	var (
@@ -43,6 +57,7 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 		accounts = append(accounts, &Account{
 			ID:   account.ID,
 			Name: account.Name,
+			Email: account.Email,
 		})
 	}
 	return accounts, nil

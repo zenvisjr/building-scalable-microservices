@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Order Confirmation</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; color: #333;">
+    <h2>Thank you for your order, {{.Name}}! 🎉</h2>
+    <p>
+      We've received your order <strong>#{{.Order}}</strong>.<br />
+      A receipt has been sent to: <strong>{{.Email}}</strong>
+    </p>
+    <h3>Order Summary:</h3>
+    <pre style="background-color: #f9f9f9; padding: 10px; border-left: 4px solid #4CAF50;">
+{{.Items}}
+    </pre>
+    <p><strong>Total Paid:</strong> {{.Total}}</p>
+    <p>If you have any questions, just reply to this email.</p>
+    <p>— The Zenvis Team</p>
+  </body>
+</html>

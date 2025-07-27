@@ -2,6 +2,9 @@
 * text=auto
 
 *.log
-*.txt
+documentation.txt
+.env
+
+
 
 

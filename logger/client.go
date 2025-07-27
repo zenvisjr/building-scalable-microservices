@@ -100,8 +100,13 @@ func (l *Logs) RemoteLogs(ctx context.Context, level, msg string) {
 		Timestamp: time.Now().Format(time.RFC3339),
 		Method:    method,
 	})
-	if !resp.Ok && err != nil {
+	if err != nil {
 		log.Println("Failed to log to remote service: " + err.Error())
+		return
+	}
+	
+	if !resp.Ok {
+		log.Println("Logger service responded with failure")
 	}
 }
 

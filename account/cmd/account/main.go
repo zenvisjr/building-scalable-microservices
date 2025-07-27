@@ -2,28 +2,33 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/avast/retry-go"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/zenvisjr/building-scalable-microservices/account"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
 
 type Config struct {
 	DatabaseURL string `envconfig:"DATABASE_URL"`
+	MailURL     string `envconfig:"MAIL_SERVICE_URL"`
 }
+
 var (
-	ctx context.Context
+	ctx  context.Context
 	Logs *logger.Logs
-	err error
+	err  error
 )
 
 func main() {
 	ctx = context.Background()
 
 	// Initialize the centralized logger
-	Logs, err = logger.InitLogger("account"); 
+	Logs, err = logger.InitLogger("account")
 	if err != nil {
 		panic("Failed to initialize logger: " + err.Error())
 	}
@@ -34,6 +39,9 @@ func main() {
 
 	// Notify centralized logger
 	Logs.Info(ctx, "Starting account service")
+
+	exposePrometheusMetrics(9001)
+	Logs.LocalOnlyInfo("Prometheus metrics in account service listening on port 9001")
 
 	// Load configuration
 	var config Config
@@ -53,7 +61,7 @@ func main() {
 				Logs.LocalOnlyInfo("Retrying DB connection...")
 			} else {
 				Logs.LocalOnlyInfo("Connected to DB successfully.")
-				Logs.Info(ctx, "Connected to database: " + config.DatabaseURL)
+				Logs.Info(ctx, "Connected to database: "+config.DatabaseURL)
 			}
 			return err
 		},
@@ -71,7 +79,15 @@ func main() {
 	Logs.Info(ctx, "Starting gRPC server for account service on port 8080")
 
 	s := account.NewAccountService(r)
-	if err := account.ListenGRPC(s, 8080); err != nil {
+	if err := account.ListenGRPC(s, config.MailURL, 8080); err != nil {
 		Logs.Fatal(ctx, "Failed to start gRPC server: "+err.Error())
 	}
+
+}
+
+func exposePrometheusMetrics(port int) {
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	}()
 }

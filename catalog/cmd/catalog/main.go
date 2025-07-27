@@ -2,10 +2,13 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/avast/retry-go"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/zenvisjr/building-scalable-microservices/catalog"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
@@ -15,22 +18,25 @@ type Config struct {
 }
 
 var (
-	ctx context.Context
+	ctx  context.Context
 	Logs *logger.Logs
-	err error
+	err  error
 )
 
 func main() {
 	ctx = context.Background()
 
 	// Initialize logger for catalog
-	Logs, err := logger.InitLogger("catalog")
+	Logs, err = logger.InitLogger("catalog")
 	if err != nil {
 		panic("Failed to initialize logger: " + err.Error())
 	}
 	defer Logs.Close()
 
 	Logs.Info(ctx, "Starting catalog service...")
+
+	exposePrometheusMetrics(9002)
+	Logs.LocalOnlyInfo("Prometheus metrics in catalog service listening on port 9002")
 
 	// Load env config
 	var config Config
@@ -65,4 +71,20 @@ func main() {
 	if err := catalog.ListenGRPC(s, 8080); err != nil {
 		Logs.Fatal(ctx, "Failed to start gRPC server: "+err.Error())
 	}
+
+	//adding metrics
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		if err := http.ListenAndServe(":9002", nil); err != nil {
+			Logs.Fatal(ctx, "Failed to start metrics server: "+err.Error())
+		}
+	}()
+
+}
+
+func exposePrometheusMetrics(port int) {
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	}()
 }

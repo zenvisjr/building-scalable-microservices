@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'account'
+    static_configs:
+      - targets: ['account:9001']
+
+  - job_name: 'order'
+    static_configs:
+      - targets: ['order:9003']
+
+  - job_name: 'catalog'
+    static_configs:
+      - targets: ['catalog:9002']
+
+  - job_name: 'gateway'
+    static_configs:
+      - targets: ['gateway:9004']

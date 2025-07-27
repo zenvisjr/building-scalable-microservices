@@ -2,14 +2,18 @@ package order
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net"
 	"strconv"
+	"strings"
 
+	"github.com/nats-io/nats.go"
 	"github.com/pkg/errors"
 	"github.com/zenvisjr/building-scalable-microservices/account"
 	"github.com/zenvisjr/building-scalable-microservices/catalog"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
+	"github.com/zenvisjr/building-scalable-microservices/mail"
 	"github.com/zenvisjr/building-scalable-microservices/order/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -20,10 +24,12 @@ type grpcServer struct {
 	service       Service
 	accountClient *account.Client
 	catalogClient *catalog.Client
+	mailClient    *mail.Mail
+	netScan       *nats.Conn
 	pb.UnimplementedOrderServiceServer
 }
 
-func ListenGRPC(s Service, accountURL, catalogURL string, port int) error {
+func ListenGRPC(s Service, accountURL, catalogURL, mailURL string, port int) error {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo(fmt.Sprintf("Initializing Order gRPC server on port %d", port))
 
@@ -41,6 +47,20 @@ func ListenGRPC(s Service, accountURL, catalogURL string, port int) error {
 	}
 	Logs.LocalOnlyInfo("Connected to Catalog service: " + catalogURL)
 
+	// mailClient, err := mail.NewMailClient(mailURL)
+	// if err != nil {
+	// 	Logs.Error(context.Background(), "Failed to connect to Mail gRPC: "+err.Error())
+	// 	return err
+	// }
+	// Logs.LocalOnlyInfo("Connected to Mail service: " + mailURL)
+
+	nc, err := nats.Connect("nats://nats:4222")
+	if err != nil {
+		Logs.Error(context.Background(), "Failed to connect to NATS: "+err.Error())
+		return err
+	}
+	Logs.LocalOnlyInfo("Connected to NATS in order microservice")
+
 	conn, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		Logs.Error(context.Background(), fmt.Sprintf("Failed to bind to port %d: %v", port, err))
@@ -57,6 +77,8 @@ func ListenGRPC(s Service, accountURL, catalogURL string, port int) error {
 		service:       s,
 		accountClient: accountClient,
 		catalogClient: catalogClient,
+		// mailClient:    mailClient,
+		netScan: nc,
 	})
 
 	reflection.Register(server)
@@ -76,7 +98,7 @@ func (g *grpcServer) PostOrder(ctx context.Context, req *pb.PostOrderRequest) (*
 	// }
 
 	// STEP 1: Validate Account ID
-	_, err := g.accountClient.GetAccount(ctx, req.GetAccountId())
+	account, err := g.accountClient.GetAccount(ctx, req.GetAccountId())
 	if err != nil {
 		Logs.Error(ctx, "Failed to fetch account: "+err.Error())
 		return nil, errors.Errorf("account not found")
@@ -141,6 +163,55 @@ func (g *grpcServer) PostOrder(ctx context.Context, req *pb.PostOrderRequest) (*
 		return nil, errors.Errorf("could not post order")
 	}
 	Logs.Info(ctx, "Order created with ID: "+orderproto.ID+" for AccountID: "+orderproto.AccountID)
+
+	//send order confirmation email
+	// go func() {
+	var productLines []string
+	for _, item := range orderedProduct {
+		line := fmt.Sprintf("- %s x%d ($%.2f)", item.Name, item.Quantity, item.Price)
+		productLines = append(productLines, line)
+	}
+
+	// err = g.mailClient.SendEmail(ctx, account.Email, "🧾 Order Confirmation", "order_confirmation", map[string]string{
+	// 	"Name":  account.Name,
+	// 	"Email": account.Email,
+	// 	"Order": orderproto.ID,
+	// 	"Total": fmt.Sprintf("$%.2f", orderproto.TotalPrice),
+	// 	"Items": strings.Join(productLines, "\n"),
+	// })
+	// if err != nil {
+	// 	Logs.Warn(ctx, "Failed to send confirmation email: "+err.Error())
+	// } else {
+	// 	Logs.Info(ctx, "Confirmation email sent to "+account.Email)
+	// }
+
+	emailJob := map[string]interface{}{
+		"to":           account.Email,
+		"subject":      "🧾 Order Confirmation",
+		"templateName": "order_confirmation",
+		"templateData": map[string]string{
+			"Name":  account.Name,
+			"Email": account.Email,
+			"Order": orderproto.ID,
+			"Total": fmt.Sprintf("$%.2f", orderproto.TotalPrice),
+			"Items": strings.Join(productLines, "\n"),
+		},
+	}
+
+	// Marshal and publish to NATS
+	payload, err := json.Marshal(emailJob)
+	if err != nil {
+		Logs.Error(ctx, "Failed to marshal order email job: "+err.Error())
+		return nil, err
+	}
+	Logs.Info(ctx, "Publishing order confirmation email to NATS")
+	err = g.netScan.Publish("emails.send", payload)
+	if err != nil {
+		Logs.Error(ctx, "Failed to publish order email job to NATS: "+err.Error())
+		return nil, err
+	}
+	Logs.Info(ctx, "Order email job published to NATS")
+	// }()
 
 	// STEP 6: Build gRPC response
 	resProduct := &pb.Order{

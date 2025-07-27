@@ -1,6 +1,7 @@
 type Account {
     id: ID!
     name: String!
+    email: String!
     orders: [Order!]!
 }
 
@@ -33,6 +34,7 @@ input Pagination {
 
 input AccountInput {
     name: String!
+    email: String!
 }
 
 input ProductInput {
@@ -58,6 +60,6 @@ type Mutation {
 }
 
 type Query {
-    accounts(pagination: Pagination, id: ID): [Account!]!
+    accounts(pagination: Pagination, id: ID, name: String): [Account!]!
     products(pagination: Pagination, query: String, id: ID): [Product!]!
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -9,6 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/zenvisjr/building-scalable-microservices/gateway/graphql"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
@@ -20,11 +22,10 @@ type AppConfig struct {
 }
 
 var (
-	ctx context.Context
+	ctx  context.Context
 	Logs *logger.Logs
-	err error
+	err  error
 )
-
 
 func main() {
 	ctx = context.Background()
@@ -36,6 +37,9 @@ func main() {
 	defer Logs.Close()
 
 	Logs.Info(ctx, "Starting GraphQL gateway service...")
+
+	exposePrometheusMetrics(9004)
+	Logs.LocalOnlyInfo("Prometheus metrics in gateway service listening on port 9004")
 
 	// Load environment config
 	var config AppConfig
@@ -68,4 +72,12 @@ func main() {
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		Logs.Fatal(ctx, "Failed to start HTTP server: "+err.Error())
 	}
+
+}
+
+func exposePrometheusMetrics(port int) {
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	}()
 }

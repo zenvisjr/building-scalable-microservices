@@ -1,0 +1,15 @@
+Hi {{.Name}},
+
+Thanks for your order!
+
+We've received your order #{{.Order}}.
+A receipt has been sent to: {{.Email}}
+
+Order Summary:
+{{.Items}}
+
+Total Paid: {{.Total}}
+
+If you have any questions, just reply to this email.
+
+— The Zenvis Team

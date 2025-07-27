@@ -3,7 +3,8 @@
 package graphql
 
 type AccountInput struct {
-	Name string `json:"name"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 type Mutation struct {

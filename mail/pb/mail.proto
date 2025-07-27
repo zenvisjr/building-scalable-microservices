@@ -1,0 +1,21 @@
+// mail.proto
+syntax = "proto3";
+
+
+
+option go_package = "github.com/zenvisjr/building-scalable-microservices/mail/pb;pb";
+
+service MailService {
+  rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
+}
+
+message SendEmailRequest {
+  string to = 1;
+  string subject = 2;
+  string template_name = 3;
+  map<string, string> template_data = 4;
+}
+
+message SendEmailResponse {
+  bool ok = 1;
+}

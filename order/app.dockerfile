@@ -14,6 +14,7 @@ COPY order/ order/
 COPY account/ account/
 COPY catalog/ catalog/
 COPY logger/ logger/
+COPY mail/ mail/
 
 # Build the Go binary using vendor folder
 RUN go build -mod vendor -o /go/bin/app ./order/cmd/order

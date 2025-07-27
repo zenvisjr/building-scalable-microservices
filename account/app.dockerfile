@@ -12,6 +12,7 @@ COPY go.mod go.sum ./
 COPY vendor/ vendor/
 COPY account/ account/
 COPY logger/ logger/
+COPY mail/ mail/
 
 # Build the binary from the account microservice
 RUN go build -mod vendor -o /go/bin/app ./account/cmd/account

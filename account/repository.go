@@ -15,6 +15,7 @@ type Repository interface {
 	PutAccount(ctx context.Context, acc Account) error
 	GetAccountByID(ctx context.Context, id string) (*Account, error)
 	ListAccounts(ctx context.Context, skip uint64, limit uint64) ([]Account, error)
+	GetEmailByName(ctx context.Context, name string) (string, error)
 }
 
 type postgresRepository struct {
@@ -54,7 +55,7 @@ func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error 
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Inserting new account into DB")
 
-	_, err := p.db.ExecContext(ctx, "INSERT INTO accounts(id, name) VALUES($1, $2)", acc.ID, acc.Name)
+	_, err := p.db.ExecContext(ctx, "INSERT INTO accounts(id, name, email) VALUES($1, $2, $3)", acc.ID, acc.Name, acc.Email)
 	if err != nil {
 		Logs.Error(ctx, "Failed to insert account: "+err.Error())
 		return err
@@ -67,9 +68,9 @@ func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error 
 func (p *postgresRepository) GetAccountByID(ctx context.Context, id string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching account by ID: " + id)
-	row := p.db.QueryRowContext(ctx, "SELECT id, name FROM accounts WHERE id = $1", id)
+	row := p.db.QueryRowContext(ctx, "SELECT id, name, email FROM accounts WHERE id = $1", id)
 	a := &Account{}
-	err := row.Scan(&a.ID, &a.Name)
+	err := row.Scan(&a.ID, &a.Name, &a.Email)
 	if err != nil {
 		Logs.Error(ctx, "Account fetch failed: "+err.Error())
 		return nil, err
@@ -83,7 +84,7 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Listing accounts with limit and skip")
 
-	rows, err := p.db.QueryContext(ctx, "SELECT id, name FROM accounts ORDER BY id DESC LIMIT $1 OFFSET $2", limit, skip)
+	rows, err := p.db.QueryContext(ctx, "SELECT id, name, email FROM accounts ORDER BY id DESC LIMIT $1 OFFSET $2", limit, skip)
 	if err != nil {
 		Logs.Error(ctx, "Failed to list accounts: "+err.Error())
 		return nil, err
@@ -93,7 +94,7 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 	accounts := []Account{}
 	for rows.Next() {
 		a := &Account{}
-		if err := rows.Scan(&a.ID, &a.Name); err != nil {
+		if err := rows.Scan(&a.ID, &a.Name, &a.Email); err != nil {
 			Logs.Error(ctx, "Failed to scan account row: "+err.Error())
 			return nil, err
 		}
@@ -102,4 +103,20 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 
 	Logs.Info(ctx, "Returned " + logger.IntToStr(len(accounts)) + " accounts from DB")
 	return accounts, nil
+}
+
+func (p *postgresRepository) GetEmailByName(ctx context.Context, name string) (string, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Fetching email for account with name: " + name)
+
+	row := p.db.QueryRowContext(ctx, "SELECT email FROM accounts WHERE name = $1", name)
+	email := ""
+	err := row.Scan(&email)
+	if err != nil {
+		Logs.Error(ctx, "Email fetch failed: "+err.Error())
+		return "", err
+	}
+
+	Logs.Info(ctx, "Fetched email: "+email)
+	return email, nil
 }

@@ -18,7 +18,7 @@ type mutationResolver struct {
 func (m *mutationResolver) CreateAccount(ctx context.Context, input AccountInput) (*Account, error) {
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
-	account, err := m.server.accountClient.PostAccount(ctx, input.Name)
+	account, err := m.server.accountClient.PostAccount(ctx, input.Name, input.Email)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -27,6 +27,7 @@ func (m *mutationResolver) CreateAccount(ctx context.Context, input AccountInput
 	newAccount := &Account{
 		ID:   account.ID,
 		Name: account.Name,
+		Email: account.Email,
 	}
 	return newAccount, nil
 }

@@ -1,0 +1,258 @@
+[2025-07-27T17:57:02Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-27T17:57:03Z] [order] [INFO] Starting order service...
+[2025-07-27T17:57:03Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-27T17:57:03Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-27T17:57:03Z] [catalog] [INFO] Starting catalog service...
+[2025-07-27T17:57:03Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T17:57:03Z] [account] [INFO] Starting account service
+[2025-07-27T17:57:03Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T17:57:03Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T17:57:03Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-27T17:57:03Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-27T17:57:03Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-27T17:57:08Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T17:57:08Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-27T17:57:08Z] [order] [INFO] Creating order service with dependencies
+[2025-07-27T17:57:08Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-27T17:57:08Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-27T17:57:08Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T17:57:08Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T17:57:08Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T17:57:08Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-27T17:57:08Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-27T17:57:13Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T17:57:13Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T17:57:13Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-27T17:57:13Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T17:57:13Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-27T17:59:10Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30T6KKRhXYL3KiGeJcoBidUGxIS
+[2025-07-27T17:59:10Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T6KKRhXYL3KiGeJcoBidUGxIS
+[2025-07-27T17:59:10Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T6KKRhXYL3KiGeJcoBidUGxIS
+[2025-07-27T17:59:10Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-27T17:59:10Z] [gateway] [INFO] Account created with ID: 30T6KKRhXYL3KiGeJcoBidUGxIS
+[2025-07-27T18:14:38Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-27T18:14:38Z] [order] [INFO] Starting order service...
+[2025-07-27T18:14:38Z] [account] [INFO] Starting account service
+[2025-07-27T18:14:38Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T18:14:38Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:14:38Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:14:38Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T18:14:38Z] [catalog] [INFO] Starting catalog service...
+[2025-07-27T18:14:38Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:14:38Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-27T18:14:38Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-27T18:14:38Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-27T18:14:43Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:14:43Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-27T18:14:43Z] [order] [INFO] Creating order service with dependencies
+[2025-07-27T18:14:43Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-27T18:14:43Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-27T18:14:43Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:14:43Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-27T18:14:43Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-27T18:14:43Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:14:43Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:14:48Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30T8EGSQnMEmuZxXoSAj67iYxs5
+[2025-07-27T18:14:48Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T8EGSQnMEmuZxXoSAj67iYxs5
+[2025-07-27T18:14:48Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T8EGSQnMEmuZxXoSAj67iYxs5
+[2025-07-27T18:14:48Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-27T18:14:48Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-27T18:14:48Z] [gateway] [INFO] Account created with ID: 30T8EGSQnMEmuZxXoSAj67iYxs5
+[2025-07-27T18:14:48Z] [mail] [INFO] Received email job from NATS
+[2025-07-27T18:14:48Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:14:48Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:14:48Z] [mail] [INFO] api key: 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
+[2025-07-27T18:14:48Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:14:48Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:14:48Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-27T18:14:48Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:14:48Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-27T18:14:49Z] [mail] [INFO] Email sent successfully to ayushrai.cse@gmail.com
+[2025-07-27T18:21:32Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-27T18:21:32Z] [account] [INFO] Starting account service
+[2025-07-27T18:21:32Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:21:32Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:21:32Z] [catalog] [INFO] Starting catalog service...
+[2025-07-27T18:21:32Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:21:32Z] [order] [INFO] Starting order service...
+[2025-07-27T18:21:32Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-27T18:21:32Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-27T18:21:32Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-27T18:21:32Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-27T18:21:32Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-27T18:21:37Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:21:37Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-27T18:21:37Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-27T18:21:37Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:21:37Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:21:37Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:21:37Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-27T18:21:37Z] [order] [INFO] Creating order service with dependencies
+[2025-07-27T18:21:37Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-27T18:21:37Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-27T18:21:42Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:21:42Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:21:42Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-27T18:21:42Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:21:42Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-27T18:22:06Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:06Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:06Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:06Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-27T18:22:06Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-27T18:22:06Z] [gateway] [INFO] Account created with ID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:06Z] [mail] [INFO] Received email job from NATS
+[2025-07-27T18:22:06Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:22:06Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:22:06Z] [mail] [INFO] api key: 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
+[2025-07-27T18:22:08Z] [mail] [INFO] Email sent successfully to ayushrai.cse@gmail.com
+[2025-07-27T18:22:09Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-27T18:22:09Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-27T18:22:09Z] [catalog] [Product indexed: 30T97e6Yn6t9gwdcyCl2lzWNLcO]  [/CatalogService/PostProduct]   catalog
+[2025-07-27T18:22:09Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30T97e6Yn6t9gwdcyCl2lzWNLcO
+[2025-07-27T18:22:09Z] [gateway] [INFO] Product posted successfully with ID: 30T97e6Yn6t9gwdcyCl2lzWNLcO
+[2025-07-27T18:22:09Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-27T18:22:09Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-27T18:22:09Z] [catalog] [Product indexed: 30T97hxuV4EumjKiad4iRVN34Ea]  [/CatalogService/PostProduct]   catalog
+[2025-07-27T18:22:09Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30T97hxuV4EumjKiad4iRVN34Ea
+[2025-07-27T18:22:09Z] [gateway] [INFO] Product posted successfully with ID: 30T97hxuV4EumjKiad4iRVN34Ea
+[2025-07-27T18:22:39Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:39Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:39Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Fetched account: Sasuke Uchiha
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Fetching products with pagination
+[2025-07-27T18:22:39Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-27T18:22:39Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching products by IDs
+[2025-07-27T18:22:39Z] [catalog] [Fetched 2 products by ID]  [/CatalogService/GetProducts]   catalog
+[2025-07-27T18:22:39Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 2 products
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Fetched products from catalog: count = 2
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Successfully committed order ID: 30T9BStINYCeXPmtASQ98VSMuAX
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Order saved: ID=30T9BStINYCeXPmtASQ98VSMuAX, TotalPrice=898.97
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Order created with ID: 30T9BStINYCeXPmtASQ98VSMuAX for AccountID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Publishing order confirmation email to NATS
+[2025-07-27T18:22:39Z] [order] [INFO]  [/OrderService/PostOrder]   Order email job published to NATS
+[2025-07-27T18:22:39Z] [mail] [INFO] Received email job from NATS
+[2025-07-27T18:22:39Z] [gateway] [INFO] Order created with ID: 30T9BStINYCeXPmtASQ98VSMuAX for AccountID: 30T97ILSkWpFCPSlKwXfDKo83k3
+[2025-07-27T18:22:39Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:22:39Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:22:39Z] [mail] [INFO] api key: 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
+[2025-07-27T18:22:39Z] [mail] [INFO] Email sent successfully to ayushrai.cse@gmail.com
+[2025-07-27T18:25:59Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-27T18:25:59Z] [account] [INFO] Starting account service
+[2025-07-27T18:25:59Z] [catalog] [INFO] Starting catalog service...
+[2025-07-27T18:25:59Z] [order] [INFO] Starting order service...
+[2025-07-27T18:25:59Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:25:59Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:25:59Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-27T18:25:59Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:25:59Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-27T18:26:00Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-27T18:26:00Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-27T18:26:00Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-27T18:26:04Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:26:04Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:26:04Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:26:04Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-27T18:26:04Z] [order] [INFO] Creating order service with dependencies
+[2025-07-27T18:26:04Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-27T18:26:04Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:26:04Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-27T18:26:04Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-27T18:26:04Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-27T18:26:09Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:26:10Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:26:10Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-27T18:26:10Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:26:10Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-27T18:26:20Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30T9dAjRVgrusF99lGuvC2aWLK5
+[2025-07-27T18:26:20Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T9dAjRVgrusF99lGuvC2aWLK5
+[2025-07-27T18:26:20Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30T9dAjRVgrusF99lGuvC2aWLK5
+[2025-07-27T18:26:20Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-27T18:26:21Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-27T18:26:21Z] [gateway] [INFO] Account created with ID: 30T9dAjRVgrusF99lGuvC2aWLK5
+[2025-07-27T18:26:21Z] [mail] [INFO] Received email job from NATS
+[2025-07-27T18:26:21Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:26:21Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:26:22Z] [mail] [ERROR] SendGrid error: status 403, body: {"errors":[{"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements","field":"from","help":null}]}
+[2025-07-27T18:29:13Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-27T18:29:14Z] [catalog] [INFO] Starting catalog service...
+[2025-07-27T18:29:14Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:29:14Z] [account] [INFO] Starting account service
+[2025-07-27T18:29:14Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:29:14Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-27T18:29:14Z] [order] [INFO] Starting order service...
+[2025-07-27T18:29:14Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T18:29:14Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T18:29:14Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-27T18:29:14Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-27T18:29:14Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-27T18:29:19Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:29:19Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:29:19Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:29:19Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-27T18:29:19Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-27T18:29:19Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:29:19Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-27T18:29:19Z] [order] [INFO] Creating order service with dependencies
+[2025-07-27T18:29:19Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-27T18:29:19Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-27T18:29:24Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:29:24Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:29:24Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-27T18:29:24Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:29:24Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-27T18:29:29Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30TA0vzrElRc8pDWxYn5WRgayJQ
+[2025-07-27T18:29:29Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30TA0vzrElRc8pDWxYn5WRgayJQ
+[2025-07-27T18:29:29Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30TA0vzrElRc8pDWxYn5WRgayJQ
+[2025-07-27T18:29:29Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-27T18:29:29Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-27T18:29:29Z] [gateway] [INFO] Account created with ID: 30TA0vzrElRc8pDWxYn5WRgayJQ
+[2025-07-27T18:29:29Z] [mail] [INFO] Received email job from NATS
+[2025-07-27T18:29:29Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:29:29Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:29:29Z] [mail] [INFO] api key: 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
+[2025-07-27T18:29:29Z] [mail] [INFO] from email: noreply@zenvis.com
+[2025-07-27T18:29:29Z] [mail] [INFO] from name: Zenvis Notifications
+[2025-07-27T18:29:30Z] [mail] [ERROR] SendGrid error: status 403, body: {"errors":[{"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements","field":"from","help":null}]}
+[2025-07-27T18:32:19Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-27T18:32:19Z] [catalog] [INFO] Starting catalog service...
+[2025-07-27T18:32:19Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:32:19Z] [order] [INFO] Starting order service...
+[2025-07-27T18:32:19Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-27T18:32:19Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-27T18:32:19Z] [account] [INFO] Starting account service
+[2025-07-27T18:32:19Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T18:32:19Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-27T18:32:19Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-27T18:32:19Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-27T18:32:19Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-27T18:32:24Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:32:24Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-27T18:32:24Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:32:24Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-27T18:32:24Z] [order] [INFO] Creating order service with dependencies
+[2025-07-27T18:32:24Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-27T18:32:24Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-27T18:32:24Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-27T18:32:24Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-27T18:32:24Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-27T18:32:29Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:32:29Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:32:29Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-27T18:32:29Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-27T18:32:29Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-27T18:33:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30TASTE4Hr7NYML1hVAl2rY4mdK
+[2025-07-27T18:33:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30TASTE4Hr7NYML1hVAl2rY4mdK
+[2025-07-27T18:33:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30TASTE4Hr7NYML1hVAl2rY4mdK
+[2025-07-27T18:33:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-27T18:33:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-27T18:33:08Z] [gateway] [INFO] Account created with ID: 30TASTE4Hr7NYML1hVAl2rY4mdK
+[2025-07-27T18:33:08Z] [mail] [INFO] Received email job from NATS
+[2025-07-27T18:33:08Z] [mail] [INFO] Sending email to ayushrai.cse@gmail.com
+[2025-07-27T18:33:10Z] [mail] [INFO] Email sent successfully to ayushrai.cse@gmail.com

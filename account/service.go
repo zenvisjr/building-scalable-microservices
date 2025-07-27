@@ -12,12 +12,14 @@ import (
 type Account struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
+	Email string `json:"email"`
 }
 
 type Service interface {
-	PostAccount(ctx context.Context, name string) (*Account, error)
+	PostAccount(ctx context.Context, name string, email string) (*Account, error)
 	GetAccount(ctx context.Context, id string) (*Account, error)
 	GetAccounts(ctx context.Context, skip uint64, take uint64) ([]Account, error)
+	GetEmail(ctx context.Context, id string) (string, error)
 }
 
 type accountService struct {
@@ -30,13 +32,14 @@ func NewAccountService(r Repository) Service {
 	return &accountService{repo: r}
 }
 
-func (a *accountService) PostAccount(ctx context.Context, name string) (*Account, error) {
+func (a *accountService) PostAccount(ctx context.Context, name string, email string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("PostAccount called with name: " + name)
 
 	account := &Account{
 		ID:   ksuid.New().String(),
 		Name: name,
+		Email: email,
 	}
 	err := a.repo.PutAccount(ctx, *account)
 	if err != nil {
@@ -81,3 +84,18 @@ func (a *accountService) GetAccounts(ctx context.Context, skip uint64, take uint
 	Logs.Info(ctx, "Fetched accounts count: " + logger.IntToStr(len(accounts)))
 	return accounts, nil
 }
+
+func (a *accountService) GetEmail(ctx context.Context, name string) (string, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("GetEmail called with name: " + name)
+
+	email, err := a.repo.GetEmailByName(ctx, name)
+	if err != nil {
+		Logs.Error(ctx, "Failed to get email by name: "+err.Error())
+		return "", err
+	}
+
+	Logs.Info(ctx, "Fetched email: "+email)
+	return email, nil
+}
+	
