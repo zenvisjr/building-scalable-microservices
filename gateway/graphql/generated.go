@@ -8,6 +8,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
+	"io"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -41,6 +42,7 @@ type ResolverRoot interface {
 	Account() AccountResolver
 	Mutation() MutationResolver
 	Query() QueryResolver
+	Subscription() SubscriptionResolver
 }
 
 type DirectiveRoot struct {
@@ -67,6 +69,12 @@ type ComplexityRoot struct {
 		TotalPrice func(childComplexity int) int
 	}
 
+	OrderStatusUpdate struct {
+		OrderID   func(childComplexity int) int
+		Status    func(childComplexity int) int
+		UpdatedAt func(childComplexity int) int
+	}
+
 	OrderedProduct struct {
 		Description func(childComplexity int) int
 		ID          func(childComplexity int) int
@@ -86,6 +94,10 @@ type ComplexityRoot struct {
 		Accounts func(childComplexity int, pagination *Pagination, id *string, name *string) int
 		Products func(childComplexity int, pagination *Pagination, query *string, id *string) int
 	}
+
+	Subscription struct {
+		OrderStatusChanged func(childComplexity int, orderID *string) int
+	}
 }
 
 type AccountResolver interface {
@@ -99,6 +111,9 @@ type MutationResolver interface {
 type QueryResolver interface {
 	Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error)
 	Products(ctx context.Context, pagination *Pagination, query *string, id *string) ([]*Product, error)
+}
+type SubscriptionResolver interface {
+	OrderStatusChanged(ctx context.Context, orderID *string) (<-chan *OrderStatusUpdate, error)
 }
 
 type executableSchema struct {
@@ -212,6 +227,27 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Order.TotalPrice(childComplexity), true
 
+	case "OrderStatusUpdate.orderId":
+		if e.complexity.OrderStatusUpdate.OrderID == nil {
+			break
+		}
+
+		return e.complexity.OrderStatusUpdate.OrderID(childComplexity), true
+
+	case "OrderStatusUpdate.status":
+		if e.complexity.OrderStatusUpdate.Status == nil {
+			break
+		}
+
+		return e.complexity.OrderStatusUpdate.Status(childComplexity), true
+
+	case "OrderStatusUpdate.updatedAt":
+		if e.complexity.OrderStatusUpdate.UpdatedAt == nil {
+			break
+		}
+
+		return e.complexity.OrderStatusUpdate.UpdatedAt(childComplexity), true
+
 	case "OrderedProduct.description":
 		if e.complexity.OrderedProduct.Description == nil {
 			break
@@ -299,6 +335,18 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Query.Products(childComplexity, args["pagination"].(*Pagination), args["query"].(*string), args["id"].(*string)), true
 
+	case "Subscription.orderStatusChanged":
+		if e.complexity.Subscription.OrderStatusChanged == nil {
+			break
+		}
+
+		args, err := ec.field_Subscription_orderStatusChanged_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Subscription.OrderStatusChanged(childComplexity, args["orderId"].(*string)), true
+
 	}
 	return 0, false
 }
@@ -355,6 +403,23 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 			ctx = graphql.WithUnmarshalerMap(ctx, inputUnmarshalMap)
 			data := ec._Mutation(ctx, opCtx.Operation.SelectionSet)
 			var buf bytes.Buffer
+			data.MarshalGQL(&buf)
+
+			return &graphql.Response{
+				Data: buf.Bytes(),
+			}
+		}
+	case ast.Subscription:
+		next := ec._Subscription(ctx, opCtx.Operation.SelectionSet)
+
+		var buf bytes.Buffer
+		return func(ctx context.Context) *graphql.Response {
+			buf.Reset()
+			data := next(ctx)
+
+			if data == nil {
+				return nil
+			}
 			data.MarshalGQL(&buf)
 
 			return &graphql.Response{
@@ -531,6 +596,17 @@ func (ec *executionContext) field_Query_products_args(ctx context.Context, rawAr
 		return nil, err
 	}
 	args["id"] = arg2
+	return args, nil
+}
+
+func (ec *executionContext) field_Subscription_orderStatusChanged_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := processArgField(ctx, rawArgs, "orderId", ec.unmarshalOID2ᚖstring)
+	if err != nil {
+		return nil, err
+	}
+	args["orderId"] = arg0
 	return args, nil
 }
 
@@ -1150,6 +1226,138 @@ func (ec *executionContext) fieldContext_Order_products(_ context.Context, field
 				return ec.fieldContext_OrderedProduct_quantity(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type OrderedProduct", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _OrderStatusUpdate_orderId(ctx context.Context, field graphql.CollectedField, obj *OrderStatusUpdate) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_OrderStatusUpdate_orderId(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.OrderID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNID2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_OrderStatusUpdate_orderId(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "OrderStatusUpdate",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _OrderStatusUpdate_status(ctx context.Context, field graphql.CollectedField, obj *OrderStatusUpdate) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_OrderStatusUpdate_status(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Status, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_OrderStatusUpdate_status(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "OrderStatusUpdate",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _OrderStatusUpdate_updatedAt(ctx context.Context, field graphql.CollectedField, obj *OrderStatusUpdate) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_OrderStatusUpdate_updatedAt(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UpdatedAt, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_OrderStatusUpdate_updatedAt(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "OrderStatusUpdate",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
 		},
 	}
 	return fc, nil
@@ -1808,6 +2016,83 @@ func (ec *executionContext) fieldContext_Query___schema(_ context.Context, field
 			}
 			return nil, fmt.Errorf("no field named %q was found under type __Schema", field.Name)
 		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Subscription_orderStatusChanged(ctx context.Context, field graphql.CollectedField) (ret func(ctx context.Context) graphql.Marshaler) {
+	fc, err := ec.fieldContext_Subscription_orderStatusChanged(ctx, field)
+	if err != nil {
+		return nil
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = nil
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Subscription().OrderStatusChanged(rctx, fc.Args["orderId"].(*string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return nil
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return nil
+	}
+	return func(ctx context.Context) graphql.Marshaler {
+		select {
+		case res, ok := <-resTmp.(<-chan *OrderStatusUpdate):
+			if !ok {
+				return nil
+			}
+			return graphql.WriterFunc(func(w io.Writer) {
+				w.Write([]byte{'{'})
+				graphql.MarshalString(field.Alias).MarshalGQL(w)
+				w.Write([]byte{':'})
+				ec.marshalNOrderStatusUpdate2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐOrderStatusUpdate(ctx, field.Selections, res).MarshalGQL(w)
+				w.Write([]byte{'}'})
+			})
+		case <-ctx.Done():
+			return nil
+		}
+	}
+}
+
+func (ec *executionContext) fieldContext_Subscription_orderStatusChanged(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Subscription",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "orderId":
+				return ec.fieldContext_OrderStatusUpdate_orderId(ctx, field)
+			case "status":
+				return ec.fieldContext_OrderStatusUpdate_status(ctx, field)
+			case "updatedAt":
+				return ec.fieldContext_OrderStatusUpdate_updatedAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type OrderStatusUpdate", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Subscription_orderStatusChanged_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
 	}
 	return fc, nil
 }
@@ -4150,6 +4435,55 @@ func (ec *executionContext) _Order(ctx context.Context, sel ast.SelectionSet, ob
 	return out
 }
 
+var orderStatusUpdateImplementors = []string{"OrderStatusUpdate"}
+
+func (ec *executionContext) _OrderStatusUpdate(ctx context.Context, sel ast.SelectionSet, obj *OrderStatusUpdate) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, orderStatusUpdateImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("OrderStatusUpdate")
+		case "orderId":
+			out.Values[i] = ec._OrderStatusUpdate_orderId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "status":
+			out.Values[i] = ec._OrderStatusUpdate_status(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "updatedAt":
+			out.Values[i] = ec._OrderStatusUpdate_updatedAt(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
 var orderedProductImplementors = []string{"OrderedProduct"}
 
 func (ec *executionContext) _OrderedProduct(ctx context.Context, sel ast.SelectionSet, obj *OrderedProduct) graphql.Marshaler {
@@ -4355,6 +4689,26 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 	}
 
 	return out
+}
+
+var subscriptionImplementors = []string{"Subscription"}
+
+func (ec *executionContext) _Subscription(ctx context.Context, sel ast.SelectionSet) func(ctx context.Context) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, subscriptionImplementors)
+	ctx = graphql.WithFieldContext(ctx, &graphql.FieldContext{
+		Object: "Subscription",
+	})
+	if len(fields) != 1 {
+		ec.Errorf(ctx, "must subscribe to exactly one stream")
+		return nil
+	}
+
+	switch fields[0].Name {
+	case "orderStatusChanged":
+		return ec._Subscription_orderStatusChanged(ctx, fields[0])
+	default:
+		panic("unknown field " + strconv.Quote(fields[0].Name))
+	}
 }
 
 var __DirectiveImplementors = []string{"__Directive"}
@@ -4880,6 +5234,20 @@ func (ec *executionContext) marshalNOrder2ᚖgithubᚗcomᚋzenvisjrᚋbuilding�
 func (ec *executionContext) unmarshalNOrderInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐOrderInput(ctx context.Context, v any) (OrderInput, error) {
 	res, err := ec.unmarshalInputOrderInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNOrderStatusUpdate2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐOrderStatusUpdate(ctx context.Context, sel ast.SelectionSet, v OrderStatusUpdate) graphql.Marshaler {
+	return ec._OrderStatusUpdate(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNOrderStatusUpdate2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐOrderStatusUpdate(ctx context.Context, sel ast.SelectionSet, v *OrderStatusUpdate) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._OrderStatusUpdate(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNOrderedProduct2ᚕᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐOrderedProductᚄ(ctx context.Context, sel ast.SelectionSet, v []*OrderedProduct) graphql.Marshaler {

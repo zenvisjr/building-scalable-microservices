@@ -22,6 +22,12 @@ type OrderInput struct {
 	Products  []*OrderedProductInput `json:"products,omitempty"`
 }
 
+type OrderStatusUpdate struct {
+	OrderID   string `json:"orderId"`
+	Status    string `json:"status"`
+	UpdatedAt string `json:"updatedAt"`
+}
+
 type OrderedProduct struct {
 	ID          string  `json:"id"`
 	Name        string  `json:"name"`
@@ -54,4 +60,7 @@ type ProductInput struct {
 }
 
 type Query struct {
+}
+
+type Subscription struct {
 }

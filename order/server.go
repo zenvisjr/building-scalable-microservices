@@ -7,6 +7,7 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/nats-io/nats.go"
 	"github.com/pkg/errors"
@@ -60,6 +61,22 @@ func ListenGRPC(s Service, accountURL, catalogURL, mailURL string, port int) err
 		return err
 	}
 	Logs.LocalOnlyInfo("Connected to NATS in order microservice")
+
+	//enabling jetstream for persistent storage of order status changes for 1 day
+	Logs.LocalOnlyInfo("Enabling JetStream for persistent storage of order status changes for 1 day")
+	// js, err := nc.JetStream()
+	// if err != nil {
+	// 	log.Fatal("Failed to get JetStream context:", err)
+	// }
+
+	// _, err = js.AddStream(&nats.StreamConfig{
+	// 	Name:     "ORDER_STATUS",
+	// 	Subjects: []string{"order.status.changed"},
+	// 	MaxAge:   24 * time.Hour, // retain messages for 1 day
+	// })
+	// if err != nil && !strings.Contains(err.Error(), "stream name already in use") {
+	// 	log.Fatal("Failed to add stream:", err)
+	// }
 
 	conn, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
@@ -222,6 +239,10 @@ func (g *grpcServer) PostOrder(ctx context.Context, req *pb.PostOrderRequest) (*
 		Products:   []*pb.Order_OrderedProduct{},
 	}
 
+	// STEP 7: Simulate order status changes
+	Logs.Info(ctx, "Simulating order status changes for order ID: "+orderproto.ID)
+	simulateOrderStatus(ctx, orderproto.ID, g.netScan)
+
 	for _, item := range orderproto.Products {
 		resProduct.Products = append(resProduct.Products, &pb.Order_OrderedProduct{
 			ProductId:   item.ProductID,
@@ -316,4 +337,41 @@ func (g *grpcServer) GetOrdersForAccount(ctx context.Context, req *pb.GetOrdersF
 	return &pb.GetOrdersForAccountResponse{
 		Orders: resProducts,
 	}, nil
+}
+
+func simulateOrderStatus(ctx context.Context, orderID string, nc *nats.Conn) {
+	statuses := []string{"✅ Confirmed", "📦 Packed", "🚚 Shipped", "📦 Delivered"}
+	Logs := logger.GetGlobalLogger()
+
+	go func() {
+		Logs.Info(ctx, "Simulating order status changes for order ID: "+orderID)
+		for _, status := range statuses {
+			localCtx := context.Background()
+			Logs := logger.GetGlobalLogger()
+			Logs.Info(localCtx, "Simulating status: "+status+" for "+orderID)
+			time.Sleep(15 * time.Second)
+			payload := OrderStatusUpdate{
+				OrderID:   orderID,
+				Status:    status,
+				UpdatedAt: time.Now().Format(time.RFC3339),
+			}
+			data, err := json.Marshal(payload)
+			if err != nil {
+				Logs.Error(localCtx, "Failed to marshal order status update: "+err.Error())
+				return
+			}
+			Logs.Info(localCtx, "Publishing order status update to NATS")
+			// nc.Publish("order.status.changed", data)
+			// js, _ := nc.JetStream() // reuse connection
+
+			nc.Publish("order.status.changed", data)
+		}
+	}()
+}
+
+// its auto generated in graphql but we needed here so just copy pasting RELAX BITCH
+type OrderStatusUpdate struct {
+	OrderID   string `json:"orderId"`
+	Status    string `json:"status"`
+	UpdatedAt string `json:"updatedAt"`
 }

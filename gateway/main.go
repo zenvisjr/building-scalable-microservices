@@ -13,6 +13,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/zenvisjr/building-scalable-microservices/gateway/graphql"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
+	"github.com/gorilla/websocket"
 )
 
 type AppConfig struct {
@@ -64,6 +65,14 @@ func main() {
 	h.AddTransport(transport.POST{})
 	h.AddTransport(transport.GET{})
 	h.AddTransport(transport.MultipartForm{})
+
+	//added websocket to support subscriptions
+	Logs.Info(ctx, "Enabling WebSocket transport for subscriptions")
+	h.AddTransport(&transport.Websocket{
+		Upgrader: websocket.Upgrader{
+			CheckOrigin: func(r *http.Request) bool { return true },
+		},
+	})
 
 	http.Handle("/graphql", h)
 	http.Handle("/playground", playground.Handler("zenvis", "/graphql"))

@@ -63,3 +63,13 @@ type Query {
     accounts(pagination: Pagination, id: ID, name: String): [Account!]!
     products(pagination: Pagination, query: String, id: ID): [Product!]!
 }
+
+type Subscription {
+  orderStatusChanged(orderId: ID): OrderStatusUpdate!
+}
+
+type OrderStatusUpdate {
+  orderId: ID!
+  status: String!
+  updatedAt: String!
+}

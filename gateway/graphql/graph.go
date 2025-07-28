@@ -5,12 +5,14 @@ import (
 	"github.com/zenvisjr/building-scalable-microservices/account"
 	"github.com/zenvisjr/building-scalable-microservices/catalog"
 	"github.com/zenvisjr/building-scalable-microservices/order"
+	"github.com/nats-io/nats.go"
 )
 
 type Server struct {
 	accountClient *account.Client
 	catalogClient *catalog.Client
 	orderClient   *order.Client
+	nats          *nats.Conn
 }
 
 func NewGraphQLServer(accountUrl, catalogURL, orderURL string) (*Server, error) {
@@ -35,10 +37,20 @@ func NewGraphQLServer(accountUrl, catalogURL, orderURL string) (*Server, error) 
 		return nil, err
 	}
 
+	// Connect to NATS
+	nats, err := nats.Connect("nats://nats:4222")
+	if err != nil {
+		accountClient.Close()
+		catalogClient.Close()
+		orderClient.Close()
+		return nil, err
+	}
+
 	return &Server{
 		accountClient,
 		catalogClient,
 		orderClient,
+		nats,
 	}, nil
 }
 
@@ -56,6 +68,12 @@ func (s *Server) Query() QueryResolver {
 
 func (s *Server) Account() AccountResolver {
 	return &accountResolver{
+		server: s,
+	}
+}
+
+func (s *Server) Subscription() SubscriptionResolver {
+	return &subscriptionResolver{
 		server: s,
 	}
 }

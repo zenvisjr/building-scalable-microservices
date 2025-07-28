@@ -97,7 +97,14 @@ new features implemented
 centralized logging with grpc
 grpc logging interceptor
 local logging with zap
+mail microservice
+✅ NATS for async email queuing
+
+✅ Template rendering (HTML + Text)
 
 
 
-note: always add LOGGER_SERVICE_URL in docker compose in all services as they need to connect to logger and use the logger service
+note: always add LOGGER_SERVICE_URL in docker compose in all services as they need to connect to logger and use the logger 
+
+use below command if getting error vendor is locked while generating graphql code
+ GOFLAGS=-mod=mod go run github.com/99designs/gqlgen generate

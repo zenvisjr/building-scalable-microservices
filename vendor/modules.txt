@@ -22,6 +22,8 @@ github.com/beorn7/perks/quantile
 # github.com/cespare/xxhash/v2 v2.3.0
 ## explicit; go 1.11
 github.com/cespare/xxhash/v2
+# github.com/cpuguy83/go-md2man/v2 v2.0.7
+## explicit; go 1.12
 # github.com/go-viper/mapstructure/v2 v2.4.0
 ## explicit; go 1.18
 github.com/go-viper/mapstructure/v2
@@ -102,6 +104,8 @@ github.com/prometheus/common/model
 github.com/prometheus/procfs
 github.com/prometheus/procfs/internal/fs
 github.com/prometheus/procfs/internal/util
+# github.com/russross/blackfriday/v2 v2.1.0
+## explicit
 # github.com/segmentio/ksuid v1.0.4
 ## explicit; go 1.12
 github.com/segmentio/ksuid
@@ -115,6 +119,8 @@ github.com/sendgrid/sendgrid-go/helpers/mail
 # github.com/sosodev/duration v1.3.1
 ## explicit; go 1.17
 github.com/sosodev/duration
+# github.com/urfave/cli/v2 v2.27.7
+## explicit; go 1.18
 # github.com/vektah/gqlparser/v2 v2.5.30
 ## explicit; go 1.22
 github.com/vektah/gqlparser/v2
@@ -125,6 +131,8 @@ github.com/vektah/gqlparser/v2/parser
 github.com/vektah/gqlparser/v2/validator
 github.com/vektah/gqlparser/v2/validator/core
 github.com/vektah/gqlparser/v2/validator/rules
+# github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1
+## explicit; go 1.15
 # go.uber.org/multierr v1.10.0
 ## explicit; go 1.19
 go.uber.org/multierr
@@ -148,6 +156,8 @@ golang.org/x/crypto/internal/poly1305
 golang.org/x/crypto/nacl/box
 golang.org/x/crypto/nacl/secretbox
 golang.org/x/crypto/salsa20/salsa
+# golang.org/x/mod v0.26.0
+## explicit; go 1.23.0
 # golang.org/x/net v0.42.0
 ## explicit; go 1.23.0
 golang.org/x/net/http/httpguts
@@ -157,6 +167,8 @@ golang.org/x/net/idna
 golang.org/x/net/internal/httpcommon
 golang.org/x/net/internal/timeseries
 golang.org/x/net/trace
+# golang.org/x/sync v0.16.0
+## explicit; go 1.23.0
 # golang.org/x/sys v0.34.0
 ## explicit; go 1.23.0
 golang.org/x/sys/cpu
@@ -168,6 +180,8 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+# golang.org/x/tools v0.35.0
+## explicit; go 1.23.0
 # google.golang.org/genproto/googleapis/rpc v0.0.0-20250528174236-200df99c418a
 ## explicit; go 1.23.0
 google.golang.org/genproto/googleapis/rpc/status
@@ -276,6 +290,8 @@ google.golang.org/protobuf/types/gofeaturespb
 google.golang.org/protobuf/types/known/anypb
 google.golang.org/protobuf/types/known/durationpb
 google.golang.org/protobuf/types/known/timestamppb
+# gopkg.in/yaml.v3 v3.0.1
+## explicit
 # github.com/zenvisjr/building-scalable-microservices/logger => ./logger
 # github.com/zenvisjr/building-scalable-microservices/account => ./account
 # github.com/zenvisjr/building-scalable-microservices/catalog => ./catalog
