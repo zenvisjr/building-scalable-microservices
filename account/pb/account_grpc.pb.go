@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AccountService_PostAccount_FullMethodName = "/AccountService/PostAccount"
-	AccountService_GetAccount_FullMethodName  = "/AccountService/GetAccount"
-	AccountService_GetAccounts_FullMethodName = "/AccountService/GetAccounts"
-	AccountService_GetEmail_FullMethodName    = "/AccountService/GetEmail"
+	AccountService_PostAccount_FullMethodName     = "/AccountService/PostAccount"
+	AccountService_GetAccount_FullMethodName      = "/AccountService/GetAccount"
+	AccountService_GetAccounts_FullMethodName     = "/AccountService/GetAccounts"
+	AccountService_GetEmail_FullMethodName        = "/AccountService/GetEmail"
+	AccountService_GetEmailForAuth_FullMethodName = "/AccountService/GetEmailForAuth"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -33,6 +34,7 @@ type AccountServiceClient interface {
 	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error)
 	GetAccounts(ctx context.Context, in *GetAccountsRequest, opts ...grpc.CallOption) (*GetAccountsResponse, error)
 	GetEmail(ctx context.Context, in *GetEmailRequest, opts ...grpc.CallOption) (*GetEmailResponse, error)
+	GetEmailForAuth(ctx context.Context, in *GetEmailForAuthRequest, opts ...grpc.CallOption) (*GetEmailForAuthResponse, error)
 }
 
 type accountServiceClient struct {
@@ -83,6 +85,16 @@ func (c *accountServiceClient) GetEmail(ctx context.Context, in *GetEmailRequest
 	return out, nil
 }
 
+func (c *accountServiceClient) GetEmailForAuth(ctx context.Context, in *GetEmailForAuthRequest, opts ...grpc.CallOption) (*GetEmailForAuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEmailForAuthResponse)
+	err := c.cc.Invoke(ctx, AccountService_GetEmailForAuth_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility.
@@ -91,6 +103,7 @@ type AccountServiceServer interface {
 	GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error)
 	GetAccounts(context.Context, *GetAccountsRequest) (*GetAccountsResponse, error)
 	GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error)
+	GetEmailForAuth(context.Context, *GetEmailForAuthRequest) (*GetEmailForAuthResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -112,6 +125,9 @@ func (UnimplementedAccountServiceServer) GetAccounts(context.Context, *GetAccoun
 }
 func (UnimplementedAccountServiceServer) GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmail not implemented")
+}
+func (UnimplementedAccountServiceServer) GetEmailForAuth(context.Context, *GetEmailForAuthRequest) (*GetEmailForAuthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEmailForAuth not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 func (UnimplementedAccountServiceServer) testEmbeddedByValue()                        {}
@@ -206,6 +222,24 @@ func _AccountService_GetEmail_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_GetEmailForAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEmailForAuthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetEmailForAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_GetEmailForAuth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetEmailForAuth(ctx, req.(*GetEmailForAuthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +262,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEmail",
 			Handler:    _AccountService_GetEmail_Handler,
+		},
+		{
+			MethodName: "GetEmailForAuth",
+			Handler:    _AccountService_GetEmailForAuth_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

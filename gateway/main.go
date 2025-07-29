@@ -9,17 +9,18 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/gorilla/websocket"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/zenvisjr/building-scalable-microservices/gateway/graphql"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
-	"github.com/gorilla/websocket"
 )
 
 type AppConfig struct {
 	AccountURL string `envconfig:"ACCOUNT_SERVICE_URL"`
 	CatalogURL string `envconfig:"CATALOG_SERVICE_URL"`
 	OrderURL   string `envconfig:"ORDER_SERVICE_URL"`
+	AuthURL    string `envconfig:"AUTH_SERVICE_URL"`
 }
 
 var (
@@ -49,7 +50,7 @@ func main() {
 	}
 
 	// Create GraphQL server
-	server, err := graphql.NewGraphQLServer(config.AccountURL, config.CatalogURL, config.OrderURL)
+	server, err := graphql.NewGraphQLServer(config.AccountURL, config.CatalogURL, config.OrderURL, config.AuthURL)
 	if err != nil {
 		Logs.Fatal(ctx, "Failed to create GraphQL server: "+err.Error())
 	}
@@ -74,7 +75,14 @@ func main() {
 		},
 	})
 
-	http.Handle("/graphql", h)
+	//added auth middleware
+	// Wrap GraphQL server in context-aware auth middleware
+	wrappedHandler := graphql.AuthMiddleware(server.AuthClient)(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		h.ServeHTTP(w, r)
+	}))
+
+	http.Handle("/graphql", wrappedHandler)
+
 	http.Handle("/playground", playground.Handler("zenvis", "/graphql"))
 
 	Logs.Info(ctx, "GraphQL gateway listening on :8080")

@@ -13,9 +13,12 @@ replace github.com/zenvisjr/building-scalable-microservices/order => ./order
 
 replace github.com/zenvisjr/building-scalable-microservices/mail => ./mail
 
+replace github.com/zenvisjr/building-scalable-microservices/auth => ./auth
+
 require (
 	github.com/99designs/gqlgen v0.17.77
 	github.com/avast/retry-go v3.0.0+incompatible
+	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/gorilla/websocket v1.5.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/lib/pq v1.10.9
@@ -27,6 +30,7 @@ require (
 	github.com/sendgrid/sendgrid-go v3.16.1+incompatible
 	github.com/vektah/gqlparser/v2 v2.5.30
 	go.uber.org/zap v1.27.0
+	golang.org/x/crypto v0.40.0
 	google.golang.org/grpc v1.74.2
 	google.golang.org/protobuf v1.36.6
 
@@ -52,7 +56,6 @@ require (
 	github.com/sendgrid/rest v2.6.9+incompatible // indirect
 	github.com/sosodev/duration v1.3.1 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
-	golang.org/x/crypto v0.40.0 // indirect
 	golang.org/x/net v0.42.0 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.27.0 // indirect

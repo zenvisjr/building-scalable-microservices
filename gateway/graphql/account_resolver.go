@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 	"time"
+
+	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
 
 type accountResolver struct {
@@ -11,8 +13,17 @@ type accountResolver struct {
 }
 
 func (a *accountResolver) Orders(ctx context.Context, obj *Account) ([]*Order, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
+
+	user, err := RequireAdmin(ctx)
+	if err != nil {
+		Logs.Error(ctx, "No admin in incoming ctx before wrapping")
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Admin "+user.Email+" is fetching orders for account "+obj.Email)
 
 	orderList, err := a.server.orderClient.GetOrdersForAccount(ctx, obj.ID)
 	if err != nil {
@@ -38,7 +49,7 @@ func (a *accountResolver) Orders(ctx context.Context, obj *Account) ([]*Order, e
 			Products: orderedProduct,
 		})
 	}
-		
+	Logs.Info(ctx, "Fetched orders for account "+obj.Email)
 
 	return orders, nil
 }

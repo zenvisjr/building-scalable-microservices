@@ -3,8 +3,23 @@
 package graphql
 
 type AccountInput struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name     string  `json:"name"`
+	Email    string  `json:"email"`
+	Password string  `json:"password"`
+	Role     *string `json:"role,omitempty"`
+}
+
+type AuthResponse struct {
+	AccessToken  string `json:"accessToken"`
+	RefreshToken string `json:"refreshToken"`
+	UserID       string `json:"userId"`
+	Email        string `json:"email"`
+	Role         string `json:"role"`
+}
+
+type LoginInput struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type Mutation struct {
@@ -60,6 +75,10 @@ type ProductInput struct {
 }
 
 type Query struct {
+}
+
+type RefreshTokenInput struct {
+	RefreshToken string `json:"refreshToken"`
 }
 
 type Subscription struct {

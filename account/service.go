@@ -2,24 +2,25 @@ package account
 
 import (
 	"context"
-
+	"golang.org/x/crypto/bcrypt"
 	"github.com/segmentio/ksuid"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
 
-
-
 type Account struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-	Email string `json:"email"`
+	ID           string `json:"id"`
+	Name         string `json:"name"`
+	Email        string `json:"email"`
+	PasswordHash string `json:"password_hash"`
+	Role         string `json:"role"`
 }
 
 type Service interface {
-	PostAccount(ctx context.Context, name string, email string) (*Account, error)
+	PostAccount(ctx context.Context, name string, email string, passwordHash string, role string) (*Account, error)
 	GetAccount(ctx context.Context, id string) (*Account, error)
 	GetAccounts(ctx context.Context, skip uint64, take uint64) ([]Account, error)
 	GetEmail(ctx context.Context, id string) (string, error)
+	GetEmailForAuth(ctx context.Context, email string) (*Account, error)
 }
 
 type accountService struct {
@@ -32,16 +33,33 @@ func NewAccountService(r Repository) Service {
 	return &accountService{repo: r}
 }
 
-func (a *accountService) PostAccount(ctx context.Context, name string, email string) (*Account, error) {
+func HashPassword(password string) (string, error) {
+	hashBytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hashBytes), nil
+}
+func (a *accountService) PostAccount(ctx context.Context, name string, email, plainPassword, role string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("PostAccount called with name: " + name)
 
-	account := &Account{
-		ID:   ksuid.New().String(),
-		Name: name,
-		Email: email,
+	// Hash the password
+	Logs.LocalOnlyInfo("Hashing password for account: " + name)
+	hashedPassword, err := HashPassword(plainPassword)
+	if err != nil {
+		Logs.Error(ctx, "Password hashing failed: "+err.Error())
+		return nil, err
 	}
-	err := a.repo.PutAccount(ctx, *account)
+
+	account := &Account{
+		ID:           ksuid.New().String(),
+		Name:         name,
+		Email:        email,
+		PasswordHash: hashedPassword,
+		Role:         role,
+	}
+	err = a.repo.PutAccount(ctx, *account)
 	if err != nil {
 		Logs.Error(ctx, "Failed to store new account: "+err.Error())
 		return nil, err
@@ -67,9 +85,9 @@ func (a *accountService) GetAccount(ctx context.Context, id string) (*Account, e
 
 func (a *accountService) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]Account, error) {
 	Logs := logger.GetGlobalLogger()
-	Logs.LocalOnlyInfo("GetAccounts called with skip=" + 
-	                   logger.Uint64ToStr(skip) + ", take=" + 
-	                   logger.Uint64ToStr(take))
+	Logs.LocalOnlyInfo("GetAccounts called with skip=" +
+		logger.Uint64ToStr(skip) + ", take=" +
+		logger.Uint64ToStr(take))
 
 	if skip > 100 || (take == 0 && skip == 0) {
 		take = 100
@@ -81,7 +99,7 @@ func (a *accountService) GetAccounts(ctx context.Context, skip uint64, take uint
 		return nil, err
 	}
 
-	Logs.Info(ctx, "Fetched accounts count: " + logger.IntToStr(len(accounts)))
+	Logs.Info(ctx, "Fetched accounts count: "+logger.IntToStr(len(accounts)))
 	return accounts, nil
 }
 
@@ -98,4 +116,17 @@ func (a *accountService) GetEmail(ctx context.Context, name string) (string, err
 	Logs.Info(ctx, "Fetched email: "+email)
 	return email, nil
 }
-	
+
+func (a *accountService) GetEmailForAuth(ctx context.Context, email string) (*Account, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("GetEmailForAuth called with email: " + email)
+
+	account, err := a.repo.GetAccountForAuth(ctx, email)
+	if err != nil {
+		Logs.Error(ctx, "Failed to get account for auth: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Fetched account for auth with ID: "+account.ID)
+	return account, nil
+}

@@ -16,6 +16,7 @@ type Repository interface {
 	GetAccountByID(ctx context.Context, id string) (*Account, error)
 	ListAccounts(ctx context.Context, skip uint64, limit uint64) ([]Account, error)
 	GetEmailByName(ctx context.Context, name string) (string, error)
+	GetAccountForAuth(ctx context.Context, email string) (*Account, error)
 }
 
 type postgresRepository struct {
@@ -55,7 +56,7 @@ func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error 
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Inserting new account into DB")
 
-	_, err := p.db.ExecContext(ctx, "INSERT INTO accounts(id, name, email) VALUES($1, $2, $3)", acc.ID, acc.Name, acc.Email)
+	_, err := p.db.ExecContext(ctx, "INSERT INTO accounts(id, name, email, password_hash, role) VALUES($1, $2, $3, $4, $5)", acc.ID, acc.Name, acc.Email, acc.PasswordHash, acc.Role)
 	if err != nil {
 		Logs.Error(ctx, "Failed to insert account: "+err.Error())
 		return err
@@ -68,9 +69,9 @@ func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error 
 func (p *postgresRepository) GetAccountByID(ctx context.Context, id string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching account by ID: " + id)
-	row := p.db.QueryRowContext(ctx, "SELECT id, name, email FROM accounts WHERE id = $1", id)
+	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, role FROM accounts WHERE id = $1", id)
 	a := &Account{}
-	err := row.Scan(&a.ID, &a.Name, &a.Email)
+	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.Role)
 	if err != nil {
 		Logs.Error(ctx, "Account fetch failed: "+err.Error())
 		return nil, err
@@ -84,7 +85,7 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Listing accounts with limit and skip")
 
-	rows, err := p.db.QueryContext(ctx, "SELECT id, name, email FROM accounts ORDER BY id DESC LIMIT $1 OFFSET $2", limit, skip)
+	rows, err := p.db.QueryContext(ctx, "SELECT id, name, email, role FROM accounts ORDER BY id DESC LIMIT $1 OFFSET $2", limit, skip)
 	if err != nil {
 		Logs.Error(ctx, "Failed to list accounts: "+err.Error())
 		return nil, err
@@ -94,7 +95,7 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 	accounts := []Account{}
 	for rows.Next() {
 		a := &Account{}
-		if err := rows.Scan(&a.ID, &a.Name, &a.Email); err != nil {
+		if err := rows.Scan(&a.ID, &a.Name, &a.Email, &a.Role); err != nil {
 			Logs.Error(ctx, "Failed to scan account row: "+err.Error())
 			return nil, err
 		}
@@ -105,6 +106,7 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 	return accounts, nil
 }
 
+//used by email service
 func (p *postgresRepository) GetEmailByName(ctx context.Context, name string) (string, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching email for account with name: " + name)
@@ -120,3 +122,20 @@ func (p *postgresRepository) GetEmailByName(ctx context.Context, name string) (s
 	Logs.Info(ctx, "Fetched email: "+email)
 	return email, nil
 }
+
+//used by auth service
+func (p *postgresRepository) GetAccountForAuth(ctx context.Context, email string) (*Account, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Fetching account for auth with email: " + email)
+	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, password_hash, role FROM accounts WHERE email = $1", email)
+	a := &Account{}
+	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.PasswordHash, &a.Role)
+	if err != nil {
+		Logs.Error(ctx, "Account fetch failed: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Fetched account for auth with ID: "+a.ID)
+	return a, nil
+}
+

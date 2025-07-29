@@ -66,7 +66,7 @@ func (g *grpcServer) PostAccount(ctx context.Context, req *pb.PostAccountRequest
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Received PostAccount gRPC request for name: " + req.GetName())
 
-	acc, err := g.service.PostAccount(ctx, req.GetName(), req.GetEmail())
+	acc, err := g.service.PostAccount(ctx, req.GetName(), req.GetEmail(), req.GetPasswordHash(), req.GetRole())
 	if err != nil {
 		Logs.Error(ctx, "PostAccount service error: "+err.Error())
 		return nil, err
@@ -114,6 +114,7 @@ func (g *grpcServer) PostAccount(ctx context.Context, req *pb.PostAccountRequest
 			Id:    acc.ID,
 			Name:  acc.Name,
 			Email: acc.Email,
+			Role: acc.Role,
 		},
 	}, nil
 }
@@ -134,6 +135,7 @@ func (g *grpcServer) GetAccount(ctx context.Context, req *pb.GetAccountRequest) 
 			Id:    acc.ID,
 			Name:  acc.Name,
 			Email: acc.Email,
+			Role: acc.Role,
 		},
 	}, nil
 }
@@ -156,6 +158,7 @@ func (g *grpcServer) GetAccounts(ctx context.Context, req *pb.GetAccountsRequest
 			Id:    acc.ID,
 			Name:  acc.Name,
 			Email: acc.Email,
+			Role: acc.Role,
 		}
 	}
 
@@ -177,5 +180,25 @@ func (g *grpcServer) GetEmail(ctx context.Context, req *pb.GetEmailRequest) (*pb
 
 	return &pb.GetEmailResponse{
 		Email: email,
+	}, nil
+}
+
+func (g *grpcServer) GetEmailForAuth(ctx context.Context, req *pb.GetEmailForAuthRequest) (*pb.GetEmailForAuthResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Received GetEmailForAuth gRPC request for email: " + req.GetEmail())
+
+	email, err := g.service.GetEmailForAuth(ctx, req.GetEmail())
+	if err != nil {
+		Logs.Error(ctx, "GetEmailForAuth service error: "+err.Error())
+		return nil, err
+	}
+	Logs.Info(ctx, "Fetched email: "+email.Email)
+
+	return &pb.GetEmailForAuthResponse{
+		Id: email.ID,
+		Name: email.Name,
+		Email: email.Email,
+		PasswordHash: email.PasswordHash,
+		Role: email.Role,
 	}, nil
 }

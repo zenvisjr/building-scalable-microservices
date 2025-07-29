@@ -108,3 +108,8 @@ note: always add LOGGER_SERVICE_URL in docker compose in all services as they ne
 
 use below command if getting error vendor is locked while generating graphql code
  GOFLAGS=-mod=mod go run github.com/99designs/gqlgen generate
+
+
+ in middleware.go file and auth.client.go file UserClaims struct was different UserID Vs ID so GetUserFromContext and RequireAdmin functions were changed was failing as error in type assertion
+ took my 5-6 hours to figure it out
+ finally i directly called auth.UserClaims{} from auth.client.go file

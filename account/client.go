@@ -43,13 +43,15 @@ func (c *Client) Close() {
 	c.conn.Close()
 }
 
-func (c *Client) PostAccount(ctx context.Context, name string, email string) (*Account, error) {
+func (c *Client) PostAccount(ctx context.Context, name, email, plainPassword, role string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Sending PostAccount request for name: " + name)
 
 	resp, err := c.service.PostAccount(ctx, &pb.PostAccountRequest{
 		Name: name,
 		Email: email,
+		PasswordHash: plainPassword,
+		Role: role,
 	})
 	if err != nil {
 		Logs.Error(ctx, "PostAccount RPC failed: "+err.Error())
@@ -61,6 +63,7 @@ func (c *Client) PostAccount(ctx context.Context, name string, email string) (*A
 		ID:   resp.Account.Id,
 		Name: resp.Account.Name,
 		Email: resp.Account.Email,
+		Role: resp.Account.Role,
 	}, nil
 }
 
@@ -79,7 +82,8 @@ func (c *Client) GetAccount(ctx context.Context, id string) (*Account, error) {
 		ID:   resp.Account.Id,
 		Name: resp.Account.Name,
 		Email: resp.Account.Email,
-		}, nil
+		Role: resp.Account.Role,
+	}, nil
 }
 
 func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]Account, error) {
@@ -100,6 +104,7 @@ func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]A
 			ID:   acc.Id,
 			Name: acc.Name,
 			Email: acc.Email,
+			Role: acc.Role,
 		}
 	}
 	return accounts, nil
@@ -118,5 +123,26 @@ func (c *Client) GetEmail(ctx context.Context, name string) (*Account, error) {
 	Logs.Info(ctx, "Fetched email: "+resp.Email)
 	return &Account{
 		Email: resp.Email,
+	}, nil
+}
+
+
+func (c *Client) GetEmailForAuth(ctx context.Context, email string) (*Account, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Fetching email for account with email: " + email)
+
+	resp, err := c.service.GetEmailForAuth(ctx, &pb.GetEmailForAuthRequest{Email: email})
+	if err != nil {
+		Logs.Error(ctx, "GetEmailForAuth RPC failed: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Fetched email: "+resp.Email)
+	return &Account{
+		ID: resp.Id,
+		Name: resp.Name,
+		Email: resp.Email,
+		PasswordHash: resp.PasswordHash,
+		Role: resp.Role,
 	}, nil
 }

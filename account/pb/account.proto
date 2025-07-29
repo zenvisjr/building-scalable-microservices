@@ -7,17 +7,21 @@ service AccountService {
     rpc GetAccount (GetAccountRequest) returns (GetAccountResponse);
     rpc GetAccounts (GetAccountsRequest) returns (GetAccountsResponse);
     rpc GetEmail(GetEmailRequest) returns (GetEmailResponse);
+    rpc GetEmailForAuth (GetEmailForAuthRequest) returns (GetEmailForAuthResponse);
 }
 
 message Account {
     string id = 1;
     string name = 2;
     string email = 3;
+    string role = 5;
 }
 
 message PostAccountRequest {
     string name = 1;
     string email = 2;
+    string password_hash = 3;
+    string role = 4;
 }
 
 message PostAccountResponse {
@@ -47,4 +51,15 @@ message GetEmailRequest {
 
 message GetEmailResponse {
     string email = 1;
+}
+
+message GetEmailForAuthRequest {
+    string email = 1;
+}
+message GetEmailForAuthResponse {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string password_hash = 4;
+    string role = 5;
 }
