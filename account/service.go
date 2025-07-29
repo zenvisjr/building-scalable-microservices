@@ -13,6 +13,7 @@ type Account struct {
 	Email        string `json:"email"`
 	PasswordHash string `json:"password_hash"`
 	Role         string `json:"role"`
+	TokenVersion int32  `json:"token_version"`
 }
 
 type Service interface {
@@ -21,6 +22,7 @@ type Service interface {
 	GetAccounts(ctx context.Context, skip uint64, take uint64) ([]Account, error)
 	GetEmail(ctx context.Context, id string) (string, error)
 	GetEmailForAuth(ctx context.Context, email string) (*Account, error)
+	IncrementTokenVersion(ctx context.Context, userID string) error
 }
 
 type accountService struct {
@@ -58,6 +60,7 @@ func (a *accountService) PostAccount(ctx context.Context, name string, email, pl
 		Email:        email,
 		PasswordHash: hashedPassword,
 		Role:         role,
+		TokenVersion: 1,
 	}
 	err = a.repo.PutAccount(ctx, *account)
 	if err != nil {
@@ -130,3 +133,11 @@ func (a *accountService) GetEmailForAuth(ctx context.Context, email string) (*Ac
 	Logs.Info(ctx, "Fetched account for auth with ID: "+account.ID)
 	return account, nil
 }
+
+func (a *accountService) IncrementTokenVersion(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Incrementing token version for user: " + userID)
+
+	return a.repo.IncrementTokenVersion(ctx, userID)
+}
+

@@ -60,12 +60,12 @@ func (g *grpcServer) Login(ctx context.Context, req *pb.LoginRequest) (*pb.AuthR
 }
 
 func (g *grpcServer) RefreshToken(ctx context.Context, req *pb.RefreshRequest) (*pb.AuthResponse, error) {
-	return g.service.RefreshToken(ctx, req.GetRefreshToken())
+	return g.service.RefreshToken(ctx, req.GetUserId())
 }
 
 func (g *grpcServer) Verify(ctx context.Context, req *pb.VerifyRequest) (*pb.VerifyResponse, error) {
 	Logs := logger.GetGlobalLogger()
-	userClaims, err := g.service.VerifyToken(ctx, req.GetAccessToken())
+	userClaims, err := g.service.VerifyToken(ctx, req.GetAccessToken(), g.accountClient)
 	if err != nil {
 		Logs.Error(ctx, "Failed to verify token in server: "+err.Error())
 		return nil, err
@@ -74,5 +74,15 @@ func (g *grpcServer) Verify(ctx context.Context, req *pb.VerifyRequest) (*pb.Ver
 		UserId: userClaims.ID,
 		Email:  userClaims.Email,
 		Role:   userClaims.Role,
+	}, nil
+}
+
+func (g *grpcServer) Logout(ctx context.Context, req *pb.LogoutRequest) (*pb.LogoutResponse, error) {
+	err := g.service.Logout(ctx, req.GetUserId(), g.accountClient)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.LogoutResponse{
+		Message: "Logged out successfully",
 	}, nil
 }

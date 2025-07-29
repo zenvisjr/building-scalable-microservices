@@ -22,6 +22,14 @@ type LoginInput struct {
 	Password string `json:"password"`
 }
 
+type LogoutInput struct {
+	UserID string `json:"userId"`
+}
+
+type LogoutResponse struct {
+	Message string `json:"message"`
+}
+
 type Mutation struct {
 }
 
@@ -78,7 +86,7 @@ type Query struct {
 }
 
 type RefreshTokenInput struct {
-	RefreshToken string `json:"refreshToken"`
+	UserID string `json:"userId"`
 }
 
 type Subscription struct {

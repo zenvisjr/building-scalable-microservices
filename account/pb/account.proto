@@ -8,6 +8,7 @@ service AccountService {
     rpc GetAccounts (GetAccountsRequest) returns (GetAccountsResponse);
     rpc GetEmail(GetEmailRequest) returns (GetEmailResponse);
     rpc GetEmailForAuth (GetEmailForAuthRequest) returns (GetEmailForAuthResponse);
+    rpc IncrementTokenVersion (IncrementTokenVersionRequest) returns (IncrementTokenVersionResponse);
 }
 
 message Account {
@@ -15,6 +16,7 @@ message Account {
     string name = 2;
     string email = 3;
     string role = 5;
+    int32 token_version = 6;
 }
 
 message PostAccountRequest {
@@ -62,4 +64,12 @@ message GetEmailForAuthResponse {
     string email = 3;
     string password_hash = 4;
     string role = 5;
+    int32 token_version = 6;
+}
+
+message IncrementTokenVersionRequest {
+    string user_id = 1;
+}
+message IncrementTokenVersionResponse {
+    bool ok = 1;
 }

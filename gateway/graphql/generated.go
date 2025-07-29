@@ -65,10 +65,15 @@ type ComplexityRoot struct {
 		UserID       func(childComplexity int) int
 	}
 
+	LogoutResponse struct {
+		Message func(childComplexity int) int
+	}
+
 	Mutation struct {
 		CreateOrder   func(childComplexity int, input OrderInput) int
 		CreateProduct func(childComplexity int, input ProductInput) int
 		Login         func(childComplexity int, input LoginInput) int
+		Logout        func(childComplexity int, input LogoutInput) int
 		RefreshToken  func(childComplexity int, input RefreshTokenInput) int
 		Signup        func(childComplexity int, input AccountInput) int
 	}
@@ -120,6 +125,7 @@ type MutationResolver interface {
 	Signup(ctx context.Context, input AccountInput) (*AuthResponse, error)
 	Login(ctx context.Context, input LoginInput) (*AuthResponse, error)
 	RefreshToken(ctx context.Context, input RefreshTokenInput) (*AuthResponse, error)
+	Logout(ctx context.Context, input LogoutInput) (*LogoutResponse, error)
 }
 type QueryResolver interface {
 	Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error)
@@ -218,6 +224,13 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.AuthResponse.UserID(childComplexity), true
 
+	case "LogoutResponse.message":
+		if e.complexity.LogoutResponse.Message == nil {
+			break
+		}
+
+		return e.complexity.LogoutResponse.Message(childComplexity), true
+
 	case "Mutation.createOrder":
 		if e.complexity.Mutation.CreateOrder == nil {
 			break
@@ -253,6 +266,18 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 		}
 
 		return e.complexity.Mutation.Login(childComplexity, args["input"].(LoginInput)), true
+
+	case "Mutation.logout":
+		if e.complexity.Mutation.Logout == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_logout_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.Logout(childComplexity, args["input"].(LogoutInput)), true
 
 	case "Mutation.refreshToken":
 		if e.complexity.Mutation.RefreshToken == nil {
@@ -436,6 +461,7 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
 		ec.unmarshalInputAccountInput,
 		ec.unmarshalInputLoginInput,
+		ec.unmarshalInputLogoutInput,
 		ec.unmarshalInputOrderInput,
 		ec.unmarshalInputOrderedProductInput,
 		ec.unmarshalInputPagination,
@@ -620,6 +646,17 @@ func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawAr
 	var err error
 	args := map[string]any{}
 	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNLoginInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐLoginInput)
+	if err != nil {
+		return nil, err
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_logout_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNLogoutInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐLogoutInput)
 	if err != nil {
 		return nil, err
 	}
@@ -1215,6 +1252,50 @@ func (ec *executionContext) fieldContext_AuthResponse_role(_ context.Context, fi
 	return fc, nil
 }
 
+func (ec *executionContext) _LogoutResponse_message(ctx context.Context, field graphql.CollectedField, obj *LogoutResponse) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_LogoutResponse_message(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Message, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_LogoutResponse_message(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "LogoutResponse",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Mutation_createProduct(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Mutation_createProduct(ctx, field)
 	if err != nil {
@@ -1540,6 +1621,65 @@ func (ec *executionContext) fieldContext_Mutation_refreshToken(ctx context.Conte
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Mutation_refreshToken_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_logout(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_logout(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().Logout(rctx, fc.Args["input"].(LogoutInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*LogoutResponse)
+	fc.Result = res
+	return ec.marshalNLogoutResponse2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐLogoutResponse(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_logout(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "message":
+				return ec.fieldContext_LogoutResponse_message(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type LogoutResponse", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_logout_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
 	}
@@ -4635,6 +4775,33 @@ func (ec *executionContext) unmarshalInputLoginInput(ctx context.Context, obj an
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputLogoutInput(ctx context.Context, obj any) (LogoutInput, error) {
+	var it LogoutInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"userId"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "userId":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.UserID = data
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputOrderInput(ctx context.Context, obj any) (OrderInput, error) {
 	var it OrderInput
 	asMap := map[string]any{}
@@ -4785,20 +4952,20 @@ func (ec *executionContext) unmarshalInputRefreshTokenInput(ctx context.Context,
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"refreshToken"}
+	fieldsInOrder := [...]string{"userId"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
 			continue
 		}
 		switch k {
-		case "refreshToken":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("refreshToken"))
+		case "userId":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-			it.RefreshToken = data
+			it.UserID = data
 		}
 	}
 
@@ -4962,6 +5129,45 @@ func (ec *executionContext) _AuthResponse(ctx context.Context, sel ast.Selection
 	return out
 }
 
+var logoutResponseImplementors = []string{"LogoutResponse"}
+
+func (ec *executionContext) _LogoutResponse(ctx context.Context, sel ast.SelectionSet, obj *LogoutResponse) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, logoutResponseImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("LogoutResponse")
+		case "message":
+			out.Values[i] = ec._LogoutResponse_message(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
 var mutationImplementors = []string{"Mutation"}
 
 func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet) graphql.Marshaler {
@@ -5012,6 +5218,13 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		case "refreshToken":
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_refreshToken(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "logout":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_logout(ctx, field)
 			})
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
@@ -5844,6 +6057,25 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 func (ec *executionContext) unmarshalNLoginInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐLoginInput(ctx context.Context, v any) (LoginInput, error) {
 	res, err := ec.unmarshalInputLoginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNLogoutInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐLogoutInput(ctx context.Context, v any) (LogoutInput, error) {
+	res, err := ec.unmarshalInputLogoutInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNLogoutResponse2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐLogoutResponse(ctx context.Context, sel ast.SelectionSet, v LogoutResponse) graphql.Marshaler {
+	return ec._LogoutResponse(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNLogoutResponse2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐLogoutResponse(ctx context.Context, sel ast.SelectionSet, v *LogoutResponse) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._LogoutResponse(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNOrder2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐOrder(ctx context.Context, sel ast.SelectionSet, v Order) graphql.Marshaler {

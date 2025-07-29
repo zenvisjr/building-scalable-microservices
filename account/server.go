@@ -115,6 +115,7 @@ func (g *grpcServer) PostAccount(ctx context.Context, req *pb.PostAccountRequest
 			Name:  acc.Name,
 			Email: acc.Email,
 			Role: acc.Role,
+			TokenVersion: acc.TokenVersion,
 		},
 	}, nil
 }
@@ -200,5 +201,19 @@ func (g *grpcServer) GetEmailForAuth(ctx context.Context, req *pb.GetEmailForAut
 		Email: email.Email,
 		PasswordHash: email.PasswordHash,
 		Role: email.Role,
+		TokenVersion: email.TokenVersion,
 	}, nil
+}
+
+func (g *grpcServer) IncrementTokenVersion(ctx context.Context, req *pb.IncrementTokenVersionRequest) (*pb.IncrementTokenVersionResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Received IncrementTokenVersion gRPC request for user ID: " + req.GetUserId())
+
+	if err := g.service.IncrementTokenVersion(ctx, req.GetUserId()); err != nil {
+		Logs.Error(ctx, "IncrementTokenVersion service error: "+err.Error())
+		return nil, err
+	}
+	Logs.Info(ctx, "Incremented token version for user ID: "+req.GetUserId())
+
+	return &pb.IncrementTokenVersionResponse{Ok: true}, nil
 }

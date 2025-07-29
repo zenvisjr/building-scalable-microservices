@@ -17,6 +17,7 @@ type Repository interface {
 	ListAccounts(ctx context.Context, skip uint64, limit uint64) ([]Account, error)
 	GetEmailByName(ctx context.Context, name string) (string, error)
 	GetAccountForAuth(ctx context.Context, email string) (*Account, error)
+	IncrementTokenVersion(ctx context.Context, userID string) error
 }
 
 type postgresRepository struct {
@@ -56,7 +57,9 @@ func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error 
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Inserting new account into DB")
 
-	_, err := p.db.ExecContext(ctx, "INSERT INTO accounts(id, name, email, password_hash, role) VALUES($1, $2, $3, $4, $5)", acc.ID, acc.Name, acc.Email, acc.PasswordHash, acc.Role)
+	_, err := p.db.ExecContext(ctx, 
+		"INSERT INTO accounts(id, name, email, password_hash, role, token_version) VALUES($1, $2, $3, $4, $5, $6)", 
+		acc.ID, acc.Name, acc.Email, acc.PasswordHash, acc.Role, acc.TokenVersion)
 	if err != nil {
 		Logs.Error(ctx, "Failed to insert account: "+err.Error())
 		return err
@@ -127,9 +130,9 @@ func (p *postgresRepository) GetEmailByName(ctx context.Context, name string) (s
 func (p *postgresRepository) GetAccountForAuth(ctx context.Context, email string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching account for auth with email: " + email)
-	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, password_hash, role FROM accounts WHERE email = $1", email)
+	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, password_hash, role, token_version FROM accounts WHERE email = $1", email)
 	a := &Account{}
-	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.PasswordHash, &a.Role)
+	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.PasswordHash, &a.Role, &a.TokenVersion)
 	if err != nil {
 		Logs.Error(ctx, "Account fetch failed: "+err.Error())
 		return nil, err
@@ -138,4 +141,13 @@ func (p *postgresRepository) GetAccountForAuth(ctx context.Context, email string
 	Logs.Info(ctx, "Fetched account for auth with ID: "+a.ID)
 	return a, nil
 }
+
+func (r *postgresRepository) IncrementTokenVersion(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Incrementing token version in DB")
+	query := `UPDATE accounts SET token_version = token_version + 1 WHERE id = $1`
+	_, err := r.db.ExecContext(ctx, query, userID)
+	return err
+}
+
 

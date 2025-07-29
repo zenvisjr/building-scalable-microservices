@@ -159,7 +159,7 @@ func (m *mutationResolver) RefreshToken(ctx context.Context, input RefreshTokenI
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-	authResp, err := m.server.AuthClient.RefreshToken(ctx, input.RefreshToken)
+	authResp, err := m.server.AuthClient.RefreshToken(ctx, input.UserID)
 	if err != nil {
 		Logs.Error(ctx, "Error from AuthClient.RefreshToken: "+err.Error())
 		return nil, err
@@ -171,5 +171,23 @@ func (m *mutationResolver) RefreshToken(ctx context.Context, input RefreshTokenI
 		UserID:       authResp.UserId,
 		Email:        authResp.Email,
 		Role:         authResp.Role,
+	}, nil
+}
+
+func (m *mutationResolver) Logout(ctx context.Context, input LogoutInput) (*LogoutResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	Logs.Info(ctx, "User "+input.UserID+" is logging out.")
+
+	authResp, err := m.server.AuthClient.Logout(ctx, input.UserID)
+	if err != nil {
+		Logs.Error(ctx, "Error from AuthClient.Logout: "+err.Error())
+		return nil, err
+	}
+
+	return &LogoutResponse{
+		Message: authResp.Message,
 	}, nil
 }

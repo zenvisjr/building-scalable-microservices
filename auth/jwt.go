@@ -27,8 +27,9 @@ func (j *JWTManager) ValidatePassword(plain, hash string) bool {
 	return err == nil
 }
 
-func (j *JWTManager) GenerateAccessToken(userID, email, role string) (string, error) {
+func (j *JWTManager) GenerateAccessToken(userID, email, role string, tokenVersion int32) (string, error) {
 	claims := jwt.MapClaims{
+		"token_version": tokenVersion,
 		"sub":   userID,
 		"email": email,
 		"role":  role,
@@ -39,8 +40,9 @@ func (j *JWTManager) GenerateAccessToken(userID, email, role string) (string, er
 	return token.SignedString([]byte(j.accessSecret))
 }
 
-func (j *JWTManager) GenerateRefreshToken(userID, email, role string) (string, error) {
+func (j *JWTManager) GenerateRefreshToken(userID, email, role string, tokenVersion int32) (string, error) {
 	claims := jwt.MapClaims{
+		"token_version": tokenVersion,
 		"sub":   userID,
 		"email": email,
 		"role":  role,

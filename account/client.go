@@ -64,6 +64,7 @@ func (c *Client) PostAccount(ctx context.Context, name, email, plainPassword, ro
 		Name: resp.Account.Name,
 		Email: resp.Account.Email,
 		Role: resp.Account.Role,
+		TokenVersion: resp.Account.TokenVersion,
 	}, nil
 }
 
@@ -144,5 +145,19 @@ func (c *Client) GetEmailForAuth(ctx context.Context, email string) (*Account, e
 		Email: resp.Email,
 		PasswordHash: resp.PasswordHash,
 		Role: resp.Role,
+		TokenVersion: resp.TokenVersion,
 	}, nil
+}
+
+func (c *Client) IncrementTokenVersion(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Incrementing token version for user ID: " + userID)
+
+	_, err := c.service.IncrementTokenVersion(ctx, &pb.IncrementTokenVersionRequest{UserId: userID})
+	if err != nil {
+		Logs.Error(ctx, "IncrementTokenVersion RPC failed: "+err.Error())
+		return err
+	}
+	Logs.Info(ctx, "Incremented token version for user ID: "+userID)
+	return nil
 }

@@ -58,11 +58,11 @@ func (c *Client) Login(ctx context.Context, email string, password string) (*pb.
 	})
 }
 
-func (c *Client) RefreshToken(ctx context.Context, refresh_token string) (*pb.AuthResponse, error) {
+func (c *Client) RefreshToken(ctx context.Context, userId string) (*pb.AuthResponse, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Calling Auth gRPC service")
 	return c.service.RefreshToken(ctx, &pb.RefreshRequest{
-		RefreshToken: refresh_token,
+		UserId: userId,
 	})
 }
 
@@ -72,6 +72,7 @@ type UserClaims struct {
 	ID    string
 	Email string
 	Role  string
+	TokenVersion int32
 	// Name  string // optional
 }
 
@@ -95,6 +96,19 @@ func (c *Client) VerifyToken(ctx context.Context, token string) (*UserClaims, er
 		ID:    resp.UserId,
 		Email: resp.Email,
 		Role:  resp.Role,
-		// Name: resp.Name, // only if your proto includes it
+				// Name: resp.Name, // only if your proto includes it
 	}, nil
+}
+
+func (c *Client) Logout(ctx context.Context, userId string) (*pb.LogoutResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Calling Auth gRPC service for logout")
+	resp, err := c.service.Logout(ctx, &pb.LogoutRequest{
+		UserId: userId,
+	})
+	if err != nil {
+		Logs.Error(ctx, "Failed to logout: "+err.Error())
+		return nil, err
+	}
+	return resp, nil
 }

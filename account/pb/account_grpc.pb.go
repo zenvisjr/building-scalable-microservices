@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AccountService_PostAccount_FullMethodName     = "/AccountService/PostAccount"
-	AccountService_GetAccount_FullMethodName      = "/AccountService/GetAccount"
-	AccountService_GetAccounts_FullMethodName     = "/AccountService/GetAccounts"
-	AccountService_GetEmail_FullMethodName        = "/AccountService/GetEmail"
-	AccountService_GetEmailForAuth_FullMethodName = "/AccountService/GetEmailForAuth"
+	AccountService_PostAccount_FullMethodName           = "/AccountService/PostAccount"
+	AccountService_GetAccount_FullMethodName            = "/AccountService/GetAccount"
+	AccountService_GetAccounts_FullMethodName           = "/AccountService/GetAccounts"
+	AccountService_GetEmail_FullMethodName              = "/AccountService/GetEmail"
+	AccountService_GetEmailForAuth_FullMethodName       = "/AccountService/GetEmailForAuth"
+	AccountService_IncrementTokenVersion_FullMethodName = "/AccountService/IncrementTokenVersion"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -35,6 +36,7 @@ type AccountServiceClient interface {
 	GetAccounts(ctx context.Context, in *GetAccountsRequest, opts ...grpc.CallOption) (*GetAccountsResponse, error)
 	GetEmail(ctx context.Context, in *GetEmailRequest, opts ...grpc.CallOption) (*GetEmailResponse, error)
 	GetEmailForAuth(ctx context.Context, in *GetEmailForAuthRequest, opts ...grpc.CallOption) (*GetEmailForAuthResponse, error)
+	IncrementTokenVersion(ctx context.Context, in *IncrementTokenVersionRequest, opts ...grpc.CallOption) (*IncrementTokenVersionResponse, error)
 }
 
 type accountServiceClient struct {
@@ -95,6 +97,16 @@ func (c *accountServiceClient) GetEmailForAuth(ctx context.Context, in *GetEmail
 	return out, nil
 }
 
+func (c *accountServiceClient) IncrementTokenVersion(ctx context.Context, in *IncrementTokenVersionRequest, opts ...grpc.CallOption) (*IncrementTokenVersionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(IncrementTokenVersionResponse)
+	err := c.cc.Invoke(ctx, AccountService_IncrementTokenVersion_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type AccountServiceServer interface {
 	GetAccounts(context.Context, *GetAccountsRequest) (*GetAccountsResponse, error)
 	GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error)
 	GetEmailForAuth(context.Context, *GetEmailForAuthRequest) (*GetEmailForAuthResponse, error)
+	IncrementTokenVersion(context.Context, *IncrementTokenVersionRequest) (*IncrementTokenVersionResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -128,6 +141,9 @@ func (UnimplementedAccountServiceServer) GetEmail(context.Context, *GetEmailRequ
 }
 func (UnimplementedAccountServiceServer) GetEmailForAuth(context.Context, *GetEmailForAuthRequest) (*GetEmailForAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmailForAuth not implemented")
+}
+func (UnimplementedAccountServiceServer) IncrementTokenVersion(context.Context, *IncrementTokenVersionRequest) (*IncrementTokenVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IncrementTokenVersion not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 func (UnimplementedAccountServiceServer) testEmbeddedByValue()                        {}
@@ -240,6 +256,24 @@ func _AccountService_GetEmailForAuth_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_IncrementTokenVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IncrementTokenVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).IncrementTokenVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_IncrementTokenVersion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).IncrementTokenVersion(ctx, req.(*IncrementTokenVersionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +300,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEmailForAuth",
 			Handler:    _AccountService_GetEmailForAuth_Handler,
+		},
+		{
+			MethodName: "IncrementTokenVersion",
+			Handler:    _AccountService_IncrementTokenVersion_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

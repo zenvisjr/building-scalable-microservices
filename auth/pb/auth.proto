@@ -9,6 +9,7 @@ service AuthService {
   rpc Login(LoginRequest) returns (AuthResponse);
   rpc RefreshToken(RefreshRequest) returns (AuthResponse);
   rpc Verify(VerifyRequest) returns (VerifyResponse);
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
 }
 
 message SignupRequest {
@@ -24,7 +25,7 @@ message LoginRequest {
 }
 
 message RefreshRequest {
-  string refresh_token = 1;
+  string user_id = 1;
 }
 
 message AuthResponse {
@@ -43,4 +44,12 @@ message VerifyResponse {
   string user_id = 1;
   string email = 2;
   string role = 3;
+}
+
+message LogoutRequest {
+  string user_id = 1;
+}
+
+message LogoutResponse {
+  string message = 1;
 }

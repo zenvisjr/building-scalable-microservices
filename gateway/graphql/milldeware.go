@@ -42,12 +42,12 @@ func AuthMiddleware(authClient *auth.Client) func(http.Handler) http.Handler {
 			}
 
 			// ✅ Token is valid, now log and inject
-			Logs.Info(r.Context(), "User authenticated: " + user.Email + " | role: " + user.Role)
+			Logs.Info(r.Context(), "User authenticated: " + user.Email + " | role: " + user.Role + " | token: " + token)
 
 			// Token is valid → inject user into context
 			ctx := context.WithValue(r.Context(), UserCtxKey, user)
 			r = r.WithContext(ctx)
-			Logs.Info(r.Context(), "Injected user into context: " + user.Email + " | role: " + user.Role)
+			Logs.Info(r.Context(), "Injected user into context: " + user.Email + " | role: " + user.Role + " | token: " + token)
 
 			next.ServeHTTP(w, r)
 		})

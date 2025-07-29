@@ -62,7 +62,7 @@ input LoginInput {
 }
 
 input RefreshTokenInput {
-    refreshToken: String!
+    userId: String!
 }
 
 type AuthResponse {
@@ -80,6 +80,11 @@ type Mutation {
     signup(input: AccountInput!): AuthResponse!
     login(input: LoginInput!): AuthResponse!
     refreshToken(input: RefreshTokenInput!): AuthResponse!
+    logout(input: LogoutInput!): LogoutResponse!
+}
+
+type LogoutResponse {
+    message: String!
 }
 
 
@@ -97,3 +102,8 @@ type OrderStatusUpdate {
   status: String!
   updatedAt: String!
 }
+
+input LogoutInput {
+    userId: String!
+}
+

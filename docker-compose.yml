@@ -95,6 +95,8 @@ services:
       POSTGRES_DB: zenvis
       POSTGRES_USER: zenvis
       POSTGRES_PASSWORD: 467578
+    volumes:
+      - account_data:/var/lib/postgresql/data
     restart: unless-stopped
 
   catalog_db:
@@ -102,6 +104,9 @@ services:
     environment:
       ES_JAVA_OPTS: -Xms1g -Xmx1g
       discovery.type: single-node
+    volumes:
+      - catalog_data:/usr/share/elasticsearch/data
+    restart: unless-stopped
 
   order_db:
     build:
@@ -111,6 +116,8 @@ services:
       POSTGRES_DB: zenvis
       POSTGRES_USER: zenvis
       POSTGRES_PASSWORD: 467578
+    volumes:
+      - order_data:/var/lib/postgresql/data
     restart: unless-stopped
 
   mail:
@@ -136,9 +143,27 @@ services:
       - "9020:8080"
     environment:
       LOGGER_SERVICE_URL: logger:9000
+      DATABASE_URL: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
     restart: unless-stopped
     depends_on:
+      - account_db
+      - refresh_tokens_db
       - account
+      - logger
+      - nats
+
+  refresh_tokens_db:
+    build:
+      context: ./auth
+      dockerfile: ./db.dockerfile
+    environment:
+      POSTGRES_DB: zenvis
+      POSTGRES_USER: zenvis
+      POSTGRES_PASSWORD: 467578
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
 
   nats:
     image: nats:latest
@@ -147,6 +172,12 @@ services:
       - "8222:8222"   # Monitoring (optional)
     restart: unless-stopped
     command: ["-js"] 
+
+volumes:
+  account_data:
+  order_data:
+  catalog_data:
+  auth_data:
 
 
 #   prometheus:

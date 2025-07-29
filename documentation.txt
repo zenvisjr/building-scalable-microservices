@@ -62,6 +62,10 @@ build and restart only 1 service
 docker compose build <service-name>
 docker compose up -d <service-name>
 
+remove all containers
+ docker compose down -v --remove-orphans
+
+
 error in logger
 2025/07/26 10:32:37 Failed to log to remote service: rpc error: code = Unavailable desc = dns: A record lookup error: lookup logger-service on 127.0.0.11:53: server misbehaving
 because in grpc.NewClient() url i was using logger-service:9000 insted of logger:9000
@@ -102,6 +106,9 @@ mail microservice
 
 ✅ Template rendering (HTML + Text)
 
+token versioning
+auth service
+
 
 
 note: always add LOGGER_SERVICE_URL in docker compose in all services as they need to connect to logger and use the logger 
@@ -113,3 +120,18 @@ use below command if getting error vendor is locked while generating graphql cod
  in middleware.go file and auth.client.go file UserClaims struct was different UserID Vs ID so GetUserFromContext and RequireAdmin functions were changed was failing as error in type assertion
  took my 5-6 hours to figure it out
  finally i directly called auth.UserClaims{} from auth.client.go file
+
+
+ last
+
+ refresh token db
+https
+input validation in all services
+logout
+reset password
+current logged in user
+
+
+do not use references in sql if the attribute ur refering to in in another database
+because in docker they cant communicate with each other
+
