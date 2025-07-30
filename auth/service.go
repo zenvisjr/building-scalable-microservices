@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"log"
+	"sync"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -22,8 +23,10 @@ type Service interface {
 	// LogoutAll(ctx context.Context, userId string) error
 }
 type authService struct {
-	jwtManager *JWTManager
-	repository Repository
+	jwtManager   *JWTManager
+	repository   Repository
+	loggedInUsers map[string]bool
+	mu           sync.Mutex
 }
 
 func NewAuthService(jwtManager *JWTManager, repository Repository) Service {
@@ -33,6 +36,7 @@ func NewAuthService(jwtManager *JWTManager, repository Repository) Service {
 	return &authService{
 		jwtManager: jwtManager,
 		repository: repository,
+		loggedInUsers: make(map[string]bool),
 	}
 }
 
@@ -76,6 +80,11 @@ func (s *authService) Signup(ctx context.Context, name string, email string, pas
 
 	Logs.Info(ctx, "Signup successful for user: "+account.Email)
 	Logs.LocalOnlyInfo("Signup successful for user: " + account.Email)
+
+	//add user to loggedInUser map to track it later
+	s.mu.Lock()
+	s.loggedInUsers[account.ID] = true
+	s.mu.Unlock()
 
 	return &pb.AuthResponse{
 		AccessToken:  accessToken,
@@ -127,6 +136,11 @@ func (s *authService) Login(ctx context.Context, email string, password string, 
 
 	Logs.Info(ctx, "Login successful for user: "+email)
 	Logs.LocalOnlyInfo("Login successful for user: " + email)
+
+	//add user to loggedInUser map to track it later
+	s.mu.Lock()
+	s.loggedInUsers[account.ID] = true
+	s.mu.Unlock()
 
 	return &pb.AuthResponse{
 		AccessToken:  accessToken,
@@ -238,7 +252,6 @@ func (s *authService) VerifyToken(ctx context.Context, token string, ac *account
 	role, ok3 := claims["role"].(string)
 	tokenVersionFloat, ok4 := claims["token_version"].(float64)
 	log.Printf("tokenVersionFloat: %f", tokenVersionFloat)
-	
 
 	if !ok || !ok2 || !ok3 || !ok4 {
 		return nil, errors.New("invalid token claims")
@@ -251,7 +264,7 @@ func (s *authService) VerifyToken(ctx context.Context, token string, ac *account
 		Logs.Error(ctx, "Failed to fetch account for token verification: "+err.Error())
 		return nil, err
 	}
-	
+
 	log.Printf("tokenVersion: %d", tokenVersion)
 	log.Printf("account.TokenVersion: %d", account.TokenVersion)
 	// Step 3: Compare token versions
@@ -272,20 +285,56 @@ func (s *authService) VerifyToken(ctx context.Context, token string, ac *account
 
 func (s *authService) Logout(ctx context.Context, userId string, ac *account.Client) error {
 	Logs := logger.GetGlobalLogger()
-	Logs.LocalOnlyInfo("Logout called for user: " + userId)
 
-	// Step 1: Delete refresh token
-	if err := s.repository.DeleteRefreshToken(ctx, userId); err != nil {
-		Logs.Error(ctx, "Failed to delete refresh token: "+err.Error())
-		return err
+	if userId != "" {
+		Logs.LocalOnlyInfo("Logout called for user: " + userId)
+
+		// Step 1: Delete all refresh tokens
+		if err := s.repository.DeleteRefreshToken(ctx, userId); err != nil {
+			Logs.Error(ctx, "Failed to delete refresh token: "+err.Error())
+			return err
+		}
+
+		// Step 2: Increment token version to invalidate tokens
+		if err := ac.IncrementTokenVersion(ctx, userId); err != nil {
+			Logs.Error(ctx, "Failed to increment token version: "+err.Error())
+			return err
+		}
+
+		// Step 3: Remove from cache
+		s.mu.Lock()
+		delete(s.loggedInUsers, userId)
+		s.mu.Unlock()
+
+		Logs.Info(ctx, "User logged out successfully: "+userId)
+		return nil
 	}
 
-	// Step 2: Increment token version in account service
-	if err := ac.IncrementTokenVersion(ctx, userId); err != nil {
-		Logs.Error(ctx, "Failed to increment token version: "+err.Error())
-		return err
+	Logs.Info(ctx, "Global logout initiated")
+	for userId := range s.loggedInUsers {
+		Logs.LocalOnlyInfo("Logout called for user: " + userId)
+
+		// Step 1: Delete all refresh tokens
+		if err := s.repository.DeleteRefreshToken(ctx, userId); err != nil {
+			Logs.Error(ctx, "Failed to delete refresh token: "+err.Error())
+			return err
+		}
+
+		// Step 2: Increment token version to invalidate tokens
+		if err := ac.IncrementTokenVersion(ctx, userId); err != nil {
+			Logs.Error(ctx, "Failed to increment token version: "+err.Error())
+			return err
+		}
+
+		Logs.Info(ctx, "User logged out successfully: "+userId)
+		
 	}
-	Logs.Info(ctx, "User logged out successfully: "+userId)
-	Logs.LocalOnlyInfo("User logged out successfully: " + userId)
+	// Clear the entire map after logout
+	s.mu.Lock()
+	s.loggedInUsers = make(map[string]bool)
+	s.mu.Unlock()
+
+	Logs.Info(ctx, "All users logged out successfully")
+
 	return nil
 }

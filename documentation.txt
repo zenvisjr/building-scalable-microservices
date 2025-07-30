@@ -135,3 +135,9 @@ current logged in user
 do not use references in sql if the attribute ur refering to in in another database
 because in docker they cant communicate with each other
 
+check prosgres sql in docker
+docker exec -it building-scalable-microservices_catalog_db_1 psql -U zenvis -d zenvis
+\l
+\c zenvis
+\dt 
+SELECT * FROM accounts;

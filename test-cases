@@ -1,0 +1,438 @@
+signup accounts
+
+mutation {
+  a1: signup(input: { name: "Naruto Uzumaki", email: "naruto@leaf.com", password: "shadowclone", role: "user" }) { userId }
+  a2: signup(input: { name: "Sasuke Uchiha", email: "sasuke@uchiha.com", password: "chidori", role: "user" }) { userId }
+  a3: signup(input: { name: "Sakura Haruno", email: "sakura@leaf.com", password: "healing", role: "user" }) { userId }
+  a4: signup(input: { name: "Kakashi Hatake", email: "kakashi@leaf.com", password: "sharingan", role: "user" }) { userId }
+  a5: signup(input: { name: "Gaara", email: "gaara@sand.com", password: "sandshield", role: "user" }) { userId }
+  a6: signup(input: { name: "Rock Lee", email: "lee@leaf.com", password: "lotus", role: "user" }) { userId }
+  a7: signup(input: { name: "Hinata Hyuga", email: "hinata@leaf.com", password: "gentlefist", role: "user" }) { userId }
+  a8: signup(input: { name: "Shikamaru Nara", email: "shikamaru@leaf.com", password: "shadowbind", role: "user" }) { userId }
+  a9: signup(input: { name: "Itachi Uchiha", email: "itachi@akatsuki.com", password: "amaterasu", role: "user" }) { userId }
+  a10: signup(input: { name: "Tsunade", email: "tsunade@leaf.com", password: "slugqueen", role: "admin" }) { userId }
+}
+
+login accounts
+
+mutation {
+  naruto: login(input: { email: "naruto@leaf.com", password: "shadowclone" }) {
+    accessToken refreshToken userId email role
+  }
+
+  sasuke: login(input: { email: "sasuke@uchiha.com", password: "chidori" }) {
+    accessToken refreshToken userId email role
+  }
+
+  sakura: login(input: { email: "sakura@leaf.com", password: "healing" }) {
+    accessToken refreshToken userId email role
+  }
+
+  kakashi: login(input: { email: "kakashi@leaf.com", password: "sharingan" }) {
+    accessToken refreshToken userId email role
+  }
+
+  gaara: login(input: { email: "gaara@sand.com", password: "sandshield" }) {
+    accessToken refreshToken userId email role
+  }
+
+  lee: login(input: { email: "lee@leaf.com", password: "lotus" }) {
+    accessToken refreshToken userId email role
+  }
+
+  hinata: login(input: { email: "hinata@leaf.com", password: "gentlefist" }) {
+    accessToken refreshToken userId email role
+  }
+
+  shikamaru: login(input: { email: "shikamaru@leaf.com", password: "shadowbind" }) {
+    accessToken refreshToken userId email role
+  }
+
+  itachi: login(input: { email: "itachi@akatsuki.com", password: "amaterasu" }) {
+    accessToken refreshToken userId email role
+  }
+
+  tsunade: login(input: { email: "tsunade@leaf.com", password: "slugqueen" }) {
+    accessToken refreshToken userId email role
+  }
+}
+
+login single account
+
+mutation {
+  naruto: login(input: { email: "naruto@leaf.com", password: "shadowclone" }) {
+    accessToken refreshToken userId email role
+  }
+}
+
+get account with id
+
+query {
+  a1: accounts(id: "30aShnWd0LakpmGCw3hqCeY8jOC") {
+    name
+    email
+    role
+  }
+  a2: accounts(id: "30aShsezsy0jdAdA88UqZLqFpvK") {
+    name
+    email
+    role
+  }
+  a3: accounts(id: "30aShpMJlAqKaObkuWRU1A57JXb") {
+    name
+    email
+    role
+  }
+  a4: accounts(id: "30aShp62g7zku00HqqDUf8spsRh") {
+    name
+    email
+    role
+  }
+  a5: accounts(id: "30aShubgy7yywDjaCMjDSGAGL2o") {
+    name
+    email
+    role
+  }
+  a6: accounts(id: "30aShu5wERYFDIZ1I2P77A11FdL") {
+    name
+    email
+    role
+  }
+  a7: accounts(id: "30aShs5AGoBp0sV61epZTeqdhMY") {
+    name
+    email
+    role
+  }
+  a8: accounts(id: "30aShpmLytMZ7hRMHtFK8pkaGy7") {
+    name
+    email
+    role
+  }
+  a9: accounts(id: "30aShojJsafGq3X2nsaSVZiSQae") {
+    name
+    email
+    role
+  }
+  a10: accounts(id: "30aShqmMKx6W1jSy6BnLaDQYuB1") {
+    name
+    email
+    role
+  }
+}
+
+
+
+
+
+create products
+
+mutation {
+  p1: createProduct(input: { name: "Kunai", description: "Standard ninja blade", price: 5.0 }) { id }
+  p2: createProduct(input: { name: "Shuriken", description: "Throwing star", price: 3.0 }) { id }
+  p3: createProduct(input: { name: "Explosive Tag", description: "Detonating paper tag", price: 10.0 }) { id }
+  p4: createProduct(input: { name: "Summoning Scroll", description: "Summon jutsu scroll", price: 50.0 }) { id }
+  p5: createProduct(input: { name: "Chakra Pill", description: "Restores chakra", price: 15.0 }) { id }
+  p6: createProduct(input: { name: "Sharingan Eye", description: "Uchiha bloodline trait", price: 999.0 }) { id }
+  p7: createProduct(input: { name: "Rasengan", description: "Naruto’s special jutsu", price: 250.0 }) { id }
+  p8: createProduct(input: { name: "Chidori", description: "Sasuke’s lightning blade", price: 250.0 }) { id }
+  p9: createProduct(input: { name: "Sand Gourd", description: "Gaara’s sand container", price: 120.0 }) { id }
+  p10: createProduct(input: { name: "Byakugan Eye", description: "Hyuga clan trait", price: 999.0 }) { id }
+  p11: createProduct(input: { name: "Shadow Clone Scroll", description: "Multi-shadow clone scroll", price: 200.0 }) { id }
+  p12: createProduct(input: { name: "Amaterasu Flames", description: "Black fire jutsu", price: 500.0 }) { id }
+  p13: createProduct(input: { name: "Flying Raijin Kunai", description: "Minato’s teleport kunai", price: 400.0 }) { id }
+  p14: createProduct(input: { name: "Kusanagi Sword", description: "Orochimaru’s sword", price: 800.0 }) { id }
+  p15: createProduct(input: { name: "Rinnegan Eye", description: "Sage eye of Pain", price: 1500.0 }) { id }
+  p16: createProduct(input: { name: "Sage Cloak", description: "Six Paths cloak", price: 2000.0 }) { id }
+  p17: createProduct(input: { name: "Healing Potion", description: "Recovers HP", price: 25.0 }) { id }
+  p18: createProduct(input: { name: "Basic Ninja Outfit", description: "Standard shinobi uniform", price: 30.0 }) { id }
+  p19: createProduct(input: { name: "Chakra Sensor", description: "Detect chakra levels", price: 100.0 }) { id }
+  p20: createProduct(input: { name: "Akatsuki Cloak", description: "Cloak of rogue ninjas", price: 500.0 }) { id }
+}
+
+search products
+
+query {
+  s1: products(query: "kunai") {
+    id
+    name
+    description
+    price
+  }
+
+  s2: products(query: "chakra") {
+    id
+    name
+    description
+    price
+  }
+
+  s3: products(query: "cloak") {
+    id
+    name
+    description
+    price
+  }
+
+  s4: products(query: "scroll") {
+    id
+    name
+    description
+    price
+  }
+
+  s5: products(query: "eye") {
+    id
+    name
+    description
+    price
+  }
+
+  s6: products(query: "jutsu") {
+    id
+    name
+    description
+    price
+  }
+
+  s7: products(query: "sand") {
+    id
+    name
+    description
+    price
+  }
+
+  s8: products(query: "sword") {
+    id
+    name
+    description
+    price
+  }
+
+  s9: products(query: "flame") {
+    id
+    name
+    description
+    price
+  }
+
+  s10: products(query: "tag") {
+    id
+    name
+    description
+    price
+  }
+}
+
+get product by id
+query {
+  p1: products(id: "30aTK0HMz4WZWHf2fDZu1iOQFRU") {
+    name description price
+  }
+  p2: products(id: "30aTJzPH7lB8OsfHmkyps6Pww1X") {
+    name description price
+  }
+  p3: products(id: "30aTJwrWCScYY7ERUg1WS3Oqli9") {
+    name description price
+  }
+  p4: products(id: "30aTK7d60o4jMBd50gN5vcMEW7b") {
+    name description price
+  }
+}
+
+see all accounts
+
+query {
+  accounts {
+    name
+    email
+    role
+    
+  }
+}
+
+see accounts with pagination
+query {
+  accounts(pagination: {skip: 3, take:2}) {
+    name
+    email
+    role
+    
+  }
+}
+
+see all products
+
+query {
+  products {
+    name
+    description
+    price
+  }
+}
+
+see products with pagination
+
+query {
+  products(pagination: {skip:2, take: 5}) {
+    name
+    price
+    description
+  }
+}
+
+
+
+create orders
+
+mutation {
+  o1: createOrder(input: {
+    accountId: "30aShnWd0LakpmGCw3hqCeY8jOC"
+    products: [
+      { id: "30aTK1SERwqTlm3d0ObOLfa8DgV", quantity: 2 },
+      { id: "30aTK4d5rmqLO5gvG86Hc3aW86i", quantity: 1 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o2: createOrder(input: {
+    accountId: "30aShsezsy0jdAdA88UqZLqFpvK"
+    products: [
+      { id: "30aTK3QcsQGmivfJXy6zNljCO7f", quantity: 1 },
+      { id: "30aTK8VVejYUhEbhbjlZ9iniaZw", quantity: 2 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o3: createOrder(input: {
+    accountId: "30aShpMJlAqKaObkuWRU1A57JXb"
+    products: [
+      { id: "30aTK4mxsH7N0yw5TAvAmRqICpg", quantity: 3 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o4: createOrder(input: {
+    accountId: "30aShnWd0LakpmGCw3hqCeY8jOC"
+    products: [
+      { id: "30aTK5Q66VouBk9MeOfrRKwh3Na", quantity: 1 },
+      { id: "30aTK8TGHyLUEfbt1aNaFOmazfD", quantity: 2 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o5: createOrder(input: {
+    accountId: "30aShp62g7zku00HqqDUf8spsRh"
+    products: [
+      { id: "30aTK6fii92heQCYurPngev3zQa", quantity: 1 },
+      { id: "30aTK2qQWFDQIOGOzbXK4KZU1Vg", quantity: 1 },
+      { id: "30aTK1ZHHkMjvgMWDIKjh41KpYv", quantity: 2 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o6: createOrder(input: {
+    accountId: "30aShubgy7yywDjaCMjDSGAGL2o"
+    products: [
+      { id: "30aTK7aOE9So7fq1ozKrREqANPz", quantity: 1 },
+      { id: "30aTK7J7IZmLXsfru23JSZe07fz", quantity: 2 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o7: createOrder(input: {
+    accountId: "30aShu5wERYFDIZ1I2P77A11FdL"
+    products: [
+      { id: "30aTK3hPXLs98dWFcvwGZ768E7S", quantity: 1 },
+      { id: "30aTJwrWCScYY7ERUg1WS3Oqli9", quantity: 2 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o8: createOrder(input: {
+    accountId: "30aShs5AGoBp0sV61epZTeqdhMY"
+    products: [
+      { id: "30aTK6M1DAwc3ZsaavsDJXFawR0", quantity: 3 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o9: createOrder(input: {
+    accountId: "30aShpmLytMZ7hRMHtFK8pkaGy7"
+    products: [
+      { id: "30aTK2mTdNIzaADPMVq7DF3ge24", quantity: 1 },
+      { id: "30aTK0HMz4WZWHf2fDZu1iOQFRU", quantity: 2 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  o10: createOrder(input: {
+    accountId: "30aShojJsafGq3X2nsaSVZiSQae"
+    products: [
+      { id: "30aTJzPH7lB8OsfHmkyps6Pww1X", quantity: 1 },
+      { id: "30aTK7d60o4jMBd50gN5vcMEW7b", quantity: 1 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  a1o1: createOrder(input: {
+    accountId: "30aShnWd0LakpmGCw3hqCeY8jOC"
+    products: [
+      { id: "30aTK0HMz4WZWHf2fDZu1iOQFRU", quantity: 1 },
+      { id: "30aTJzPH7lB8OsfHmkyps6Pww1X", quantity: 2 },
+      { id: "30aTJwrWCScYY7ERUg1WS3Oqli9", quantity: 1 },
+      { id: "30aTK3QcsQGmivfJXy6zNljCO7f", quantity: 2 },
+      { id: "30aTK4mxsH7N0yw5TAvAmRqICpg", quantity: 1 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  a1o2: createOrder(input: {
+    accountId: "30aShnWd0LakpmGCw3hqCeY8jOC"
+    products: [
+      { id: "30aTK5Q66VouBk9MeOfrRKwh3Na", quantity: 1 },
+      { id: "30aTK6M1DAwc3ZsaavsDJXFawR0", quantity: 1 },
+      { id: "30aTK7d60o4jMBd50gN5vcMEW7b", quantity: 2 },
+      { id: "30aTK8TGHyLUEfbt1aNaFOmazfD", quantity: 1 },
+      { id: "30aTK8VVejYUhEbhbjlZ9iniaZw", quantity: 2 },
+      { id: "30aTK1SERwqTlm3d0ObOLfa8DgV", quantity: 1 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  a2o1: createOrder(input: {
+    accountId: "30aShsezsy0jdAdA88UqZLqFpvK"
+    products: [
+      { id: "30aTK2qQWFDQIOGOzbXK4KZU1Vg", quantity: 1 },
+      { id: "30aTK2mTdNIzaADPMVq7DF3ge24", quantity: 2 },
+      { id: "30aTK1ZHHkMjvgMWDIKjh41KpYv", quantity: 1 },
+      { id: "30aTK4d5rmqLO5gvG86Hc3aW86i", quantity: 3 },
+      { id: "30aTK3hPXLs98dWFcvwGZ768E7S", quantity: 1 }
+    ]
+  }) { id totalPrice products { name quantity } }
+
+  a2o2: createOrder(input: {
+    accountId: "30aShsezsy0jdAdA88UqZLqFpvK"
+    products: [
+      { id: "30aTK6fii92heQCYurPngev3zQa", quantity: 1 },
+      { id: "30aTK7aOE9So7fq1ozKrREqANPz", quantity: 1 },
+      { id: "30aTK7J7IZmLXsfru23JSZe07fz", quantity: 1 },
+      { id: "30aTK6wQxm9mxvFcTYB3oFwcIJk", quantity: 2 },
+      { id: "30aTK5Q66VouBk9MeOfrRKwh3Na", quantity: 1 },
+      { id: "30aTK0HMz4WZWHf2fDZu1iOQFRU", quantity: 2 }
+    ]
+  }) { id totalPrice products { name quantity } }
+}
+
+get orders of all accounts
+
+query {
+  accounts {
+    name
+    email
+    role
+    orders {
+      id
+      createdAt
+      totalPrice
+      products {
+        name
+        price
+        quantity
+      }
+    }
+  }
+}
+
+
+
+
+
+

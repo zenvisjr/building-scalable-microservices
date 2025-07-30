@@ -1,206 +1,418 @@
-[2025-07-29T19:32:49Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxODM4NSwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6Mn0.Gf3vfM9rWocTO6i4_2ljVE_HBFjhWjPLyVfUT0mPmd0
-[2025-07-29T19:32:49Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:32:49Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:32:49Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:32:49Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:32:49Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:32:49Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
-[2025-07-29T19:32:49Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
-[2025-07-29T19:32:49Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
-[2025-07-29T19:32:49Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxODM4NSwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6Mn0.Gf3vfM9rWocTO6i4_2ljVE_HBFjhWjPLyVfUT0mPmd0
-[2025-07-29T19:32:49Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:32:49Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:32:49Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:32:49Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:32:49Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:32:49Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
-[2025-07-29T19:32:49Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
-[2025-07-29T19:32:49Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
-[2025-07-29T19:35:37Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxODM4NSwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6Mn0.Gf3vfM9rWocTO6i4_2ljVE_HBFjhWjPLyVfUT0mPmd0
-[2025-07-29T19:35:37Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:35:37Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:35:37Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:35:37Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:35:37Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:35:37Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
-[2025-07-29T19:35:37Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
-[2025-07-29T19:35:37Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
-[2025-07-29T19:36:43Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:36:43Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:36:43Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:36:43Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:36:43Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: kakashi@anbu.jp
-[2025-07-29T19:36:43Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: kakashi@anbu.jp
-[2025-07-29T19:36:54Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxODcwMywicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.nydD4B3Zqxioi2AACxEQoKb6Mqdmn_DIoxPas6iJ0rM
-[2025-07-29T19:36:54Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:36:54Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:36:54Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:36:54Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:36:54Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:36:54Z] [auth] [INFO]  [/auth.AuthService/Verify]   User verified in service: 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:36:54Z] [gateway] [INFO] User verified in middleware: kakashi@anbu.jp | role: admin
-[2025-07-29T19:36:54Z] [gateway] [INFO] User authenticated: kakashi@anbu.jp | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxODcwMywicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.nydD4B3Zqxioi2AACxEQoKb6Mqdmn_DIoxPas6iJ0rM
-[2025-07-29T19:36:54Z] [gateway] [INFO] Injected user into context: kakashi@anbu.jp | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxODcwMywicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.nydD4B3Zqxioi2AACxEQoKb6Mqdmn_DIoxPas6iJ0rM
-[2025-07-29T19:36:54Z] [gateway] [INFO] Admin kakashi@anbu.jp is fetching accounts.
-[2025-07-29T19:36:54Z] [account] [INFO]  [/AccountService/GetAccounts]   Returned 6 accounts from DB
-[2025-07-29T19:36:54Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched accounts count: 6
-[2025-07-29T19:36:54Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched 6 accounts
-[2025-07-29T19:36:54Z] [gateway] [INFO] Fetched 6 accounts
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:58Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:37:59Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:40:09Z] Logger service started....
+[2025-07-30T11:21:39Z] Logger service started....
 --------------------------------------------------------------------------
-[2025-07-29T19:40:09Z] [account] [INFO] Starting account service
-[2025-07-29T19:40:09Z] [catalog] [INFO] Starting catalog service...
-[2025-07-29T19:40:09Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
-[2025-07-29T19:40:09Z] [order] [INFO] Starting order service...
-[2025-07-29T19:40:09Z] [account] [INFO] Successfully connected to PostgreSQL
-[2025-07-29T19:40:09Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
-[2025-07-29T19:40:09Z] [account] [INFO] Starting gRPC server for account service on port 8080
-[2025-07-29T19:40:10Z] [order] [INFO] Successfully connected to PostgreSQL
-[2025-07-29T19:40:10Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
-[2025-07-29T19:40:10Z] [order] [INFO] Creating order service with dependencies
-[2025-07-29T19:40:10Z] [order] [INFO] Starting gRPC server for order service on port 8080
-[2025-07-29T19:40:10Z] [order] [INFO] Order gRPC server started on port 8080
-[2025-07-29T19:40:10Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
-[2025-07-29T19:40:10Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
-[2025-07-29T19:40:10Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
-[2025-07-29T19:40:10Z] [auth] [INFO] Auth gRPC server started on :8080
-[2025-07-29T19:40:10Z] [gateway] [INFO] Starting GraphQL gateway service...
-[2025-07-29T19:40:10Z] [gateway] [INFO] Connected to account service
-[2025-07-29T19:40:10Z] [gateway] [INFO] Connected to catalog service
-[2025-07-29T19:40:10Z] [gateway] [INFO] Connected to OrderService at order:8080
-[2025-07-29T19:40:10Z] [gateway] [INFO] Connected to order service
-[2025-07-29T19:40:10Z] [gateway] [INFO] Connected to auth service
-[2025-07-29T19:40:10Z] [gateway] [INFO] Connected to NATS
-[2025-07-29T19:40:10Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
-[2025-07-29T19:40:10Z] [gateway] [INFO] GraphQL gateway listening on :8080
-[2025-07-29T19:40:14Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
-[2025-07-29T19:40:14Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
-[2025-07-29T19:40:19Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
-[2025-07-29T19:40:20Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
-[2025-07-29T19:40:20Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
-[2025-07-29T19:40:20Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
-[2025-07-29T19:40:20Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:52Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
-[2025-07-29T19:41:53Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
-[2025-07-29T19:42:04Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:42:04Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:42:04Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:42:04Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:42:04Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: kakashi@anbu.jp
-[2025-07-29T19:42:04Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: kakashi@anbu.jp
-[2025-07-29T19:42:48Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxOTAyNCwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.ALyFVdMXtqJzff8kp6bJMxt1w3Groeyqo7TjE7pVFuo
-[2025-07-29T19:42:48Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:42:48Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:42:48Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:42:48Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:42:48Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:42:48Z] [auth] [INFO]  [/auth.AuthService/Verify]   User verified in service: 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:42:48Z] [gateway] [INFO] User verified in middleware: kakashi@anbu.jp | role: admin
-[2025-07-29T19:42:48Z] [gateway] [INFO] User authenticated: kakashi@anbu.jp | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxOTAyNCwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.ALyFVdMXtqJzff8kp6bJMxt1w3Groeyqo7TjE7pVFuo
-[2025-07-29T19:42:48Z] [gateway] [INFO] Injected user into context: kakashi@anbu.jp | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxOTAyNCwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.ALyFVdMXtqJzff8kp6bJMxt1w3Groeyqo7TjE7pVFuo
-[2025-07-29T19:42:48Z] [gateway] [INFO] Admin kakashi@anbu.jp is fetching accounts.
-[2025-07-29T19:42:48Z] [account] [INFO]  [/AccountService/GetAccounts]   Returned 6 accounts from DB
-[2025-07-29T19:42:48Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched accounts count: 6
-[2025-07-29T19:42:48Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched 6 accounts
-[2025-07-29T19:42:48Z] [gateway] [INFO] Fetched 6 accounts
-[2025-07-29T19:43:12Z] [gateway] [INFO] User 30Yv8lfGgdBJMdEy1MzId2Bzoaz is logging out.
-[2025-07-29T19:43:12Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:43:12Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:43:12Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:43:27Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxOTAyNCwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.ALyFVdMXtqJzff8kp6bJMxt1w3Groeyqo7TjE7pVFuo
-[2025-07-29T19:43:27Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:43:27Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:43:27Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:43:27Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:43:27Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:43:27Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
-[2025-07-29T19:43:27Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
-[2025-07-29T19:43:27Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
-[2025-07-29T19:43:27Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxOTAyNCwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.ALyFVdMXtqJzff8kp6bJMxt1w3Groeyqo7TjE7pVFuo
-[2025-07-29T19:43:27Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:43:27Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:43:27Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:43:27Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:43:27Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:43:27Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
-[2025-07-29T19:43:27Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
-[2025-07-29T19:43:27Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
-[2025-07-29T19:45:33Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FzaGlAYW5idS5qcCIsImV4cCI6MTc1MzgxOTAyNCwicm9sZSI6ImFkbWluIiwic3ViIjoiMzBZdjhsZkdnZEJKTWRFeTFNeklkMkJ6b2F6IiwidG9rZW5fdmVyc2lvbiI6M30.ALyFVdMXtqJzff8kp6bJMxt1w3Groeyqo7TjE7pVFuo
-[2025-07-29T19:45:33Z] [auth] [INFO] claim extracted user = 30Yv8lfGgdBJMdEy1MzId2Bzoaz | email = kakashi@anbu.jp | role = admin
-[2025-07-29T19:45:33Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:45:33Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30Yv8lfGgdBJMdEy1MzId2Bzoaz
-[2025-07-29T19:45:33Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:45:33Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: kakashi@anbu.jp
-[2025-07-29T19:45:33Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
-[2025-07-29T19:45:33Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
-[2025-07-29T19:45:33Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
+[2025-07-30T11:21:40Z] [order] [INFO] Starting order service...
+[2025-07-30T11:21:40Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T11:21:40Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T11:21:40Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T11:21:40Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T11:21:40Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T11:21:40Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T11:21:40Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T11:21:40Z] [account] [INFO] Starting account service
+[2025-07-30T11:21:40Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T11:21:40Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:21:40Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T11:21:40Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T11:21:40Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T11:21:40Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T11:21:40Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T11:21:40Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T11:21:40Z] [gateway] [INFO] Connected to account service
+[2025-07-30T11:21:40Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T11:21:40Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T11:21:40Z] [gateway] [INFO] Connected to order service
+[2025-07-30T11:21:40Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T11:21:40Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T11:21:40Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T11:21:40Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T11:21:45Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T11:21:45Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T11:21:50Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:21:50Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:21:50Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T11:21:50Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:21:50Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T11:29:40Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T11:29:41Z] [order] [INFO] Starting order service...
+[2025-07-30T11:29:41Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T11:29:41Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:29:41Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-30T11:29:41Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-30T11:29:41Z] [account] [INFO] Starting account service
+[2025-07-30T11:29:41Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.7:5432: connect: connection refused
+[2025-07-30T11:29:41Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.7:5432: connect: connection refused
+[2025-07-30T11:29:41Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-30T11:29:41Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-30T11:29:41Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T11:29:41Z] [gateway] [INFO] Connected to account service
+[2025-07-30T11:29:41Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T11:29:41Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T11:29:41Z] [gateway] [INFO] Connected to order service
+[2025-07-30T11:29:41Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T11:29:41Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T11:29:41Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T11:29:41Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T11:29:46Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T11:29:46Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T11:29:46Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T11:29:46Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T11:29:46Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T11:29:46Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T11:29:46Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T11:29:46Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T11:29:46Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T11:29:46Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T11:29:46Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T11:29:46Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T11:29:46Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T11:29:46Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T11:29:51Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:29:51Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:29:51Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T11:29:51Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:29:51Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T11:31:03Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:31:03Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:31:03Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:31:03Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:31:03Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:31:03Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:31:03Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-30T11:31:03Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: naruto@leaf.com
+[2025-07-30T11:31:03Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:31:03Z] [mail] [INFO] Sending email to naruto@leaf.com
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = error reading from server: EOF
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:31:03Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T11:31:03Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T11:31:03Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T11:31:03Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T11:31:04Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:35:07Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:35:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:35:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:35:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:35:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:35:07Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:35:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:35:07Z] [mail] [INFO] Sending email to sasuke@uchiha.com
+[2025-07-30T11:35:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sasuke@uchiha.com
+[2025-07-30T11:35:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sasuke@uchiha.com
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = error reading from server: EOF
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:07Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.12:8080: connect: connection refused"
+[2025-07-30T11:35:08Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T11:35:08Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T11:35:08Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T11:35:08Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T11:35:09Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:39:51Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T11:39:51Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T11:39:51Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:39:51Z] [order] [INFO] Starting order service...
+[2025-07-30T11:39:51Z] [account] [INFO] Starting account service
+[2025-07-30T11:39:51Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T11:39:51Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T11:39:51Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T11:39:51Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T11:39:51Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T11:39:51Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T11:39:51Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T11:39:51Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T11:39:52Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T11:39:52Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T11:39:52Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T11:39:52Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T11:39:52Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T11:39:52Z] [gateway] [INFO] Connected to account service
+[2025-07-30T11:39:52Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T11:39:52Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T11:39:52Z] [gateway] [INFO] Connected to order service
+[2025-07-30T11:39:52Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T11:39:52Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T11:39:52Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T11:39:52Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T11:39:56Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T11:39:56Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T11:40:01Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:40:01Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:40:01Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T11:40:01Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T11:40:01Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T11:40:06Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to insert account: pq: duplicate key value violates unique constraint "accounts_email_key"
+[2025-07-30T11:40:06Z] [account] [ERROR]  [/AccountService/PostAccount]   Failed to store new account: pq: duplicate key value violates unique constraint "accounts_email_key"
+[2025-07-30T11:40:06Z] [account] [ERROR]  [/AccountService/PostAccount]   PostAccount service error: pq: duplicate key value violates unique constraint "accounts_email_key"
+[2025-07-30T11:40:06Z] [auth] [ERROR]  [/auth.AuthService/Signup]   PostAccount RPC failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
+[2025-07-30T11:40:06Z] [auth] [ERROR]  [/auth.AuthService/Signup]   Account creation failed: rpc error: code = Unknown desc = pq: duplicate key value violates unique constraint "accounts_email_key"
+[2025-07-30T11:40:06Z] [gateway] [ERROR] Error from AuthClient.Signup: rpc error: code = Unknown desc = failed to create account
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:06Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:40:06Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:06Z] [mail] [INFO] Sending email to sakura@leaf.com
+[2025-07-30T11:40:06Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sakura@leaf.com
+[2025-07-30T11:40:06Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sakura@leaf.com
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:06Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:06Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:40:06Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: kakashi@leaf.com
+[2025-07-30T11:40:06Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: kakashi@leaf.com
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: gaara@sand.com
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: gaara@sand.com
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: lee@leaf.com
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: lee@leaf.com
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: hinata@leaf.com
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: hinata@leaf.com
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: shikamaru@leaf.com
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: shikamaru@leaf.com
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: itachi@akatsuki.com
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: itachi@akatsuki.com
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-30T11:40:07Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: tsunade@leaf.com
+[2025-07-30T11:40:07Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: tsunade@leaf.com
+[2025-07-30T11:40:08Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:40:08Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:08Z] [mail] [INFO] Sending email to kakashi@leaf.com
+[2025-07-30T11:40:08Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:40:08Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:08Z] [mail] [INFO] Sending email to gaara@sand.com
+[2025-07-30T11:40:08Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:40:08Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:08Z] [mail] [INFO] Sending email to lee@leaf.com
+[2025-07-30T11:40:08Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:40:08Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:08Z] [mail] [INFO] Sending email to hinata@leaf.com
+[2025-07-30T11:40:08Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:40:08Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:08Z] [mail] [INFO] Sending email to shikamaru@leaf.com
+[2025-07-30T11:40:09Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:40:09Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:09Z] [mail] [INFO] Sending email to itachi@akatsuki.com
+[2025-07-30T11:40:09Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:40:09Z] [mail] [INFO] Received email job from NATS
+[2025-07-30T11:40:09Z] [mail] [INFO] Sending email to tsunade@leaf.com
+[2025-07-30T11:40:09Z] [mail] [ERROR] SendGrid error: status 401, body: {"errors":[{"message":"Maximum credits exceeded","field":null,"help":null}]}
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-30T11:41:14Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: naruto@leaf.com
+[2025-07-30T11:41:14Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-30T11:41:14Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: naruto@leaf.com
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: sasuke@uchiha.com
+[2025-07-30T11:41:14Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: sasuke@uchiha.com
+[2025-07-30T11:41:14Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: sasuke@uchiha.com
+[2025-07-30T11:41:14Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: sasuke@uchiha.com
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:41:14Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: sakura@leaf.com
+[2025-07-30T11:41:14Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: sakura@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: sakura@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: sakura@leaf.com
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: kakashi@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: kakashi@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: kakashi@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: kakashi@leaf.com
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: gaara@sand.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: gaara@sand.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: gaara@sand.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: gaara@sand.com
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: lee@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: lee@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: lee@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: lee@leaf.com
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: hinata@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: hinata@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: hinata@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: hinata@leaf.com
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: shikamaru@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: shikamaru@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: shikamaru@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: shikamaru@leaf.com
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: itachi@akatsuki.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: itachi@akatsuki.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: itachi@akatsuki.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: itachi@akatsuki.com
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:41:15Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: tsunade@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: tsunade@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: tsunade@leaf.com
+[2025-07-30T11:41:15Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: tsunade@leaf.com
+[2025-07-30T11:43:38Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NCwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFvVXhBTEhLbGhBdkxzVDAwWmhOMldlbTEiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.6jVJr6qLBbWoP7lbJoYIxp3VnYNAlvcS_fJtpTyID8g
+[2025-07-30T11:43:38Z] [auth] [INFO] claim extracted user = 30aoUxALHKlhAvLsT00ZhN2Wem1 | email = naruto@leaf.com | role = user
+[2025-07-30T11:43:38Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:43:38Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:43:38Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-30T11:43:38Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: naruto@leaf.com
+[2025-07-30T11:43:38Z] [auth] [INFO]  [/auth.AuthService/Verify]   User verified in service: 30aoUxALHKlhAvLsT00ZhN2Wem1 | email = naruto@leaf.com | role = user
+[2025-07-30T11:43:38Z] [gateway] [INFO] User verified in middleware: naruto@leaf.com | role: user
+[2025-07-30T11:43:38Z] [gateway] [INFO] User authenticated: naruto@leaf.com | role: user | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NCwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFvVXhBTEhLbGhBdkxzVDAwWmhOMldlbTEiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.6jVJr6qLBbWoP7lbJoYIxp3VnYNAlvcS_fJtpTyID8g
+[2025-07-30T11:43:38Z] [gateway] [INFO] Injected user into context: naruto@leaf.com | role: user | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NCwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFvVXhBTEhLbGhBdkxzVDAwWmhOMldlbTEiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.6jVJr6qLBbWoP7lbJoYIxp3VnYNAlvcS_fJtpTyID8g
+[2025-07-30T11:43:38Z] [gateway] [INFO] User 30aoUxALHKlhAvLsT00ZhN2Wem1 with role user is logging out.
+[2025-07-30T11:43:38Z] [gateway] [INFO] User 30aoUxALHKlhAvLsT00ZhN2Wem1 initiated self logout
+[2025-07-30T11:43:38Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:43:38Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:43:38Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:44:22Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNha3VyYUBsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFwYkJHbEFESHFGcjJ0RG1ZNzFCelZ0bmMiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.k7_hBl6GZ4Xhjt8n86QtvTp843SAPsystIfl3leTJhw
+[2025-07-30T11:44:22Z] [auth] [INFO] claim extracted user = 30apbBGlADHqFr2tDmY71BzVtnc | email = sakura@leaf.com | role = user
+[2025-07-30T11:44:22Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:44:22Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:44:22Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: sakura@leaf.com
+[2025-07-30T11:44:22Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: sakura@leaf.com
+[2025-07-30T11:44:22Z] [auth] [INFO]  [/auth.AuthService/Verify]   User verified in service: 30apbBGlADHqFr2tDmY71BzVtnc | email = sakura@leaf.com | role = user
+[2025-07-30T11:44:22Z] [gateway] [INFO] User verified in middleware: sakura@leaf.com | role: user
+[2025-07-30T11:44:22Z] [gateway] [INFO] User authenticated: sakura@leaf.com | role: user | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNha3VyYUBsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFwYkJHbEFESHFGcjJ0RG1ZNzFCelZ0bmMiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.k7_hBl6GZ4Xhjt8n86QtvTp843SAPsystIfl3leTJhw
+[2025-07-30T11:44:22Z] [gateway] [INFO] Injected user into context: sakura@leaf.com | role: user | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNha3VyYUBsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFwYkJHbEFESHFGcjJ0RG1ZNzFCelZ0bmMiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.k7_hBl6GZ4Xhjt8n86QtvTp843SAPsystIfl3leTJhw
+[2025-07-30T11:44:22Z] [gateway] [INFO] User 30apbBGlADHqFr2tDmY71BzVtnc with role user is logging out.
+[2025-07-30T11:44:22Z] [gateway] [WARN] Unauthorized logout attempt by user: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:44:57Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRzdW5hZGVAbGVhZi5jb20iLCJleHAiOjE3NTM4NzY1NzUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwYXBiSjNUZXViWGMzMERtUHpLMXB3ZGdDOCIsInRva2VuX3ZlcnNpb24iOjF9.2b5O9dQSFubkQDTkmXYPor-neWQUIsA7454Z2IcX2_k
+[2025-07-30T11:44:57Z] [auth] [INFO] claim extracted user = 30apbJ3TeubXc30DmPzK1pwdgC8 | email = tsunade@leaf.com | role = admin
+[2025-07-30T11:44:57Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:44:57Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:44:57Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: tsunade@leaf.com
+[2025-07-30T11:44:57Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: tsunade@leaf.com
+[2025-07-30T11:44:57Z] [auth] [INFO]  [/auth.AuthService/Verify]   User verified in service: 30apbJ3TeubXc30DmPzK1pwdgC8 | email = tsunade@leaf.com | role = admin
+[2025-07-30T11:44:57Z] [gateway] [INFO] User verified in middleware: tsunade@leaf.com | role: admin
+[2025-07-30T11:44:57Z] [gateway] [INFO] User authenticated: tsunade@leaf.com | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRzdW5hZGVAbGVhZi5jb20iLCJleHAiOjE3NTM4NzY1NzUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwYXBiSjNUZXViWGMzMERtUHpLMXB3ZGdDOCIsInRva2VuX3ZlcnNpb24iOjF9.2b5O9dQSFubkQDTkmXYPor-neWQUIsA7454Z2IcX2_k
+[2025-07-30T11:44:57Z] [gateway] [INFO] Injected user into context: tsunade@leaf.com | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRzdW5hZGVAbGVhZi5jb20iLCJleHAiOjE3NTM4NzY1NzUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwYXBiSjNUZXViWGMzMERtUHpLMXB3ZGdDOCIsInRva2VuX3ZlcnNpb24iOjF9.2b5O9dQSFubkQDTkmXYPor-neWQUIsA7454Z2IcX2_k
+[2025-07-30T11:44:57Z] [gateway] [INFO] User 30apbJ3TeubXc30DmPzK1pwdgC8 with role admin is logging out.
+[2025-07-30T11:44:57Z] [gateway] [INFO] Admin 30apbJ3TeubXc30DmPzK1pwdgC8 initiated logout for user: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:44:57Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:44:57Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:44:57Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30aozWsV3cC6ID6m6tEcvwcE74r
+[2025-07-30T11:45:26Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NCwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFvVXhBTEhLbGhBdkxzVDAwWmhOMldlbTEiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.6jVJr6qLBbWoP7lbJoYIxp3VnYNAlvcS_fJtpTyID8g
+[2025-07-30T11:45:26Z] [auth] [INFO] claim extracted user = 30aoUxALHKlhAvLsT00ZhN2Wem1 | email = naruto@leaf.com | role = user
+[2025-07-30T11:45:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:45:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:45:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-30T11:45:26Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: naruto@leaf.com
+[2025-07-30T11:45:26Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
+[2025-07-30T11:45:26Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
+[2025-07-30T11:45:26Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
+[2025-07-30T11:45:26Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NCwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFvVXhBTEhLbGhBdkxzVDAwWmhOMldlbTEiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.6jVJr6qLBbWoP7lbJoYIxp3VnYNAlvcS_fJtpTyID8g
+[2025-07-30T11:45:26Z] [auth] [INFO] claim extracted user = 30aoUxALHKlhAvLsT00ZhN2Wem1 | email = naruto@leaf.com | role = user
+[2025-07-30T11:45:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:45:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:45:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-30T11:45:26Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: naruto@leaf.com
+[2025-07-30T11:45:26Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
+[2025-07-30T11:45:26Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
+[2025-07-30T11:45:26Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
+[2025-07-30T11:47:26Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzg3NjU3NCwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGFvVXhBTEhLbGhBdkxzVDAwWmhOMldlbTEiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.6jVJr6qLBbWoP7lbJoYIxp3VnYNAlvcS_fJtpTyID8g
+[2025-07-30T11:47:26Z] [auth] [INFO] claim extracted user = 30aoUxALHKlhAvLsT00ZhN2Wem1 | email = naruto@leaf.com | role = user
+[2025-07-30T11:47:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:47:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30aoUxALHKlhAvLsT00ZhN2Wem1
+[2025-07-30T11:47:26Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-30T11:47:26Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: naruto@leaf.com
+[2025-07-30T11:47:26Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Token version mismatch - user logged out, please login again
+[2025-07-30T11:47:26Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: token invalid or expired, please login again
+[2025-07-30T11:47:26Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = token invalid or expired, please login again
+[2025-07-30T11:49:01Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRzdW5hZGVAbGVhZi5jb20iLCJleHAiOjE3NTM4NzY1NzUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwYXBiSjNUZXViWGMzMERtUHpLMXB3ZGdDOCIsInRva2VuX3ZlcnNpb24iOjF9.2b5O9dQSFubkQDTkmXYPor-neWQUIsA7454Z2IcX2_k
+[2025-07-30T11:49:01Z] [auth] [INFO] claim extracted user = 30apbJ3TeubXc30DmPzK1pwdgC8 | email = tsunade@leaf.com | role = admin
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: tsunade@leaf.com
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: tsunade@leaf.com
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Verify]   User verified in service: 30apbJ3TeubXc30DmPzK1pwdgC8 | email = tsunade@leaf.com | role = admin
+[2025-07-30T11:49:01Z] [gateway] [INFO] User verified in middleware: tsunade@leaf.com | role: admin
+[2025-07-30T11:49:01Z] [gateway] [INFO] User authenticated: tsunade@leaf.com | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRzdW5hZGVAbGVhZi5jb20iLCJleHAiOjE3NTM4NzY1NzUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwYXBiSjNUZXViWGMzMERtUHpLMXB3ZGdDOCIsInRva2VuX3ZlcnNpb24iOjF9.2b5O9dQSFubkQDTkmXYPor-neWQUIsA7454Z2IcX2_k
+[2025-07-30T11:49:01Z] [gateway] [INFO] Injected user into context: tsunade@leaf.com | role: admin | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRzdW5hZGVAbGVhZi5jb20iLCJleHAiOjE3NTM4NzY1NzUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwYXBiSjNUZXViWGMzMERtUHpLMXB3ZGdDOCIsInRva2VuX3ZlcnNpb24iOjF9.2b5O9dQSFubkQDTkmXYPor-neWQUIsA7454Z2IcX2_k
+[2025-07-30T11:49:01Z] [gateway] [INFO] User 30apbJ3TeubXc30DmPzK1pwdgC8 with role admin is logging out.
+[2025-07-30T11:49:01Z] [gateway] [INFO] Admin 30apbJ3TeubXc30DmPzK1pwdgC8 initiated global logout
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Global logout initiated
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apbK1zgqexYhNzB9Mj8PZ1glO
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apbKjnM0u2JVCGQMlkYZYVmJo
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apbGGuUI6AWEzPJ23ZMsQ0fCx
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apbJ3TeubXc30DmPzK1pwdgC8
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apbBGlADHqFr2tDmY71BzVtnc
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apb7xvMKYEoh9EACvmprqpP7o
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apbJS7IiDkeN5UhVnDEMpvDaK
+[2025-07-30T11:49:01Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   Incremented token version for user ID: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   User logged out successfully: 30apbKEfU44bqV4Oncdk8oMfj8o
+[2025-07-30T11:49:01Z] [auth] [INFO]  [/auth.AuthService/Logout]   All users logged out successfully

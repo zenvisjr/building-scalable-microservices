@@ -19,6 +19,7 @@
     COPY logger/ logger/
     COPY mail/ mail/
     COPY auth/ auth/
+    COPY gateway/certs/ certs/
 # Build the gateway service (entrypoint at gateway/main.go)
     RUN go build -mod vendor -o /go/bin/app ./gateway
     

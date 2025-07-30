@@ -174,20 +174,67 @@ func (m *mutationResolver) RefreshToken(ctx context.Context, input RefreshTokenI
 	}, nil
 }
 
-func (m *mutationResolver) Logout(ctx context.Context, input LogoutInput) (*LogoutResponse, error) {
+func (m *mutationResolver) Logout(ctx context.Context, input *LogoutInput) (*LogoutResponse, error) {
 	Logs := logger.GetGlobalLogger()
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-	Logs.Info(ctx, "User "+input.UserID+" is logging out.")
+	// Step 1: Get claims from context
+	user, ok := GetUserFromContext(ctx)
+	if !ok {
+		Logs.Error(ctx, "Failed to get user claims: unauthorized")
+		return nil, errors.New("unauthorized")
+	}
 
-	authResp, err := m.server.AuthClient.Logout(ctx, input.UserID)
+	userId := user.ID
+	role := user.Role
+
+	Logs.Info(ctx, "User "+userId+" with role "+role+" is logging out.")
+
+	// Step 2: Handle specific user logout (when input provided)
+	if input != nil && input.UserID != "" {
+		targetUserId := input.UserID
+		
+		// Check if user is trying to logout someone else
+		if userId != targetUserId {
+			// Only admin can logout other users
+			if role != "admin" {
+				Logs.Warn(ctx, "Unauthorized logout attempt by user: "+userId)
+				return &LogoutResponse{
+					Message: "unauthorized: only admin can logout other users",
+				}, nil
+			}
+			Logs.Info(ctx, "Admin "+userId+" initiated logout for user: "+targetUserId)
+		} else {
+			Logs.Info(ctx, "User "+userId+" initiated self logout")
+		}
+
+		// Logout the target user
+		_, err := m.server.AuthClient.Logout(ctx, targetUserId)
+		if err != nil {
+			Logs.Error(ctx, "Error from AuthClient.Logout: "+err.Error())
+			return nil, err
+		}
+
+		return &LogoutResponse{
+			Message: "logout successful for user: " + targetUserId,
+		}, nil
+	}
+
+	// Step 3: Handle global logout (when no input provided)
+	if role != "admin" {
+		Logs.Error(ctx, "Unauthorized global logout attempt by user: "+userId)
+		return nil, errors.New("unauthorized: only admin can logout all users from system")
+	}
+
+	Logs.Info(ctx, "Admin "+userId+" initiated global logout")
+	_, err := m.server.AuthClient.Logout(ctx, "") // Empty string for global logout
 	if err != nil {
 		Logs.Error(ctx, "Error from AuthClient.Logout: "+err.Error())
 		return nil, err
 	}
 
 	return &LogoutResponse{
-		Message: authResp.Message,
+		Message: "All users logged out successfully",
 	}, nil
 }

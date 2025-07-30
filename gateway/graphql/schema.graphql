@@ -80,13 +80,13 @@ type Mutation {
     signup(input: AccountInput!): AuthResponse!
     login(input: LoginInput!): AuthResponse!
     refreshToken(input: RefreshTokenInput!): AuthResponse!
-    logout(input: LogoutInput!): LogoutResponse!
+    logout(input: LogoutInput): LogoutResponse!
 }
 
 type LogoutResponse {
     message: String!
+    success: Boolean! 
 }
-
 
 type Query {
     accounts(pagination: Pagination, id: ID, name: String): [Account!]!
