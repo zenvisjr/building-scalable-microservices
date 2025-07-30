@@ -36,24 +36,24 @@ type mutationResolver struct {
 func (m *mutationResolver) CreateProduct(ctx context.Context, input ProductInput) (*Product, error) {
 	Logs := logger.GetGlobalLogger()
 
-	user, ok := GetUserFromContext(ctx)
-	if !ok {
-		Logs.Error(ctx, "No user in incoming ctx before wrapping")
-		return nil, errors.New("unauthenticated: please login to create a product")
-	}
-	Logs.Info(ctx, "User "+user.Email+" is creating a product.")
+	// user, ok := GetUserFromContext(ctx)
+	// if !ok {
+	// 	Logs.Error(ctx, "No user in incoming ctx before wrapping")
+	// 	return nil, errors.New("unauthenticated: please login to create a product")
+	// }
+	// Logs.Info(ctx, "User "+user.Email+" is creating a product.")
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-	user, err := RequireAdmin(ctx)
-	if err != nil {
-		return nil, err
-	}
+	// user, err := RequireAdmin(ctx)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	Logs.Info(ctx, "Admin "+user.Email+" is creating a product.")
+	// Logs.Info(ctx, "Admin "+user.Email+" is creating a product.")
 
-	product, err := m.server.catalogClient.PostProduct(ctx, input.Name, input.Description, input.Price)
+	product, err := m.server.catalogClient.PostProduct(ctx, input.Name, input.Description, input.Price, input.Stock)
 	if err != nil {
 		Logs.Error(ctx, "Error from catalogClient.PostProduct: "+err.Error())
 		return nil, err
@@ -63,6 +63,7 @@ func (m *mutationResolver) CreateProduct(ctx context.Context, input ProductInput
 		Name:        product.Name,
 		Description: product.Description,
 		Price:       product.Price,
+		Stock:       int(product.Stock),
 	}
 
 	return newProduct, nil
@@ -73,10 +74,15 @@ func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-	user, ok := GetUserFromContext(ctx)
-	if !ok {
-		return nil, errors.New("unauthenticated: please login to place an order")
-	}
+	// user, ok := GetUserFromContext(ctx)
+	// if !ok {
+	// 	return nil, errors.New("unauthenticated: please login to place an order")
+	// }
+
+	// if user.ID != input.AccountID {
+	// 	Logs.Error(ctx, "Unauthorized: you can only place order for your account")
+	// 	return nil, errors.New("unauthorized: you can only place order for your account")
+	// }
 
 	var products []order.OrderedProduct
 	for _, p := range input.Products {
@@ -88,7 +94,7 @@ func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*
 			Quantity:  uint32(p.Quantity),
 		})
 	}
-	Logs.Info(ctx, "User "+user.Email+" is creating an order.")
+	// Logs.Info(ctx, "User "+user.Email+" is creating an order.")
 	order, err := m.server.orderClient.PostOrder(ctx, input.AccountID, products)
 	if err != nil {
 		Logs.Error(ctx, "Error from orderClient.PostOrder: "+err.Error())
@@ -108,6 +114,7 @@ func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*
 			Description: p.Description,
 			Price:       p.Price,
 			Quantity:    int(p.Quantity),
+			Stock:       int(p.Stock),
 		})
 	}
 
@@ -236,5 +243,31 @@ func (m *mutationResolver) Logout(ctx context.Context, input *LogoutInput) (*Log
 
 	return &LogoutResponse{
 		Message: "All users logged out successfully",
+	}, nil
+}
+
+func (m *mutationResolver) ResetPassword(ctx context.Context, input ResetPasswordInput) (*ResetPasswordResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	user, ok := GetUserFromContext(ctx)
+	if !ok {
+		Logs.Error(ctx, "Failed to get user claims: unauthorized")
+		return nil, errors.New("unauthorized")
+	}
+	if user.Email != input.Email {
+		Logs.Error(ctx, "Unauthorized reset password attempt by user: "+user.Email)
+		return nil, errors.New("unauthorized: only user can reset their own password")
+	}
+	Logs.Info(ctx, "User "+input.Email+" is resetting their password.")
+	_, err := m.server.AuthClient.ResetPassword(ctx, input.Email, input.Password, user.ID)
+	if err != nil {
+		Logs.Error(ctx, "Error from AuthClient.ResetPassword: "+err.Error())
+		return nil, err
+	}
+	Logs.Info(ctx, "Password reset successful for user: " + input.Email)
+	return &ResetPasswordResponse{
+		Message: "Password reset successful for user: " + input.Email,
 	}, nil
 }

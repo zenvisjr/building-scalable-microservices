@@ -153,10 +153,23 @@ func (g *grpcServer) PostOrder(ctx context.Context, req *pb.PostOrderRequest) (*
 			Description: p.Description,
 			Price:       p.Price,
 			Quantity:    0,
+			Stock:       p.Stock,
+
 		}
 
 		for _, reqP := range req.GetProducts() {
 			if p.ID == reqP.ProductId {
+				//now we need to check if the quantity is available
+				if reqP.Quantity > p.Stock {
+					Logs.Error(ctx, "Requested quantity exceeds stock")
+					continue
+				}
+				//now as we have stock so we will first update the db and then add it to the order
+				ok, err := g.catalogClient.UpdateStockAndSold(ctx, p.ID, int(reqP.Quantity))
+				if !ok || err != nil {
+					Logs.Error(ctx, "Failed to update stock and sold: "+err.Error())
+					return nil, err
+				}
 				product.Quantity = reqP.Quantity
 				Logs.LocalOnlyInfo(fmt.Sprintf("Matched product %s with quantity %d", p.ID, reqP.Quantity))
 				break
@@ -250,6 +263,8 @@ func (g *grpcServer) PostOrder(ctx context.Context, req *pb.PostOrderRequest) (*
 			Description: item.Description,
 			Price:       item.Price,
 			Quantity:    item.Quantity,
+			Stock:       item.Stock,
+
 		})
 	}
 
@@ -314,6 +329,7 @@ func (g *grpcServer) GetOrdersForAccount(ctx context.Context, req *pb.GetOrdersF
 					product.Name = p.Name
 					product.Description = p.Description
 					product.Price = p.Price
+					product.Stock = p.Stock
 					break
 				}
 			}
@@ -325,6 +341,7 @@ func (g *grpcServer) GetOrdersForAccount(ctx context.Context, req *pb.GetOrdersF
 				Description: product.Description,
 				Price:       product.Price,
 				Quantity:    product.Quantity,
+				Stock:       product.Stock,
 			})
 		}
 

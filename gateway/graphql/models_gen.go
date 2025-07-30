@@ -58,6 +58,7 @@ type OrderedProduct struct {
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	Quantity    int     `json:"quantity"`
+	Stock       int     `json:"stock"`
 }
 
 type OrderedProductInput struct {
@@ -75,12 +76,15 @@ type Product struct {
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
+	Stock       int     `json:"stock"`
+	Sold        int     `json:"sold"`
 }
 
 type ProductInput struct {
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
+	Stock       int     `json:"stock"`
 }
 
 type Query struct {
@@ -88,6 +92,16 @@ type Query struct {
 
 type RefreshTokenInput struct {
 	UserID string `json:"userId"`
+}
+
+type ResetPasswordInput struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type ResetPasswordResponse struct {
+	Message string `json:"message"`
+	Success bool   `json:"success"`
 }
 
 type Subscription struct {

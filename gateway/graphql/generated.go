@@ -76,6 +76,7 @@ type ComplexityRoot struct {
 		Login         func(childComplexity int, input LoginInput) int
 		Logout        func(childComplexity int, input *LogoutInput) int
 		RefreshToken  func(childComplexity int, input RefreshTokenInput) int
+		ResetPassword func(childComplexity int, input ResetPasswordInput) int
 		Signup        func(childComplexity int, input AccountInput) int
 	}
 
@@ -98,6 +99,7 @@ type ComplexityRoot struct {
 		Name        func(childComplexity int) int
 		Price       func(childComplexity int) int
 		Quantity    func(childComplexity int) int
+		Stock       func(childComplexity int) int
 	}
 
 	Product struct {
@@ -105,11 +107,19 @@ type ComplexityRoot struct {
 		ID          func(childComplexity int) int
 		Name        func(childComplexity int) int
 		Price       func(childComplexity int) int
+		Sold        func(childComplexity int) int
+		Stock       func(childComplexity int) int
 	}
 
 	Query struct {
-		Accounts func(childComplexity int, pagination *Pagination, id *string, name *string) int
-		Products func(childComplexity int, pagination *Pagination, query *string, id *string) int
+		Accounts     func(childComplexity int, pagination *Pagination, id *string, name *string) int
+		CurrentUsers func(childComplexity int, pagination *Pagination, role *string) int
+		Products     func(childComplexity int, pagination *Pagination, query *string, id *string) int
+	}
+
+	ResetPasswordResponse struct {
+		Message func(childComplexity int) int
+		Success func(childComplexity int) int
 	}
 
 	Subscription struct {
@@ -127,10 +137,12 @@ type MutationResolver interface {
 	Login(ctx context.Context, input LoginInput) (*AuthResponse, error)
 	RefreshToken(ctx context.Context, input RefreshTokenInput) (*AuthResponse, error)
 	Logout(ctx context.Context, input *LogoutInput) (*LogoutResponse, error)
+	ResetPassword(ctx context.Context, input ResetPasswordInput) (*ResetPasswordResponse, error)
 }
 type QueryResolver interface {
 	Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error)
 	Products(ctx context.Context, pagination *Pagination, query *string, id *string) ([]*Product, error)
+	CurrentUsers(ctx context.Context, pagination *Pagination, role *string) ([]*Account, error)
 }
 type SubscriptionResolver interface {
 	OrderStatusChanged(ctx context.Context, orderID *string) (<-chan *OrderStatusUpdate, error)
@@ -299,6 +311,18 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Mutation.RefreshToken(childComplexity, args["input"].(RefreshTokenInput)), true
 
+	case "Mutation.resetPassword":
+		if e.complexity.Mutation.ResetPassword == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_resetPassword_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.ResetPassword(childComplexity, args["input"].(ResetPasswordInput)), true
+
 	case "Mutation.signup":
 		if e.complexity.Mutation.Signup == nil {
 			break
@@ -395,6 +419,13 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.OrderedProduct.Quantity(childComplexity), true
 
+	case "OrderedProduct.stock":
+		if e.complexity.OrderedProduct.Stock == nil {
+			break
+		}
+
+		return e.complexity.OrderedProduct.Stock(childComplexity), true
+
 	case "Product.description":
 		if e.complexity.Product.Description == nil {
 			break
@@ -423,6 +454,20 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Product.Price(childComplexity), true
 
+	case "Product.sold":
+		if e.complexity.Product.Sold == nil {
+			break
+		}
+
+		return e.complexity.Product.Sold(childComplexity), true
+
+	case "Product.stock":
+		if e.complexity.Product.Stock == nil {
+			break
+		}
+
+		return e.complexity.Product.Stock(childComplexity), true
+
 	case "Query.accounts":
 		if e.complexity.Query.Accounts == nil {
 			break
@@ -435,6 +480,18 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Query.Accounts(childComplexity, args["pagination"].(*Pagination), args["id"].(*string), args["name"].(*string)), true
 
+	case "Query.currentUsers":
+		if e.complexity.Query.CurrentUsers == nil {
+			break
+		}
+
+		args, err := ec.field_Query_currentUsers_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.CurrentUsers(childComplexity, args["pagination"].(*Pagination), args["role"].(*string)), true
+
 	case "Query.products":
 		if e.complexity.Query.Products == nil {
 			break
@@ -446,6 +503,20 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 		}
 
 		return e.complexity.Query.Products(childComplexity, args["pagination"].(*Pagination), args["query"].(*string), args["id"].(*string)), true
+
+	case "ResetPasswordResponse.message":
+		if e.complexity.ResetPasswordResponse.Message == nil {
+			break
+		}
+
+		return e.complexity.ResetPasswordResponse.Message(childComplexity), true
+
+	case "ResetPasswordResponse.success":
+		if e.complexity.ResetPasswordResponse.Success == nil {
+			break
+		}
+
+		return e.complexity.ResetPasswordResponse.Success(childComplexity), true
 
 	case "Subscription.orderStatusChanged":
 		if e.complexity.Subscription.OrderStatusChanged == nil {
@@ -475,6 +546,7 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 		ec.unmarshalInputPagination,
 		ec.unmarshalInputProductInput,
 		ec.unmarshalInputRefreshTokenInput,
+		ec.unmarshalInputResetPasswordInput,
 	)
 	first := true
 
@@ -683,6 +755,17 @@ func (ec *executionContext) field_Mutation_refreshToken_args(ctx context.Context
 	return args, nil
 }
 
+func (ec *executionContext) field_Mutation_resetPassword_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNResetPasswordInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐResetPasswordInput)
+	if err != nil {
+		return nil, err
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_signup_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
@@ -723,6 +806,22 @@ func (ec *executionContext) field_Query_accounts_args(ctx context.Context, rawAr
 		return nil, err
 	}
 	args["name"] = arg2
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_currentUsers_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := processArgField(ctx, rawArgs, "pagination", ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination)
+	if err != nil {
+		return nil, err
+	}
+	args["pagination"] = arg0
+	arg1, err := processArgField(ctx, rawArgs, "role", ec.unmarshalOString2ᚖstring)
+	if err != nil {
+		return nil, err
+	}
+	args["role"] = arg1
 	return args, nil
 }
 
@@ -1395,6 +1494,10 @@ func (ec *executionContext) fieldContext_Mutation_createProduct(ctx context.Cont
 				return ec.fieldContext_Product_description(ctx, field)
 			case "price":
 				return ec.fieldContext_Product_price(ctx, field)
+			case "stock":
+				return ec.fieldContext_Product_stock(ctx, field)
+			case "sold":
+				return ec.fieldContext_Product_sold(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Product", field.Name)
 		},
@@ -1740,6 +1843,67 @@ func (ec *executionContext) fieldContext_Mutation_logout(ctx context.Context, fi
 	return fc, nil
 }
 
+func (ec *executionContext) _Mutation_resetPassword(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_resetPassword(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().ResetPassword(rctx, fc.Args["input"].(ResetPasswordInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*ResetPasswordResponse)
+	fc.Result = res
+	return ec.marshalNResetPasswordResponse2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐResetPasswordResponse(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_resetPassword(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "message":
+				return ec.fieldContext_ResetPasswordResponse_message(ctx, field)
+			case "success":
+				return ec.fieldContext_ResetPasswordResponse_success(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ResetPasswordResponse", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_resetPassword_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Order_id(ctx context.Context, field graphql.CollectedField, obj *Order) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Order_id(ctx, field)
 	if err != nil {
@@ -1921,6 +2085,8 @@ func (ec *executionContext) fieldContext_Order_products(_ context.Context, field
 				return ec.fieldContext_OrderedProduct_price(ctx, field)
 			case "quantity":
 				return ec.fieldContext_OrderedProduct_quantity(ctx, field)
+			case "stock":
+				return ec.fieldContext_OrderedProduct_stock(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type OrderedProduct", field.Name)
 		},
@@ -2280,6 +2446,50 @@ func (ec *executionContext) fieldContext_OrderedProduct_quantity(_ context.Conte
 	return fc, nil
 }
 
+func (ec *executionContext) _OrderedProduct_stock(ctx context.Context, field graphql.CollectedField, obj *OrderedProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_OrderedProduct_stock(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Stock, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_OrderedProduct_stock(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "OrderedProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Product_id(ctx context.Context, field graphql.CollectedField, obj *Product) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Product_id(ctx, field)
 	if err != nil {
@@ -2456,6 +2666,94 @@ func (ec *executionContext) fieldContext_Product_price(_ context.Context, field 
 	return fc, nil
 }
 
+func (ec *executionContext) _Product_stock(ctx context.Context, field graphql.CollectedField, obj *Product) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Product_stock(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Stock, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Product_stock(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Product",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Product_sold(ctx context.Context, field graphql.CollectedField, obj *Product) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Product_sold(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Sold, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Product_sold(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Product",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_accounts(ctx, field)
 	if err != nil {
@@ -2570,6 +2868,10 @@ func (ec *executionContext) fieldContext_Query_products(ctx context.Context, fie
 				return ec.fieldContext_Product_description(ctx, field)
 			case "price":
 				return ec.fieldContext_Product_price(ctx, field)
+			case "stock":
+				return ec.fieldContext_Product_stock(ctx, field)
+			case "sold":
+				return ec.fieldContext_Product_sold(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Product", field.Name)
 		},
@@ -2582,6 +2884,73 @@ func (ec *executionContext) fieldContext_Query_products(ctx context.Context, fie
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Query_products_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_currentUsers(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_currentUsers(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().CurrentUsers(rctx, fc.Args["pagination"].(*Pagination), fc.Args["role"].(*string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*Account)
+	fc.Result = res
+	return ec.marshalNAccount2ᚕᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐAccountᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_currentUsers(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Account_id(ctx, field)
+			case "name":
+				return ec.fieldContext_Account_name(ctx, field)
+			case "email":
+				return ec.fieldContext_Account_email(ctx, field)
+			case "role":
+				return ec.fieldContext_Account_role(ctx, field)
+			case "orders":
+				return ec.fieldContext_Account_orders(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Account", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_currentUsers_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
 	}
@@ -2714,6 +3083,94 @@ func (ec *executionContext) fieldContext_Query___schema(_ context.Context, field
 				return ec.fieldContext___Schema_directives(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type __Schema", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ResetPasswordResponse_message(ctx context.Context, field graphql.CollectedField, obj *ResetPasswordResponse) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ResetPasswordResponse_message(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Message, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ResetPasswordResponse_message(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ResetPasswordResponse",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ResetPasswordResponse_success(ctx context.Context, field graphql.CollectedField, obj *ResetPasswordResponse) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ResetPasswordResponse_success(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Success, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ResetPasswordResponse_success(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ResetPasswordResponse",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
 		},
 	}
 	return fc, nil
@@ -4965,7 +5422,7 @@ func (ec *executionContext) unmarshalInputProductInput(ctx context.Context, obj 
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"name", "description", "price"}
+	fieldsInOrder := [...]string{"name", "description", "price", "stock"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -4993,6 +5450,13 @@ func (ec *executionContext) unmarshalInputProductInput(ctx context.Context, obj 
 				return it, err
 			}
 			it.Price = data
+		case "stock":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("stock"))
+			data, err := ec.unmarshalNInt2int(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Stock = data
 		}
 	}
 
@@ -5020,6 +5484,40 @@ func (ec *executionContext) unmarshalInputRefreshTokenInput(ctx context.Context,
 				return it, err
 			}
 			it.UserID = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputResetPasswordInput(ctx context.Context, obj any) (ResetPasswordInput, error) {
+	var it ResetPasswordInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"email", "password"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "email":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Email = data
+		case "password":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("password"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Password = data
 		}
 	}
 
@@ -5288,6 +5786,13 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
+		case "resetPassword":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_resetPassword(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5450,6 +5955,11 @@ func (ec *executionContext) _OrderedProduct(ctx context.Context, sel ast.Selecti
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
+		case "stock":
+			out.Values[i] = ec._OrderedProduct_stock(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5501,6 +6011,16 @@ func (ec *executionContext) _Product(ctx context.Context, sel ast.SelectionSet, 
 			}
 		case "price":
 			out.Values[i] = ec._Product_price(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "stock":
+			out.Values[i] = ec._Product_stock(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "sold":
+			out.Values[i] = ec._Product_sold(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
@@ -5590,6 +6110,28 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			}
 
 			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "currentUsers":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_currentUsers(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
 		case "__type":
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Query___type(ctx, field)
@@ -5598,6 +6140,50 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Query___schema(ctx, field)
 			})
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var resetPasswordResponseImplementors = []string{"ResetPasswordResponse"}
+
+func (ec *executionContext) _ResetPasswordResponse(ctx context.Context, sel ast.SelectionSet, obj *ResetPasswordResponse) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, resetPasswordResponseImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("ResetPasswordResponse")
+		case "message":
+			out.Values[i] = ec._ResetPasswordResponse_message(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "success":
+			out.Values[i] = ec._ResetPasswordResponse_success(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -6334,6 +6920,25 @@ func (ec *executionContext) unmarshalNProductInput2githubᚗcomᚋzenvisjrᚋbui
 func (ec *executionContext) unmarshalNRefreshTokenInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐRefreshTokenInput(ctx context.Context, v any) (RefreshTokenInput, error) {
 	res, err := ec.unmarshalInputRefreshTokenInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNResetPasswordInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐResetPasswordInput(ctx context.Context, v any) (ResetPasswordInput, error) {
+	res, err := ec.unmarshalInputResetPasswordInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNResetPasswordResponse2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐResetPasswordResponse(ctx context.Context, sel ast.SelectionSet, v ResetPasswordResponse) graphql.Marshaler {
+	return ec._ResetPasswordResponse(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNResetPasswordResponse2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐResetPasswordResponse(ctx context.Context, sel ast.SelectionSet, v *ResetPasswordResponse) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._ResetPasswordResponse(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v any) (string, error) {

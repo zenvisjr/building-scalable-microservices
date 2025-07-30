@@ -40,7 +40,7 @@ func (g *grpcServer) PostProduct(ctx context.Context, req *pb.PostProductRequest
 	Logs := logger.GetGlobalLogger()
 	Logs.Info(ctx, "Received PostProduct request")
 
-	product, err := g.service.PostProduct(ctx, req.GetName(), req.GetDescription(), req.GetPrice())
+	product, err := g.service.PostProduct(ctx, req.GetName(), req.GetDescription(), req.GetPrice(), int(req.GetStock()))
 	if err != nil {
 		Logs.Error(ctx, "PostProduct failed: "+err.Error())
 		return nil, err
@@ -54,6 +54,8 @@ func (g *grpcServer) PostProduct(ctx context.Context, req *pb.PostProductRequest
 			Name:        product.Name,
 			Description: product.Description,
 			Price:       product.Price,
+			Stock:       product.Stock,
+			Sold:        product.Sold,
 		},
 	}, nil
 }
@@ -76,6 +78,8 @@ func (g *grpcServer) GetProduct(ctx context.Context, req *pb.GetProductRequest) 
 			Name:        product.Name,
 			Description: product.Description,
 			Price:       product.Price,
+			Stock:       product.Stock,
+			Sold:        product.Sold,
 		},
 	}, nil
 }
@@ -118,10 +122,29 @@ func (g *grpcServer) GetProducts(ctx context.Context, req *pb.GetProductsRequest
 			Name:        p.Name,
 			Description: p.Description,
 			Price:       p.Price,
+			Stock:       p.Stock,
+			Sold:        p.Sold,
 		}
 	}
 
 	return &pb.GetProductsResponse{
 		Products: products,
+	}, nil
+}
+
+func(g *grpcServer) UpdateStockAndSold(ctx context.Context, req *pb.UpdateStockRequest) (*pb.UpdateStockResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Received UpdateStockAndSold request for ID: "+req.GetProductId())
+
+	ok, err := g.service.UpdateStockAndSold(ctx, req.GetProductId(), int(req.GetQuantity()))
+	if err != nil {
+		Logs.Error(ctx, "UpdateStockAndSold failed: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Stock and sold updated for product: "+req.GetProductId())
+
+	return &pb.UpdateStockResponse{
+		Ok: ok,
 	}, nil
 }

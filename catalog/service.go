@@ -13,14 +13,18 @@ type Product struct {
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	Quantity    uint32  `json:"quantity"`
+	Stock       uint32  `json:"stock"`
+	Sold        uint32  `json:"sold"`
+	OutOfStock  bool    `json:"out_of_stock"`
 }
 
 type Service interface {
-	PostProduct(ctx context.Context, name, description string, price float64) (*Product, error)
+	PostProduct(ctx context.Context, name, description string, price float64, stock int) (*Product, error)
 	GetProduct(ctx context.Context, id string) (*Product, error)
 	GetProducts(ctx context.Context, skip uint64, take uint64) ([]Product, error)
 	GetProductsByIDs(ctx context.Context, ids []string) ([]Product, error)
 	SearchProducts(ctx context.Context, query string, skip uint64, take uint64) ([]Product, error)
+	UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error)
 }
 
 type catalogService struct {
@@ -31,7 +35,7 @@ func NewCatalogService(repo Repository) Service {
 	return &catalogService{repo: repo}
 }
 
-func (s *catalogService) PostProduct(ctx context.Context, name, description string, price float64) (*Product, error) {
+func (s *catalogService) PostProduct(ctx context.Context, name, description string, price float64, stock int) (*Product, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Creating new product")
 
@@ -40,6 +44,7 @@ func (s *catalogService) PostProduct(ctx context.Context, name, description stri
 		Name:        name,
 		Description: description,
 		Price:       price,
+		Stock:       uint32(stock),
 	}
 	if err := s.repo.PutProduct(ctx, product); err != nil {
 		Logs.Error(ctx, "Failed to store new product: "+err.Error())
@@ -99,4 +104,16 @@ func (s *catalogService) SearchProducts(ctx context.Context, query string, skip 
 		Logs.Error(ctx, "Search failed: "+err.Error())
 	}
 	return products, err
+}
+
+func (s *catalogService) UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Updating stock and sold for product: " + id)
+
+	ok, err := s.repo.UpdateStockAndSold(ctx, id, quantity)
+	if err != nil {
+		Logs.Error(ctx, "Failed to update stock and sold for product ID " + id + ": " + err.Error())
+		return false, err
+	}
+	return ok, nil
 }

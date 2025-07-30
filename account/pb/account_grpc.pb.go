@@ -25,6 +25,7 @@ const (
 	AccountService_GetEmail_FullMethodName              = "/AccountService/GetEmail"
 	AccountService_GetEmailForAuth_FullMethodName       = "/AccountService/GetEmailForAuth"
 	AccountService_IncrementTokenVersion_FullMethodName = "/AccountService/IncrementTokenVersion"
+	AccountService_UpdatePassword_FullMethodName        = "/AccountService/UpdatePassword"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -37,6 +38,7 @@ type AccountServiceClient interface {
 	GetEmail(ctx context.Context, in *GetEmailRequest, opts ...grpc.CallOption) (*GetEmailResponse, error)
 	GetEmailForAuth(ctx context.Context, in *GetEmailForAuthRequest, opts ...grpc.CallOption) (*GetEmailForAuthResponse, error)
 	IncrementTokenVersion(ctx context.Context, in *IncrementTokenVersionRequest, opts ...grpc.CallOption) (*IncrementTokenVersionResponse, error)
+	UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*UpdatePasswordResponse, error)
 }
 
 type accountServiceClient struct {
@@ -107,6 +109,16 @@ func (c *accountServiceClient) IncrementTokenVersion(ctx context.Context, in *In
 	return out, nil
 }
 
+func (c *accountServiceClient) UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*UpdatePasswordResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdatePasswordResponse)
+	err := c.cc.Invoke(ctx, AccountService_UpdatePassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility.
@@ -117,6 +129,7 @@ type AccountServiceServer interface {
 	GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error)
 	GetEmailForAuth(context.Context, *GetEmailForAuthRequest) (*GetEmailForAuthResponse, error)
 	IncrementTokenVersion(context.Context, *IncrementTokenVersionRequest) (*IncrementTokenVersionResponse, error)
+	UpdatePassword(context.Context, *UpdatePasswordRequest) (*UpdatePasswordResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -144,6 +157,9 @@ func (UnimplementedAccountServiceServer) GetEmailForAuth(context.Context, *GetEm
 }
 func (UnimplementedAccountServiceServer) IncrementTokenVersion(context.Context, *IncrementTokenVersionRequest) (*IncrementTokenVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IncrementTokenVersion not implemented")
+}
+func (UnimplementedAccountServiceServer) UpdatePassword(context.Context, *UpdatePasswordRequest) (*UpdatePasswordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePassword not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 func (UnimplementedAccountServiceServer) testEmbeddedByValue()                        {}
@@ -274,6 +290,24 @@ func _AccountService_IncrementTokenVersion_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_UpdatePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).UpdatePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_UpdatePassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).UpdatePassword(ctx, req.(*UpdatePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +338,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IncrementTokenVersion",
 			Handler:    _AccountService_IncrementTokenVersion_Handler,
+		},
+		{
+			MethodName: "UpdatePassword",
+			Handler:    _AccountService_UpdatePassword_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

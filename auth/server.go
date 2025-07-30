@@ -86,3 +86,32 @@ func (g *grpcServer) Logout(ctx context.Context, req *pb.LogoutRequest) (*pb.Log
 		Message: "Logged out successfully",
 	}, nil
 }
+
+func (g *grpcServer) GetCurrent(ctx context.Context, req *pb.GetCurrentRequest) (*pb.GetCurrentResponse, error) {
+	resp, err := g.service.GetCurrentUsers(ctx, g.accountClient, req.GetSkip(), req.GetTake(), req.GetRole())
+	if err != nil {
+		return nil, err
+	}
+	var users []*pb.User
+	for _, user := range resp {
+		users = append(users, &pb.User{
+			Id: user.Id,
+			Name: user.Name,
+			Email: user.Email,
+			Role: user.Role,
+		})
+	}
+	return &pb.GetCurrentResponse{
+		Users: users,
+	}, nil
+}
+
+func (g *grpcServer) ResetPassword(ctx context.Context, req *pb.ResetPasswordRequest) (*pb.AuthResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Resetting password for email in server: " + req.GetEmail())
+	resp, err := g.service.ResetPasswordForAccount(ctx, req.GetEmail(), req.GetPassword(), req.GetUserId(), g.accountClient)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}

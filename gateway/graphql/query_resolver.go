@@ -22,12 +22,12 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
-	user, err := RequireAdmin(ctx)
-	if err != nil {
-		return nil, err
-	}
+	// user, err := RequireAdmin(ctx)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	Logs.Info(ctx, "Admin "+user.Email+" is fetching accounts.")
+	// Logs.Info(ctx, "Admin "+user.Email+" is fetching accounts.")
 
 	if id != nil {
 		res, err := q.server.accountClient.GetAccount(ctx, *id)
@@ -85,12 +85,12 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
-	user, err := RequireAdmin(ctx)
-	if err != nil {
-		return nil, err
-	}
+	// user, err := RequireAdmin(ctx)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	Logs.Info(ctx, "Admin "+user.Email+" is fetching products.")
+	// Logs.Info(ctx, "Admin "+user.Email+" is fetching products.")
 
 	if id != nil {
 		res, err := q.server.catalogClient.GetProduct(ctx, *id)
@@ -103,6 +103,7 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 			Name:        res.Name,
 			Description: res.Description,
 			Price:       res.Price,
+			Stock:       int(res.Stock),
 		}}, nil
 	}
 
@@ -130,6 +131,8 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 			Name:        product.Name,
 			Description: product.Description,
 			Price:       product.Price,
+			Stock:       int(product.Stock),
+			Sold:        int(product.Sold),
 		})
 	}
 	return products, nil
@@ -147,4 +150,50 @@ func (p Pagination) bounds() (uint64, uint64) {
 	}
 	return skipValue, takeValue
 
+}
+
+func (q *queryResolver) CurrentUsers(ctx context.Context, pagination *Pagination, role *string) ([]*Account, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
+
+	user, err := RequireAdmin(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Admin "+user.Email+" is fetching current users.")
+
+	var (
+		skip uint64
+		take uint64
+	)
+	if pagination != nil {
+		skip, take = pagination.bounds()
+	}
+	var ro string
+	if role != nil {
+		ro = *role
+	}
+
+	resp, err := q.server.AuthClient.GetCurrent(ctx, skip, take, ro)
+	if err != nil {
+		Logs.Error(ctx, "Error from AuthClient.CurrentUsers: "+err.Error())
+		return nil, err
+	}
+	var accounts []*Account
+
+	if resp == nil || resp.Users == nil {
+		return []*Account{}, nil
+	}
+
+	for _, account := range resp.Users {
+		accounts = append(accounts, &Account{
+			ID:    account.Id,
+			Name:  account.Name,
+			Email: account.Email,
+			Role:  account.Role,
+		})
+	}
+	return accounts, nil
 }

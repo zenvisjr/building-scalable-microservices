@@ -21,12 +21,21 @@ type Service interface {
 
 	Logout(ctx context.Context, userId string, ac *account.Client) error
 	// LogoutAll(ctx context.Context, userId string) error
+	GetCurrentUsers(ctx context.Context, ac *account.Client, skip uint64, take uint64, role string) ([]*User, error)
+	ResetPasswordForAccount(ctx context.Context, email string, password string, userId string, ac *account.Client) (*pb.AuthResponse, error)
+}
+
+type User struct {
+	Id    string
+	Name  string
+	Email string
+	Role  string
 }
 type authService struct {
-	jwtManager   *JWTManager
-	repository   Repository
+	jwtManager    *JWTManager
+	repository    Repository
 	loggedInUsers map[string]bool
-	mu           sync.Mutex
+	mu            sync.Mutex
 }
 
 func NewAuthService(jwtManager *JWTManager, repository Repository) Service {
@@ -34,8 +43,8 @@ func NewAuthService(jwtManager *JWTManager, repository Repository) Service {
 
 	Logs.LocalOnlyInfo("AuthService initialized")
 	return &authService{
-		jwtManager: jwtManager,
-		repository: repository,
+		jwtManager:    jwtManager,
+		repository:    repository,
 		loggedInUsers: make(map[string]bool),
 	}
 }
@@ -98,6 +107,16 @@ func (s *authService) Signup(ctx context.Context, name string, email string, pas
 func (s *authService) Login(ctx context.Context, email string, password string, ac *account.Client) (*pb.AuthResponse, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Login called for email: " + email)
+
+	if email == "" || password == "" {
+		Logs.Error(ctx, "Invalid email or password")
+		return nil, errors.New("invalid email or password")
+	}
+
+	if _, ok := s.loggedInUsers[email]; ok {
+		Logs.Error(ctx, "User already logged in")
+		return nil, errors.New("user already logged in")
+	}
 
 	// Step 1: Call AccountService to validate user
 	account, err := ac.GetEmailForAuth(ctx, email)
@@ -327,7 +346,7 @@ func (s *authService) Logout(ctx context.Context, userId string, ac *account.Cli
 		}
 
 		Logs.Info(ctx, "User logged out successfully: "+userId)
-		
+
 	}
 	// Clear the entire map after logout
 	s.mu.Lock()
@@ -337,4 +356,113 @@ func (s *authService) Logout(ctx context.Context, userId string, ac *account.Cli
 	Logs.Info(ctx, "All users logged out successfully")
 
 	return nil
+}
+
+func (s *authService) GetCurrentUsers(ctx context.Context, ac *account.Client, skip uint64, take uint64, role string) ([]*User, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("CurrentUsers called")
+
+	var users []*User
+	var count uint64 = 0
+
+	for userId := range s.loggedInUsers {
+		// Apply pagination skipping
+		if count < skip {
+			count++
+			continue
+		}
+		if take > 0 && uint64(len(users)) >= take {
+			break
+		}
+
+		accountData, err := ac.GetAccount(ctx, userId)
+		if err != nil {
+			Logs.Error(ctx, "Failed to fetch account for userID "+userId+": "+err.Error())
+			continue // Don't fail everything, just skip this user
+		}
+
+		// Filter by role if specified
+		if role != "" && accountData.Role != role {
+			continue
+		}
+
+		users = append(users, &User{
+			Id:    userId,
+			Name:  accountData.Name,
+			Email: accountData.Email,
+			Role:  accountData.Role,
+		})
+		count++
+	}
+
+	return users, nil
+}
+
+func (s *authService) ResetPasswordForAccount(ctx context.Context, email string, password string, userId string, ac *account.Client) (*pb.AuthResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "ResetPasswordForAccount called for email: " + email)
+
+	// Step 1: Call AccountService to create user (password will be hashed there)
+	 err := ac.UpdatePassword(ctx, email, password)
+	if err != nil {
+		Logs.Error(ctx, "Password reset failed: "+err.Error())
+		return nil, err
+	}
+
+	// Step 1: Delete all refresh tokens
+	if err := s.repository.DeleteRefreshToken(ctx, userId); err != nil {
+		Logs.Error(ctx, "Failed to delete refresh token: "+err.Error())
+		return nil, err
+	}
+
+	// Step 2: Increment token version to invalidate tokens
+	if err := ac.IncrementTokenVersion(ctx, userId); err != nil {
+		Logs.Error(ctx, "Failed to increment token version: "+err.Error())
+		return nil, err
+	}
+
+	// Step 2: Get latest account info from DB
+	account, err := ac.GetEmailForAuth(ctx, email)
+	if err != nil {
+		Logs.Error(ctx, "Failed to fetch account for auth: "+err.Error())
+		return nil, err
+	}
+
+	// Step 2: Generate Access Token
+	accessToken, err := s.jwtManager.GenerateAccessToken(account.ID, account.Email, account.Role, account.TokenVersion)
+	if err != nil {
+		Logs.Error(ctx, "Failed to generate access token: "+err.Error())
+		return nil, err
+	}
+
+	// Step 3: Generate Refresh Token
+	refreshToken, err := s.jwtManager.GenerateRefreshToken(account.ID, account.Email, account.Role, account.TokenVersion)
+	if err != nil {
+		Logs.Error(ctx, "Failed to generate refresh token: "+err.Error())
+		return nil, err
+	}
+
+	// Step 5: Store Refresh Token in DB
+	if err := s.repository.StoreRefreshToken(ctx, refreshToken, account.ID); err != nil {
+		Logs.Error(ctx, "Failed to store refresh token: "+err.Error())
+		return nil, err
+	}
+	Logs.Info(ctx, "Refresh token stored successfully for user: "+email)
+	Logs.LocalOnlyInfo("Refresh token stored successfully for user: " + email)
+
+	Logs.Info(ctx, "Password reset successful for user: "+account.Email)
+	Logs.LocalOnlyInfo("Password reset successful for user: " + account.Email)
+
+	//add user to loggedInUser map to track it later
+	s.mu.Lock()
+	s.loggedInUsers[account.ID] = true
+	s.mu.Unlock()
+
+	return &pb.AuthResponse{
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
+		UserId:       account.ID,
+		Email:        account.Email,
+		Role:         account.Role,
+	}, nil
 }

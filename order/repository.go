@@ -140,9 +140,10 @@ func (p *postgresRepository) ListOrdersForAccount(ctx context.Context, accountID
 			totalPrice float64
 			productID  string
 			quantity   uint32
+			stock      uint32
 		)
 
-		if err := rows.Scan(&orderID, &createdAt, &accID, &totalPrice, &productID, &quantity); err != nil {
+		if err := rows.Scan(&orderID, &createdAt, &accID, &totalPrice, &productID, &quantity, &stock); err != nil {
 			Logs.Error(ctx, "Failed to scan order row: "+err.Error())
 			return nil, err
 		}
@@ -168,6 +169,7 @@ func (p *postgresRepository) ListOrdersForAccount(ctx context.Context, accountID
 		currentOrder.Products = append(currentOrder.Products, OrderedProduct{
 			ProductID: productID,
 			Quantity:  quantity,
+			Stock:     stock,
 		})
 	}
 

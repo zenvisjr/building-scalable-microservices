@@ -2,9 +2,10 @@ package account
 
 import (
 	"context"
-	"golang.org/x/crypto/bcrypt"
+
 	"github.com/segmentio/ksuid"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Account struct {
@@ -23,6 +24,7 @@ type Service interface {
 	GetEmail(ctx context.Context, id string) (string, error)
 	GetEmailForAuth(ctx context.Context, email string) (*Account, error)
 	IncrementTokenVersion(ctx context.Context, userID string) error
+	UpdatePassword(ctx context.Context, email string, password string) error
 }
 
 type accountService struct {
@@ -141,3 +143,22 @@ func (a *accountService) IncrementTokenVersion(ctx context.Context, userID strin
 	return a.repo.IncrementTokenVersion(ctx, userID)
 }
 
+func (a *accountService) UpdatePassword(ctx context.Context, email string, password string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Updating password for email in service: " + email)
+
+	// Hash the password
+	Logs.LocalOnlyInfo("Hashing password for account: " + email)
+	hashedPassword, err := HashPassword(password)
+	Logs.LocalOnlyInfo("hashed password: " + hashedPassword)
+	if err != nil {
+		Logs.Error(ctx, "Password hashing failed: "+err.Error())
+		return err
+	}
+	if err := a.repo.UpdatePassword(ctx, email, hashedPassword); err != nil {
+		Logs.Error(ctx, "Failed to update password: "+err.Error())
+		return err
+	}
+	Logs.Info(ctx, "Updated password for email in service: "+email)
+	return nil
+}

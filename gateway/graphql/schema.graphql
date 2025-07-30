@@ -11,6 +11,8 @@ type Product {
     name: String!
     description: String!
     price: Float!
+    stock: Int!
+    sold: Int!
 }
 
 type Order {
@@ -26,6 +28,7 @@ type OrderedProduct {
     description: String!
     price: Float!
     quantity: Int!
+    stock: Int!
 }
 
 input Pagination {
@@ -44,6 +47,7 @@ input ProductInput {
     name: String!
     description: String!
     price: Float!
+    stock: Int!
 }
 
 input OrderedProductInput {
@@ -81,16 +85,27 @@ type Mutation {
     login(input: LoginInput!): AuthResponse!
     refreshToken(input: RefreshTokenInput!): AuthResponse!
     logout(input: LogoutInput): LogoutResponse!
+    resetPassword(input: ResetPasswordInput!): ResetPasswordResponse!
+}
+
+input ResetPasswordInput {
+    email: String!
+    password: String!
+}
+type ResetPasswordResponse {
+    message: String!
+    success: Boolean! 
 }
 
 type LogoutResponse {
     message: String!
-    success: Boolean! 
+    success: Boolean!
 }
 
 type Query {
     accounts(pagination: Pagination, id: ID, name: String): [Account!]!
     products(pagination: Pagination, query: String, id: ID): [Product!]!
+    currentUsers(pagination: Pagination, role: String): [Account!]!
 }
 
 type Subscription {

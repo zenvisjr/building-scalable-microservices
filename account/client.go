@@ -161,3 +161,16 @@ func (c *Client) IncrementTokenVersion(ctx context.Context, userID string) error
 	Logs.Info(ctx, "Incremented token version for user ID: "+userID)
 	return nil
 }
+
+func(c *Client) UpdatePassword(ctx context.Context, email string, password string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Updating password for email in client: " + email)
+
+	_, err := c.service.UpdatePassword(ctx, &pb.UpdatePasswordRequest{Email: email, Password: password})
+	if err != nil {
+		Logs.Error(ctx, "UpdatePassword RPC failed: "+err.Error())
+		return err
+	}
+	Logs.Info(ctx, "Updated password for email in client: "+email)
+	return nil
+}

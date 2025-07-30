@@ -19,6 +19,7 @@ require (
 	github.com/99designs/gqlgen v0.17.77
 	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/golang-jwt/jwt/v4 v4.5.2
+	github.com/golang/protobuf v1.5.4
 	github.com/gorilla/websocket v1.5.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/lib/pq v1.10.9
@@ -41,7 +42,6 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
-	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/josharian/intern v1.0.0 // indirect

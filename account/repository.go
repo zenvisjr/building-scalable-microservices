@@ -3,6 +3,7 @@ package account
 import (
 	"context"
 	"database/sql"
+	"fmt"
 
 	_ "github.com/lib/pq"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
@@ -18,6 +19,7 @@ type Repository interface {
 	GetEmailByName(ctx context.Context, name string) (string, error)
 	GetAccountForAuth(ctx context.Context, email string) (*Account, error)
 	IncrementTokenVersion(ctx context.Context, userID string) error
+	UpdatePassword(ctx context.Context, email string, password_hash string) error
 }
 
 type postgresRepository struct {
@@ -57,8 +59,8 @@ func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error 
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Inserting new account into DB")
 
-	_, err := p.db.ExecContext(ctx, 
-		"INSERT INTO accounts(id, name, email, password_hash, role, token_version) VALUES($1, $2, $3, $4, $5, $6)", 
+	_, err := p.db.ExecContext(ctx,
+		"INSERT INTO accounts(id, name, email, password_hash, role, token_version) VALUES($1, $2, $3, $4, $5, $6)",
 		acc.ID, acc.Name, acc.Email, acc.PasswordHash, acc.Role, acc.TokenVersion)
 	if err != nil {
 		Logs.Error(ctx, "Failed to insert account: "+err.Error())
@@ -105,11 +107,11 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 		accounts = append(accounts, *a)
 	}
 
-	Logs.Info(ctx, "Returned " + logger.IntToStr(len(accounts)) + " accounts from DB")
+	Logs.Info(ctx, "Returned "+logger.IntToStr(len(accounts))+" accounts from DB")
 	return accounts, nil
 }
 
-//used by email service
+// used by email service
 func (p *postgresRepository) GetEmailByName(ctx context.Context, name string) (string, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching email for account with name: " + name)
@@ -126,7 +128,7 @@ func (p *postgresRepository) GetEmailByName(ctx context.Context, name string) (s
 	return email, nil
 }
 
-//used by auth service
+// used by auth service
 func (p *postgresRepository) GetAccountForAuth(ctx context.Context, email string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching account for auth with email: " + email)
@@ -150,4 +152,19 @@ func (r *postgresRepository) IncrementTokenVersion(ctx context.Context, userID s
 	return err
 }
 
+func (p *postgresRepository) UpdatePassword(ctx context.Context, email string, password_hash string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Updating password for email in DB: " + email)
 
+	query := `UPDATE accounts SET password_hash = $1 WHERE email = $2`
+	res, err := p.db.ExecContext(ctx, query, password_hash, email)
+	count, _ := res.RowsAffected()
+	Logs.LocalOnlyInfo(fmt.Sprintf("Password update affected %d row(s)", count))
+
+	if err != nil {
+		Logs.Error(ctx, "Password update failed: "+err.Error())
+		return err
+	}
+
+	return nil
+}

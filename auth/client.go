@@ -112,3 +112,33 @@ func (c *Client) Logout(ctx context.Context, userId string) (*pb.LogoutResponse,
 	}
 	return resp, nil
 }
+
+func(c *Client) GetCurrent(ctx context.Context, skip uint64, take uint64, role string) (*pb.GetCurrentResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Calling Auth gRPC service for current users")
+	resp, err := c.service.GetCurrent(ctx, &pb.GetCurrentRequest{
+		Skip: skip,
+		Take: take,
+		Role: role,
+	})
+	if err != nil {
+		Logs.Error(ctx, "Failed to get current users: "+err.Error())
+		return nil, err
+	}
+	return resp, nil
+}
+
+func(c *Client) ResetPassword(ctx context.Context, email, password, userId string) (*pb.AuthResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Calling Auth gRPC service for reset password: " + email)
+	resp, err := c.service.ResetPassword(ctx, &pb.ResetPasswordRequest{
+		Email: email,
+		Password: password,
+		UserId: userId,
+	})
+	if err != nil {
+		Logs.Error(ctx, "Failed to reset password: "+err.Error())
+		return nil, err
+	}
+	return resp, nil
+}

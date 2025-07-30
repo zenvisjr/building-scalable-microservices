@@ -77,6 +77,7 @@ func (c *Client) PostOrder(ctx context.Context, id string, products []OrderedPro
 			Description: p.Description,
 			Price:       p.Price,
 			Quantity:    p.Quantity,
+			Stock:       p.Stock,
 		})
 	}
 
@@ -126,6 +127,7 @@ func (c *Client) GetOrdersForAccount(ctx context.Context, id string) ([]Order, e
 				Description: op.Description,
 				Price:       op.Price,
 				Quantity:    op.Quantity,
+				Stock:       op.Stock,
 			})
 		}
 		orders = append(orders, order)

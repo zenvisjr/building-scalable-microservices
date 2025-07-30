@@ -28,6 +28,7 @@ type OrderedProduct struct {
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	Quantity    uint32  `json:"quantity"`
+	Stock       uint32  `json:"stock"`
 }
 
 type orderService struct {

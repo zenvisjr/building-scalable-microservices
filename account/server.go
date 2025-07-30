@@ -217,3 +217,17 @@ func (g *grpcServer) IncrementTokenVersion(ctx context.Context, req *pb.Incremen
 
 	return &pb.IncrementTokenVersionResponse{Ok: true}, nil
 }
+
+
+func(g *grpcServer) UpdatePassword(ctx context.Context, req *pb.UpdatePasswordRequest) (*pb.UpdatePasswordResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Received UpdatePassword gRPC request for email: " + req.GetEmail())
+
+	if err := g.service.UpdatePassword(ctx, req.GetEmail(), req.GetPassword()); err != nil {
+		Logs.Error(ctx, "UpdatePassword service error: "+err.Error())
+		return nil, err
+	}
+	Logs.Info(ctx, "Updated password for email in server: "+req.GetEmail())
+
+	return &pb.UpdatePasswordResponse{Ok: true}, nil
+}

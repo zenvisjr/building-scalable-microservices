@@ -10,6 +10,8 @@ service AuthService {
   rpc RefreshToken(RefreshRequest) returns (AuthResponse);
   rpc Verify(VerifyRequest) returns (VerifyResponse);
   rpc Logout(LogoutRequest) returns (LogoutResponse);
+  rpc GetCurrent(GetCurrentRequest) returns (GetCurrentResponse);
+  rpc ResetPassword(ResetPasswordRequest) returns (AuthResponse);
 }
 
 message SignupRequest {
@@ -52,4 +54,27 @@ message LogoutRequest {
 
 message LogoutResponse {
   string message = 1;
+}
+
+message GetCurrentRequest {
+  uint64 skip = 1;
+  uint64 take = 2;
+  string role = 3;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string role = 4;
+}
+
+message GetCurrentResponse {
+  repeated User users = 1;
+}
+
+message ResetPasswordRequest {
+  string email = 1;
+  string password = 2;
+  string user_id = 3;
 }

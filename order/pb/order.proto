@@ -16,6 +16,7 @@ message Order {
         string description = 3;
         double price = 4;
         uint32 quantity = 5;
+        uint32 stock = 6;
     }
     string id = 1;
     // time.Time createdat = 2;

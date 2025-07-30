@@ -10,7 +10,8 @@ import (
 )
 
 var (
-	errNotFound = fmt.Errorf("entity not found")
+	errNotFound   = fmt.Errorf("entity not found")
+	errOutOfStock = fmt.Errorf("product is out of stock")
 )
 
 type Repository interface {
@@ -20,6 +21,7 @@ type Repository interface {
 	ListProducts(ctx context.Context, skip uint64, take uint64) ([]Product, error)
 	ListProductsWithIDs(ctx context.Context, ids []string) ([]Product, error)
 	SearchProducts(ctx context.Context, query string, skip uint64, take uint64) ([]Product, error)
+	UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error)
 }
 
 type elasticRepository struct {
@@ -27,9 +29,12 @@ type elasticRepository struct {
 }
 
 type productDocument struct {
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Price       float64 `json:"price"`
+	Name        string  `json:"name"`         // Product name
+	Description string  `json:"description"`  // Product description
+	Price       float64 `json:"price"`        // Product price
+	Stock       uint32  `json:"stock"`        // Available stock for order
+	Sold        uint32  `json:"sold"`         // Total units sold
+	OutOfStock  bool    `json:"out_of_stock"` // Product is out of stock
 }
 
 func NewElasticRepository(url string) (Repository, error) {
@@ -61,6 +66,9 @@ func (p *elasticRepository) PutProduct(ctx context.Context, product Product) err
 		Name:        product.Name,
 		Description: product.Description,
 		Price:       product.Price,
+		Stock:       product.Stock,
+		Sold:        0,
+		OutOfStock:  false,
 	}
 	res, err := p.client.Index().Index("catalog").Id(product.ID).BodyJson(document).Do(ctx)
 	if err != nil {
@@ -77,6 +85,8 @@ func (p *elasticRepository) PutProduct(ctx context.Context, product Product) err
 func (p *elasticRepository) GetProductByID(ctx context.Context, id string) (*Product, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.Info(ctx, "Fetching product by ID: "+id)
+
+	//fetch the product from elasticsearch
 	res, err := p.client.Get().Index("catalog").Id(id).Do(ctx)
 	if err != nil {
 		Logs.Error(ctx, "Failed to fetch product by ID: "+err.Error())
@@ -91,13 +101,20 @@ func (p *elasticRepository) GetProductByID(ctx context.Context, id string) (*Pro
 		Logs.Error(ctx, "Failed to unmarshal product: "+err.Error())
 		return nil, err
 	}
+
+	//checking if product is out of stock
+	if doc.OutOfStock {
+		Logs.Error(ctx, "Product is out of stock: "+id)
+		return nil, errOutOfStock
+	}
 	Logs.Info(ctx, "Product fetched: "+id)
-	Logs.RemoteLogs(ctx, "Product fetched: "+id, "catalog")
 	return &Product{
 		ID:          id,
 		Name:        doc.Name,
 		Description: doc.Description,
 		Price:       doc.Price,
+		Stock:       doc.Stock,
+		Sold:        doc.Sold,
 	}, nil
 }
 
@@ -115,15 +132,22 @@ func (p *elasticRepository) ListProducts(ctx context.Context, skip uint64, take 
 		if err := json.Unmarshal(hit.Source, &product); err != nil {
 			continue
 		}
+		//checking if product is out of stock
+		if product.OutOfStock {
+			Logs.Error(ctx, "Product is out of stock: "+hit.Id)
+			continue
+		}
+
 		products = append(products, Product{
 			Name:        product.Name,
 			ID:          hit.Id,
 			Description: product.Description,
 			Price:       product.Price,
+			Stock:       product.Stock,
+			Sold:        product.Sold,
 		})
 	}
 	Logs.Info(ctx, "Products listed: "+logger.IntToStr(len(products)))
-	Logs.RemoteLogs(ctx, "Products listed: "+logger.IntToStr(len(products)), "catalog")
 	return products, nil
 }
 
@@ -184,16 +208,22 @@ func (r *elasticRepository) ListProductsWithIDs(ctx context.Context, ids []strin
 			Logs.Error(ctx, "Unmarshal failed for ID: "+doc.Id+" | "+err.Error())
 			continue
 		}
+		//checking if product is out of stock
+		if p.OutOfStock {
+			Logs.Error(ctx, "Product is out of stock: "+doc.Id)
+			continue
+		}
 		products = append(products, Product{
 			ID:          doc.Id,
 			Name:        p.Name,
 			Description: p.Description,
 			Price:       p.Price,
+			Stock:       p.Stock,
+			Sold:        p.Sold,
 		})
 	}
 
 	Logs.LocalOnlyInfo("Fetched " + logger.IntToStr(len(products)) + " products by ID")
-	Logs.RemoteLogs(ctx, "Fetched "+logger.IntToStr(len(products))+" products by ID", "catalog")
 	return products, nil
 }
 
@@ -214,17 +244,59 @@ func (p *elasticRepository) SearchProducts(ctx context.Context, query string, sk
 		if err := json.Unmarshal(hit.Source, &product); err != nil {
 			continue
 		}
+		//checking if product is out of stock
+		if product.OutOfStock {
+			Logs.Error(ctx, "Product is out of stock: "+hit.Id)
+			continue
+		}
 		products = append(products, Product{
 			Name:        product.Name,
 			ID:          hit.Id,
 			Description: product.Description,
 			Price:       product.Price,
+			Stock:       product.Stock,
+			Sold:        product.Sold,
 		})
 	}
 
 	Logs.Info(ctx, "Products searched: "+logger.IntToStr(len(products)))
 	Logs.RemoteLogs(ctx, "Products searched: "+logger.IntToStr(len(products)), "catalog")
 	return products, nil
+}
+
+func (p *elasticRepository) UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Updating stock and sold for product: "+id)
+
+	// Step 1: Define the script
+	script := elastic.NewScriptInline(`
+		if (ctx._source.stock < params.qty) {
+			throw new Exception("insufficient stock");
+		}
+		ctx._source.stock -= params.qty;
+		ctx._source.sold += params.qty;
+		if (ctx._source.stock <= 0) {
+			ctx._source.outOfStock = true;
+		}
+	`).Lang("painless").Params(map[string]interface{}{
+		"qty": quantity,
+	})
+
+	// Step 2: Execute the update script
+	_, err := p.client.Update().
+		Index("catalog").
+		Id(id).
+		Script(script).
+		Do(ctx)
+
+	if err != nil {
+		Logs.Error(ctx, "Failed to update stock and sold using script: "+err.Error())
+		return false, err
+	}
+
+	Logs.Info(ctx, "Successfully updated stock and sold for product: "+id)
+	Logs.RemoteLogs(ctx, "Stock and sold updated for product: "+id, "catalog")
+	return true, nil
 }
 
 // What is sniffing?

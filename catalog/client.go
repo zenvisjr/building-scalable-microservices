@@ -40,13 +40,14 @@ func (c *Client) Close() {
 	c.conn.Close()
 }
 
-func (c *Client) PostProduct(ctx context.Context, name, description string, price float64) (*Product, error) {
+func (c *Client) PostProduct(ctx context.Context, name, description string, price float64, stock int) (*Product, error) {
 	c.logs.Info(ctx, "Posting new product to catalog")
 
 	req := &pb.PostProductRequest{
 		Name:        name,
 		Description: description,
 		Price:       price,
+		Stock:       uint32(stock),
 	}
 
 	resp, err := c.service.PostProduct(ctx, req)
@@ -62,6 +63,8 @@ func (c *Client) PostProduct(ctx context.Context, name, description string, pric
 		Name:        resp.Product.Name,
 		Description: resp.Product.Description,
 		Price:       resp.Product.Price,
+		Stock:       uint32(resp.Product.Stock),
+		Sold:        uint32(resp.Product.Sold),
 	}, nil
 }
 
@@ -82,6 +85,8 @@ func (c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
 		Name:        resp.Product.Name,
 		Description: resp.Product.Description,
 		Price:       resp.Product.Price,
+		Stock:       uint32(resp.Product.Stock),
+		Sold:        uint32(resp.Product.Sold),
 	}, nil
 }
 
@@ -110,8 +115,29 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 			Name:        p.Name,
 			Description: p.Description,
 			Price:       p.Price,
+			Stock:       uint32(p.Stock),
+			Sold:        uint32(p.Sold),
 		}
 	}
 
 	return products, nil
+}
+
+func (c *Client) UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error) {
+	c.logs.Info(ctx, "Updating stock and sold for product: "+id)
+
+	req := &pb.UpdateStockRequest{
+		ProductId: id,
+		Quantity:  int32(quantity),
+	}
+
+	resp, err := c.service.UpdateStockAndSold(ctx, req)
+	if err != nil {
+		c.logs.Error(ctx, "UpdateStockAndSold failed: "+err.Error())
+		return false, err
+	}
+
+	c.logs.Info(ctx, "Stock and sold updated for product: "+id)
+
+	return resp.Ok, nil
 }

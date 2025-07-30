@@ -9,6 +9,7 @@ service AccountService {
     rpc GetEmail(GetEmailRequest) returns (GetEmailResponse);
     rpc GetEmailForAuth (GetEmailForAuthRequest) returns (GetEmailForAuthResponse);
     rpc IncrementTokenVersion (IncrementTokenVersionRequest) returns (IncrementTokenVersionResponse);
+    rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordResponse);
 }
 
 message Account {
@@ -73,3 +74,12 @@ message IncrementTokenVersionRequest {
 message IncrementTokenVersionResponse {
     bool ok = 1;
 }
+
+message UpdatePasswordRequest {
+    string email = 1;
+    string password = 2;
+}
+message UpdatePasswordResponse {
+    bool ok = 1;
+}
+    
