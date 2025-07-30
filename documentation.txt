@@ -141,3 +141,7 @@ docker exec -it building-scalable-microservices_catalog_db_1 psql -U zenvis -d z
 \c zenvis
 \dt 
 SELECT * FROM accounts;
+
+
+while writng script for elastic search please check if ur using correct bson names for the fielsa
+i was using outOfStco when bson was out_of_stock

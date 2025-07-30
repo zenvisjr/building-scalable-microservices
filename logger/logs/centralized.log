@@ -2545,3 +2545,985 @@
 [2025-07-30T19:08:26Z] [order] [INFO] Publishing order status update to NATS
 [2025-07-30T19:08:26Z] [order] [INFO] Publishing order status update to NATS
 [2025-07-30T19:08:26Z] [order] [INFO] Publishing order status update to NATS
+[2025-07-30T19:26:26Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T19:26:26Z] [order] [INFO] Starting order service...
+[2025-07-30T19:26:26Z] [account] [INFO] Starting account service
+[2025-07-30T19:26:26Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:26:26Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T19:26:26Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T19:26:26Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T19:26:26Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T19:26:26Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T19:26:26Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:26:26Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:26:26Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T19:26:26Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T19:26:26Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T19:26:26Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T19:26:26Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T19:26:26Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T19:26:26Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T19:26:27Z] [gateway] [INFO] Connected to account service
+[2025-07-30T19:26:27Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T19:26:27Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T19:26:27Z] [gateway] [INFO] Connected to order service
+[2025-07-30T19:26:27Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T19:26:27Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T19:26:27Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T19:26:27Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T19:26:31Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:26:31Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.3:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:26:36Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:26:36Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:26:36Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T19:26:36Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:26:36Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T19:26:59Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:26:59Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:26:59Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:26:59Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:26:59Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:26:59Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:26:59Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:29:31Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:29:31Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:29:31Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:29:31Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:29:31Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:29:31Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:29:31Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:30:21Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:30:21Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:30:21Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:30:21Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:30:21Z] [catalog] [Soft-deleted product: 30belyArQUKA15NzZ1kPhgNIGkS]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:30:21Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:30:21Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:30:38Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:30:38Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:30:38Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:30:38Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:30:38Z] [catalog] [Soft-deleted product: 30belyXRfNyDC1KRLKAnvDeDVd2]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:30:38Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:30:38Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:31:13Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:31:13Z] [catalog] [Soft-deleted product: 30belyArQUKA15NzZ1kPhgNIGkS]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:31:13Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:31:13Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:31:13Z] [catalog] [Soft-deleted product: 30belyXRfNyDC1KRLKAnvDeDVd2]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:31:13Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:31:13Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:31:13Z] [catalog] [Soft-deleted product: 30bem3Lj8bpR5DhImPPO10x7mlp]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:31:13Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:31:13Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:31:13Z] [catalog] [Soft-deleted product: 30belxzASovPNpRF9Nynqu7DHxc]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:31:13Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:31:13Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:31:13Z] [catalog] [Soft-deleted product: 30bem4JSVdrOuLN2L8s9gkyulc6]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:31:13Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:31:13Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:31:22Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:31:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:31:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:31:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:31:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:31:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:31:22Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:34:19Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLnvDeDVd2
+[2025-07-30T19:34:19Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyXRfNyDC1KRLnvDeDVd2
+[2025-07-30T19:34:19Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLnvDeDVd2
+[2025-07-30T19:34:19Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   Product not found for soft delete: 30belyXRfNyDC1KRLnvDeDVd2
+[2025-07-30T19:34:19Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   DeleteProduct failed: entity not found
+[2025-07-30T19:34:19Z] [gateway] [ERROR] DeleteProduct failed: rpc error: code = Unknown desc = entity not found
+[2025-07-30T19:34:19Z] [gateway] [ERROR] Error from catalogClient.DeleteProduct: rpc error: code = Unknown desc = entity not found
+[2025-07-30T19:42:56Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T19:42:56Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T19:42:56Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:42:56Z] [order] [INFO] Starting order service...
+[2025-07-30T19:42:56Z] [account] [INFO] Starting account service
+[2025-07-30T19:42:57Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:42:57Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T19:42:57Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T19:42:57Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T19:42:57Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:42:57Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T19:42:57Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T19:42:57Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T19:42:57Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T19:42:57Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T19:42:57Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T19:42:57Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T19:42:57Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T19:42:57Z] [gateway] [INFO] Connected to account service
+[2025-07-30T19:42:57Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T19:42:57Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T19:42:57Z] [gateway] [INFO] Connected to order service
+[2025-07-30T19:42:57Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T19:42:57Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T19:42:57Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T19:42:57Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T19:43:01Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:43:01Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.4:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:43:06Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:43:06Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:43:06Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T19:43:06Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:43:06Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T19:43:15Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:43:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:43:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:43:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:43:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:43:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:43:15Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:43:29Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:43:29Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:43:29Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:43:29Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:43:29Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:43:29Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:43:29Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:43:44Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:43:44Z] [catalog] [Soft-deleted product: 30belyArQUKA15NzZ1kPhgNIGkS]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:43:44Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:43:44Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:43:44Z] [catalog] [Soft-deleted product: 30belyXRfNyDC1KRLKAnvDeDVd2]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:43:44Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:43:44Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:43:44Z] [catalog] [Soft-deleted product: 30bem3Lj8bpR5DhImPPO10x7mlp]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:43:44Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:43:44Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:43:44Z] [catalog] [Soft-deleted product: 30belxzASovPNpRF9Nynqu7DHxc]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:43:44Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:43:44Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:43:44Z] [catalog] [Soft-deleted product: 30bem4JSVdrOuLN2L8s9gkyulc6]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:43:44Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:43:44Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:43:50Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:43:50Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:43:50Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:43:50Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:43:50Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:43:50Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:43:50Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:50:01Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T19:50:01Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T19:50:01Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:50:01Z] [order] [INFO] Starting order service...
+[2025-07-30T19:50:02Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:50:02Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T19:50:02Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T19:50:02Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T19:50:02Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T19:50:01Z] [account] [INFO] Starting account service
+[2025-07-30T19:50:02Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:50:02Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T19:50:02Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T19:50:02Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T19:50:02Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T19:50:02Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T19:50:02Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T19:50:02Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T19:50:02Z] [gateway] [INFO] Connected to account service
+[2025-07-30T19:50:02Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T19:50:02Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T19:50:02Z] [gateway] [INFO] Connected to order service
+[2025-07-30T19:50:02Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T19:50:02Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T19:50:02Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T19:50:02Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T19:50:06Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:50:07Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:50:12Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:50:12Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:50:12Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T19:50:12Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:50:12Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T19:50:59Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:50:59Z] [catalog] [Soft-deleted product: 30belyArQUKA15NzZ1kPhgNIGkS]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:50:59Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T19:50:59Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:50:59Z] [catalog] [Soft-deleted product: 30belyXRfNyDC1KRLKAnvDeDVd2]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:50:59Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyXRfNyDC1KRLKAnvDeDVd2
+[2025-07-30T19:50:59Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:50:59Z] [catalog] [Soft-deleted product: 30bem3Lj8bpR5DhImPPO10x7mlp]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:50:59Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T19:50:59Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:50:59Z] [catalog] [Soft-deleted product: 30belxzASovPNpRF9Nynqu7DHxc]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:50:59Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T19:50:59Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:50:59Z] [catalog] [Soft-deleted product: 30bem4JSVdrOuLN2L8s9gkyulc6]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:50:59Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:50:59Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T19:51:11Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:51:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:51:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:51:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:51:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:51:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:51:11Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:53:38Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T19:53:38Z] [account] [INFO] Starting account service
+[2025-07-30T19:53:39Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:53:39Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T19:53:39Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T19:53:39Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T19:53:39Z] [order] [INFO] Starting order service...
+[2025-07-30T19:53:39Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:53:39Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:53:39Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T19:53:39Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T19:53:39Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T19:53:39Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T19:53:39Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T19:53:39Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T19:53:39Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T19:53:39Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T19:53:39Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T19:53:39Z] [gateway] [INFO] Connected to account service
+[2025-07-30T19:53:39Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T19:53:39Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T19:53:39Z] [gateway] [INFO] Connected to order service
+[2025-07-30T19:53:39Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T19:53:39Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T19:53:39Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T19:53:39Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T19:53:44Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.2:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:53:44Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.2:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:53:49Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:53:49Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:53:49Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T19:53:49Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:53:49Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T19:54:21Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:54:21Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:54:21Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:54:21Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:54:21Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:54:21Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:54:21Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:56:59Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T19:56:59Z] [order] [INFO] Starting order service...
+[2025-07-30T19:56:59Z] [account] [INFO] Starting account service
+[2025-07-30T19:56:59Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:56:59Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T19:56:59Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T19:56:59Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T19:56:59Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T19:56:59Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T19:56:59Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:56:59Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T19:56:59Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T19:56:59Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T19:56:59Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T19:56:59Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T19:56:59Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T19:56:59Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T19:56:59Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T19:56:59Z] [gateway] [INFO] Connected to account service
+[2025-07-30T19:56:59Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T19:56:59Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T19:56:59Z] [gateway] [INFO] Connected to order service
+[2025-07-30T19:56:59Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T19:56:59Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T19:56:59Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T19:56:59Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T19:57:04Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:57:04Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T19:57:09Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:57:09Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:57:09Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T19:57:09Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T19:57:09Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T19:57:22Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:57:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:57:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:57:22Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:57:22Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Failed to list products: elastic: Error 404 (Not Found): no such index [catalog] [type=index_not_found_exception]
+[2025-07-30T19:57:22Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Failed to list products: elastic: Error 404 (Not Found): no such index [catalog] [type=index_not_found_exception]
+[2025-07-30T19:57:22Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   GetProducts failed: elastic: Error 404 (Not Found): no such index [catalog] [type=index_not_found_exception]
+[2025-07-30T19:57:22Z] [gateway] [ERROR] GetProducts failed: rpc error: code = Unknown desc = elastic: Error 404 (Not Found): no such index [catalog] [type=index_not_found_exception]
+[2025-07-30T19:57:22Z] [gateway] [ERROR] Error from catalogClient.GetProducts: rpc error: code = Unknown desc = elastic: Error 404 (Not Found): no such index [catalog] [type=index_not_found_exception]
+[2025-07-30T19:57:30Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:30Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5ZmxvZuBEPSZReYDWiuU6pe]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5g2YBlLWdr0eDlixru54Mxy]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5iCgkzGQgkxMvlx04Cgs87M]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5iCgkzGQgkxMvlx04Cgs87M
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5iCgkzGQgkxMvlx04Cgs87M
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5jdgWd09idJzbqLqWd5Tvsv]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5jdgWd09idJzbqLqWd5Tvsv
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5jdgWd09idJzbqLqWd5Tvsv
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5gP5HqWnpBnkokkvS6xO74u]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5gP5HqWnpBnkokkvS6xO74u
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5gP5HqWnpBnkokkvS6xO74u
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5h7OZQXLYljvllHsDdoHtgh]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5h7OZQXLYljvllHsDdoHtgh
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5h7OZQXLYljvllHsDdoHtgh
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5gAKDEwTwCRbnXy9whorXYV]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5gAKDEwTwCRbnXy9whorXYV
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5gAKDEwTwCRbnXy9whorXYV
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5igyP6eQ8v2boyZAcL0RuSW]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5igyP6eQ8v2boyZAcL0RuSW
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5igyP6eQ8v2boyZAcL0RuSW
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5iuMN7Ymc8KhfjjQFZ6gn2F]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5iuMN7Ymc8KhfjjQFZ6gn2F
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5iuMN7Ymc8KhfjjQFZ6gn2F
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5iSAhLq0WSYzFBraZfUYeaT]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5iSAhLq0WSYzFBraZfUYeaT
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5iSAhLq0WSYzFBraZfUYeaT
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5khSoCukfeWIUVVRRAr7LCE]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5khSoCukfeWIUVVRRAr7LCE
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5khSoCukfeWIUVVRRAr7LCE
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5lMAhuZnA0HNdoLnqockLd5]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5lMAhuZnA0HNdoLnqockLd5
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5lMAhuZnA0HNdoLnqockLd5
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5eny41r0iMwuDAwSQ9hI8US]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5eny41r0iMwuDAwSQ9hI8US
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5eny41r0iMwuDAwSQ9hI8US
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5ig0P87wPVK7e0X5KAsRdHr]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5ig0P87wPVK7e0X5KAsRdHr
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5ig0P87wPVK7e0X5KAsRdHr
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5fKfZmGtVlRIqtEAwMWCo4c]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5fKfZmGtVlRIqtEAwMWCo4c
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5fKfZmGtVlRIqtEAwMWCo4c
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5lRgh5ccSGklZMiwVtsfUmV]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5lRgh5ccSGklZMiwVtsfUmV
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5lRgh5ccSGklZMiwVtsfUmV
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5icZIWbOkq23h9vDBfuOYmC]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5icZIWbOkq23h9vDBfuOYmC
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5icZIWbOkq23h9vDBfuOYmC
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5jvMCZgc4ud0kKaNGq6gPUI]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5jvMCZgc4ud0kKaNGq6gPUI
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5jvMCZgc4ud0kKaNGq6gPUI
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5g1WZhrdrvGc2bNNEQbpWwy]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5g1WZhrdrvGc2bNNEQbpWwy
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5g1WZhrdrvGc2bNNEQbpWwy
+[2025-07-30T19:57:31Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T19:57:31Z] [catalog] [Product indexed: 30bo5hcffsAv5y4bXrTvecCxFeF]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T19:57:31Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bo5hcffsAv5y4bXrTvecCxFeF
+[2025-07-30T19:57:31Z] [gateway] [INFO] Product posted successfully with ID: 30bo5hcffsAv5y4bXrTvecCxFeF
+[2025-07-30T19:57:36Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:57:36Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:57:36Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:57:36Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:57:36Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:57:36Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:57:36Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T19:57:52Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:53Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:53Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:53Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:53Z] [catalog] [Soft-deleted product: 30bo5ZmxvZuBEPSZReYDWiuU6pe]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T19:57:53Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:53Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T19:57:58Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T19:57:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T19:57:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T19:57:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T19:57:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T19:57:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T19:57:58Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T20:03:06Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5dXNocmFpLmNzZUBnbWFpbC5jb20iLCJleHAiOjE3NTM3NjA4ODUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwWDNGUkVKZ1BHa1pqTEVQTENLMnYwOUZwSSJ9.7thy9JnUBl-XJU-hEfhKcbQsjddMRh4ubg4PK_VYkks
+[2025-07-30T20:03:06Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5dXNocmFpLmNzZUBnbWFpbC5jb20iLCJleHAiOjE3NTM3NjA4ODUsInJvbGUiOiJhZG1pbiIsInN1YiI6IjMwWDNGUkVKZ1BHa1pqTEVQTENLMnYwOUZwSSJ9.7thy9JnUBl-XJU-hEfhKcbQsjddMRh4ubg4PK_VYkks
+[2025-07-30T20:03:06Z] [auth] [ERROR] Failed to parse token: Token is expired
+[2025-07-30T20:03:06Z] [auth] [ERROR] Failed to parse token: Token is expired
+[2025-07-30T20:03:06Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in service: Token is expired
+[2025-07-30T20:03:06Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in service: Token is expired
+[2025-07-30T20:03:06Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: Token is expired
+[2025-07-30T20:03:06Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: Token is expired
+[2025-07-30T20:03:06Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = Token is expired
+[2025-07-30T20:03:06Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = Token is expired
+[2025-07-30T20:05:18Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T20:05:19Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T20:05:19Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T20:05:19Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T20:05:19Z] [catalog] [Soft-deleted product: 30bo5ZmxvZuBEPSZReYDWiuU6pe]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T20:05:19Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T20:05:19Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bo5ZmxvZuBEPSZReYDWiuU6pe
+[2025-07-30T20:06:40Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:06:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:06:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:06:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:06:40Z] [catalog] [Soft-deleted product: 30bo5g2YBlLWdr0eDlixru54Mxy]  [/CatalogService/DeleteProduct]   catalog
+[2025-07-30T20:06:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:06:40Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:06:43Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:06:43Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:06:43Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:06:43Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:06:43Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T20:06:43Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T20:06:43Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T20:11:59Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T20:11:59Z] [order] [INFO] Starting order service...
+[2025-07-30T20:11:59Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:11:59Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T20:11:59Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T20:11:59Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T20:11:59Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T20:11:59Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T20:11:59Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:11:59Z] [account] [INFO] Starting account service
+[2025-07-30T20:11:59Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:11:59Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T20:11:59Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T20:11:59Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T20:11:59Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T20:11:59Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T20:11:59Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T20:11:59Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T20:11:59Z] [gateway] [INFO] Connected to account service
+[2025-07-30T20:11:59Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T20:11:59Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T20:11:59Z] [gateway] [INFO] Connected to order service
+[2025-07-30T20:11:59Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T20:11:59Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T20:11:59Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T20:11:59Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T20:12:04Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:12:04Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:12:09Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:12:10Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:12:10Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T20:12:10Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:12:10Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T20:12:15Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:12:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:12:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:12:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:12:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 20
+[2025-07-30T20:12:15Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 20 products
+[2025-07-30T20:12:15Z] [gateway] [INFO] Fetched products from catalog: count = 20
+[2025-07-30T20:12:21Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:12:21Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:12:21Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:12:21Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   Product not found for soft delete: 30bo5g2YBlLWdr0eDlixru54Mxy
+[2025-07-30T20:12:21Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   DeleteProduct failed: entity not found
+[2025-07-30T20:12:21Z] [gateway] [ERROR] DeleteProduct failed: rpc error: code = Unknown desc = entity not found
+[2025-07-30T20:12:21Z] [gateway] [ERROR] Error from catalogClient.DeleteProduct: rpc error: code = Unknown desc = entity not found
+[2025-07-30T20:12:36Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:12:36Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:12:36Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:12:36Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:12:36Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:12:36Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:12:52Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:12:52Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:12:52Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:12:52Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:12:52Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:12:52Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 19
+[2025-07-30T20:12:52Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 19 products
+[2025-07-30T20:12:52Z] [gateway] [INFO] Fetched products from catalog: count = 19
+[2025-07-30T20:13:24Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belzSpvPMVxhGcFejypr7glG7
+[2025-07-30T20:13:24Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belzSpvPMVxhGcFejypr7glG7
+[2025-07-30T20:13:24Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belzSpvPMVxhGcFejypr7glG7
+[2025-07-30T20:13:24Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   Failed to soft-delete product: elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:13:24Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   DeleteProduct failed: elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:13:24Z] [gateway] [ERROR] DeleteProduct failed: rpc error: code = Unknown desc = elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:13:24Z] [gateway] [ERROR] Error from catalogClient.DeleteProduct: rpc error: code = Unknown desc = elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:15:36Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belzSpvPMVxhGcFejypr7glG7
+[2025-07-30T20:15:36Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belzSpvPMVxhGcFejypr7glG7
+[2025-07-30T20:15:36Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belzSpvPMVxhGcFejypr7glG7
+[2025-07-30T20:15:36Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   Failed to soft-delete product: elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:15:36Z] [catalog] [ERROR]  [/CatalogService/DeleteProduct]   DeleteProduct failed: elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:15:36Z] [gateway] [ERROR] DeleteProduct failed: rpc error: code = Unknown desc = elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:15:36Z] [gateway] [ERROR] Error from catalogClient.DeleteProduct: rpc error: code = Unknown desc = elastic: Error 429 (Too Many Requests): index [catalog] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block]; [type=cluster_block_exception]
+[2025-07-30T20:17:54Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T20:17:54Z] [account] [INFO] Starting account service
+[2025-07-30T20:17:54Z] [order] [INFO] Starting order service...
+[2025-07-30T20:17:54Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T20:17:54Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:17:54Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:17:54Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:17:54Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T20:17:54Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T20:17:54Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T20:17:54Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T20:17:54Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T20:17:54Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T20:17:55Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T20:17:55Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T20:17:55Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T20:17:55Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T20:17:55Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T20:17:55Z] [gateway] [INFO] Connected to account service
+[2025-07-30T20:17:55Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T20:17:55Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T20:17:55Z] [gateway] [INFO] Connected to order service
+[2025-07-30T20:17:55Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T20:17:55Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T20:17:55Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T20:17:55Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T20:17:59Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:17:59Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:18:04Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:18:04Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:18:04Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T20:18:04Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:18:04Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T20:18:18Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:18:18Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:18:18Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:18:18Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:18:18Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:18:18Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 19
+[2025-07-30T20:18:18Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 19 products
+[2025-07-30T20:18:18Z] [gateway] [INFO] Fetched products from catalog: count = 19
+[2025-07-30T20:18:40Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:18:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:18:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:18:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:18:40Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:18:40Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:18:51Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:18:51Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:18:51Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:18:51Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:18:51Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:18:51Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:18:51Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 18
+[2025-07-30T20:18:51Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 18 products
+[2025-07-30T20:18:51Z] [gateway] [INFO] Fetched products from catalog: count = 18
+[2025-07-30T20:26:51Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T20:26:52Z] [account] [INFO] Starting account service
+[2025-07-30T20:26:52Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:26:52Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T20:26:52Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T20:26:52Z] [order] [INFO] Starting order service...
+[2025-07-30T20:26:52Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T20:26:52Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:26:52Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:26:52Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T20:26:52Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T20:26:52Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T20:26:52Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T20:26:52Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T20:26:52Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T20:26:52Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T20:26:52Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T20:26:52Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T20:26:52Z] [gateway] [INFO] Connected to account service
+[2025-07-30T20:26:52Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T20:26:52Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T20:26:52Z] [gateway] [INFO] Connected to order service
+[2025-07-30T20:26:52Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T20:26:52Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T20:26:52Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T20:26:52Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T20:26:57Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:26:57Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:27:02Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:27:02Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:27:02Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T20:27:02Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:27:02Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T20:27:11Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:27:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:27:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:27:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:27:11Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:27:11Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 18
+[2025-07-30T20:27:11Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 18 products
+[2025-07-30T20:27:11Z] [gateway] [INFO] Fetched products from catalog: count = 18
+[2025-07-30T20:27:55Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:55Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:55Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:27:55Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:27:55Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:27:55Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:27:55Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:27:55Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:27:55Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:27:58Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:27:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:27:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:27:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:27:58Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:27:58Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:27:58Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:27:58Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:27:58Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:27:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 15
+[2025-07-30T20:27:58Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 15 products
+[2025-07-30T20:27:58Z] [gateway] [INFO] Fetched products from catalog: count = 15
+[2025-07-30T20:30:39Z] [gateway] [INFO] Restocking product: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:30:39Z] [catalog] [Product restocked: 30bem2jlSPwo1aXcbZntSbnjDrG]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:30:39Z] [gateway] [INFO] Product restocked: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:30:39Z] [gateway] [INFO] Restocking product: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:30:39Z] [catalog] [Product restocked: 30belxzASovPNpRF9Nynqu7DHxc]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:30:39Z] [gateway] [INFO] Product restocked: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:30:39Z] [gateway] [INFO] Restocking product: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:30:39Z] [catalog] [Product restocked: 30bem4JSVdrOuLN2L8s9gkyulc6]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:30:39Z] [gateway] [INFO] Product restocked: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:30:39Z] [gateway] [INFO] Restocking product: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:30:39Z] [catalog] [Product restocked: 30belyArQUKA15NzZ1kPhgNIGkS]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:30:39Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:30:39Z] [gateway] [INFO] Product restocked: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:30:49Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:30:49Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:30:49Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:30:49Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:30:49Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:30:49Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:30:49Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:30:49Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:30:49Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:30:49Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 15
+[2025-07-30T20:30:49Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 15 products
+[2025-07-30T20:30:49Z] [gateway] [INFO] Fetched products from catalog: count = 15
+[2025-07-30T20:33:23Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-30T20:33:23Z] [catalog] [INFO] Starting catalog service...
+[2025-07-30T20:33:23Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:33:24Z] [order] [INFO] Starting order service...
+[2025-07-30T20:33:24Z] [account] [INFO] Starting account service
+[2025-07-30T20:33:24Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:33:24Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-30T20:33:24Z] [order] [INFO] Creating order service with dependencies
+[2025-07-30T20:33:24Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-30T20:33:24Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-30T20:33:24Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-30T20:33:24Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-30T20:33:24Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-30T20:33:24Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-30T20:33:24Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-30T20:33:24Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-30T20:33:24Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-30T20:33:24Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-30T20:33:24Z] [gateway] [INFO] Connected to account service
+[2025-07-30T20:33:24Z] [gateway] [INFO] Connected to catalog service
+[2025-07-30T20:33:24Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-30T20:33:24Z] [gateway] [INFO] Connected to order service
+[2025-07-30T20:33:24Z] [gateway] [INFO] Connected to auth service
+[2025-07-30T20:33:24Z] [gateway] [INFO] Connected to NATS
+[2025-07-30T20:33:24Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-30T20:33:24Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-30T20:33:29Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.2:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:33:29Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.2:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-30T20:33:33Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:33:33Z] [gateway] [ERROR] GetProducts failed: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.8:8080: connect: connection refused"
+[2025-07-30T20:33:33Z] [gateway] [ERROR] Error from catalogClient.GetProducts: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.18.0.8:8080: connect: connection refused"
+[2025-07-30T20:33:34Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:33:34Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:33:34Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-30T20:33:34Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-30T20:33:34Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-30T20:33:38Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:38Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU4PoXCL27RBf0aOPXsvpHoS]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU4PoXCL27RBf0aOPXsvpHoS
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU4PoXCL27RBf0aOPXsvpHoS
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUC6O6WMATi9fVgYkjkYwLWX]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUC6O6WMATi9fVgYkjkYwLWX
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUC6O6WMATi9fVgYkjkYwLWX
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU7gb2wWa8vMSqNLtYcx83Hk]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU7gb2wWa8vMSqNLtYcx83Hk
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU7gb2wWa8vMSqNLtYcx83Hk
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUAy89bUjiuuXsvm1e3H0Kqy]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUAy89bUjiuuXsvm1e3H0Kqy
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUAy89bUjiuuXsvm1e3H0Kqy
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU7vxc2wkGyKMJuNzhyEM03D]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU7vxc2wkGyKMJuNzhyEM03D
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU7vxc2wkGyKMJuNzhyEM03D
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU9Fu9Xrzr3cTSx1B2jbsoYm]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU9Fu9Xrzr3cTSx1B2jbsoYm
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU9Fu9Xrzr3cTSx1B2jbsoYm
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU8yJNpkXzhmwHm9jQ5yaDGd]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU8yJNpkXzhmwHm9jQ5yaDGd
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU8yJNpkXzhmwHm9jQ5yaDGd
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUAhTrxVpUXIzzOjqhPzcBLl]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUAhTrxVpUXIzzOjqhPzcBLl
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUAhTrxVpUXIzzOjqhPzcBLl
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU8SFNwkst2Uo4ICdNRSyHz4]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU8SFNwkst2Uo4ICdNRSyHz4
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU8SFNwkst2Uo4ICdNRSyHz4
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUBDJwXd7DokpFEMhf6xVGGm]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUBDJwXd7DokpFEMhf6xVGGm
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUBDJwXd7DokpFEMhf6xVGGm
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU7rsSCB87Ikscaw3AidJkvr]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU7rsSCB87Ikscaw3AidJkvr
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU7rsSCB87Ikscaw3AidJkvr
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUBgUZ8czvpsOGxTripnnmTL]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUBgUZ8czvpsOGxTripnnmTL
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUBgUZ8czvpsOGxTripnnmTL
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU7I2EuNXL9aPEcuyRTsWid5]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU7I2EuNXL9aPEcuyRTsWid5
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU7I2EuNXL9aPEcuyRTsWid5
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUCdXIOrNZBDIH9ikN1WlsQ7]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUCdXIOrNZBDIH9ikN1WlsQ7
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUCdXIOrNZBDIH9ikN1WlsQ7
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUCkWvaVXtqxqSE3bsEo2Ne1]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUCkWvaVXtqxqSE3bsEo2Ne1
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUCkWvaVXtqxqSE3bsEo2Ne1
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUAiqar0UhSYQi6whfffXM3O]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUAiqar0UhSYQi6whfffXM3O
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUAiqar0UhSYQi6whfffXM3O
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU7rad5QAMxYSriC1HpJfrgz]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU7rad5QAMxYSriC1HpJfrgz
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU7rad5QAMxYSriC1HpJfrgz
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU5yDIa2yrjGbJ7AlaCtVfkg]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU5yDIa2yrjGbJ7AlaCtVfkg
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU5yDIa2yrjGbJ7AlaCtVfkg
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsUAIl1sbQmXpTxzUejiZr7Tx]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsUAIl1sbQmXpTxzUejiZr7Tx
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsUAIl1sbQmXpTxzUejiZr7Tx
+[2025-07-30T20:33:39Z] [gateway] [INFO] Posting new product to catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
+[2025-07-30T20:33:39Z] [catalog] [Product indexed: 30bsU68HbY3banfUYXMVXOznrjD]  [/CatalogService/PostProduct]   catalog
+[2025-07-30T20:33:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30bsU68HbY3banfUYXMVXOznrjD
+[2025-07-30T20:33:39Z] [gateway] [INFO] Product posted successfully with ID: 30bsU68HbY3banfUYXMVXOznrjD
+[2025-07-30T20:33:41Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:33:41Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:33:41Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:33:41Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:33:41Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:33:41Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:33:41Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:33:41Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:33:41Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:33:41Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 35
+[2025-07-30T20:33:41Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 35 products
+[2025-07-30T20:33:41Z] [gateway] [INFO] Fetched products from catalog: count = 35
+[2025-07-30T20:34:00Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:00Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:00Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:00Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:00Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:00Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:00Z] [gateway] [INFO] Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Received DeleteProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Soft-deleting product (set outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:00Z] [catalog] [INFO]  [/CatalogService/DeleteProduct]   Product deleted: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:00Z] [gateway] [INFO] Product soft-deleted (outOfStock=true): 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:21Z] [gateway] [INFO] Restocking product: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:21Z] [catalog] [Product restocked: 30bem2jlSPwo1aXcbZntSbnjDrG]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:21Z] [gateway] [INFO] Product restocked: 30bem2jlSPwo1aXcbZntSbnjDrG
+[2025-07-30T20:34:21Z] [gateway] [INFO] Restocking product: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:21Z] [catalog] [Product restocked: 30belxzASovPNpRF9Nynqu7DHxc]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:21Z] [gateway] [INFO] Product restocked: 30belxzASovPNpRF9Nynqu7DHxc
+[2025-07-30T20:34:21Z] [gateway] [INFO] Restocking product: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:21Z] [catalog] [Product restocked: 30bem4JSVdrOuLN2L8s9gkyulc6]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:21Z] [gateway] [INFO] Product restocked: 30bem4JSVdrOuLN2L8s9gkyulc6
+[2025-07-30T20:34:21Z] [gateway] [INFO] Restocking product: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Received RestockProduct request for ID: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Restocking product: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Successfully restocked product: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:21Z] [catalog] [Product restocked: 30belyArQUKA15NzZ1kPhgNIGkS]  [/CatalogService/RestockProduct]   catalog
+[2025-07-30T20:34:21Z] [catalog] [INFO]  [/CatalogService/RestockProduct]   Product restocked: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:21Z] [gateway] [INFO] Product restocked: 30belyArQUKA15NzZ1kPhgNIGkS
+[2025-07-30T20:34:28Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:34:28Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:34:28Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:34:28Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:34:28Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:34:28Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 39
+[2025-07-30T20:34:28Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 39 products
+[2025-07-30T20:34:28Z] [gateway] [INFO] Fetched products from catalog: count = 39
+[2025-07-30T20:35:01Z] [gateway] [INFO] Fetching products with pagination
+[2025-07-30T20:35:01Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
+[2025-07-30T20:35:01Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
+[2025-07-30T20:35:01Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
+[2025-07-30T20:35:01Z] [catalog] [ERROR]  [/CatalogService/GetProducts]   Product is out of stock: 30bem3Lj8bpR5DhImPPO10x7mlp
+[2025-07-30T20:35:01Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 39
+[2025-07-30T20:35:01Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 39 products
+[2025-07-30T20:35:01Z] [gateway] [INFO] Fetched products from catalog: count = 39

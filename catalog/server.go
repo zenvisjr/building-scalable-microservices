@@ -124,6 +124,7 @@ func (g *grpcServer) GetProducts(ctx context.Context, req *pb.GetProductsRequest
 			Price:       p.Price,
 			Stock:       p.Stock,
 			Sold:        p.Sold,
+			OutOfStock:  p.OutOfStock,
 		}
 	}
 
@@ -147,4 +148,35 @@ func(g *grpcServer) UpdateStockAndSold(ctx context.Context, req *pb.UpdateStockR
 	return &pb.UpdateStockResponse{
 		Ok: ok,
 	}, nil
+}
+
+
+func (g *grpcServer) DeleteProduct(ctx context.Context, req *pb.DeleteProductRequest) (*pb.DeleteProductResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Received DeleteProduct request for ID: "+req.GetId())
+
+	err := g.service.DeleteProduct(ctx, req.GetId())
+	if err != nil {
+		Logs.Error(ctx, "DeleteProduct failed: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Product deleted: "+req.GetId())
+
+	return &pb.DeleteProductResponse{}, nil
+}
+
+func (g *grpcServer) RestockProduct(ctx context.Context, req *pb.RestockProductRequest) (*pb.RestockProductResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Received RestockProduct request for ID: "+req.GetProductId())
+
+	err := g.service.RestockProduct(ctx, req.GetProductId(), int(req.GetNewStock()))
+	if err != nil {
+		Logs.Error(ctx, "RestockProduct failed: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Product restocked: "+req.GetProductId())
+
+	return &pb.RestockProductResponse{}, nil
 }

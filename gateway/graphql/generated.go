@@ -71,13 +71,15 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateOrder   func(childComplexity int, input OrderInput) int
-		CreateProduct func(childComplexity int, input ProductInput) int
-		Login         func(childComplexity int, input LoginInput) int
-		Logout        func(childComplexity int, input *LogoutInput) int
-		RefreshToken  func(childComplexity int, input RefreshTokenInput) int
-		ResetPassword func(childComplexity int, input ResetPasswordInput) int
-		Signup        func(childComplexity int, input AccountInput) int
+		CreateOrder    func(childComplexity int, input OrderInput) int
+		CreateProduct  func(childComplexity int, input ProductInput) int
+		DeleteProduct  func(childComplexity int, id string) int
+		Login          func(childComplexity int, input LoginInput) int
+		Logout         func(childComplexity int, input *LogoutInput) int
+		RefreshToken   func(childComplexity int, input RefreshTokenInput) int
+		ResetPassword  func(childComplexity int, input ResetPasswordInput) int
+		RestockProduct func(childComplexity int, id string, newStock int) int
+		Signup         func(childComplexity int, input AccountInput) int
 	}
 
 	Order struct {
@@ -106,6 +108,7 @@ type ComplexityRoot struct {
 		Description func(childComplexity int) int
 		ID          func(childComplexity int) int
 		Name        func(childComplexity int) int
+		OutOfStock  func(childComplexity int) int
 		Price       func(childComplexity int) int
 		Sold        func(childComplexity int) int
 		Stock       func(childComplexity int) int
@@ -138,6 +141,8 @@ type MutationResolver interface {
 	RefreshToken(ctx context.Context, input RefreshTokenInput) (*AuthResponse, error)
 	Logout(ctx context.Context, input *LogoutInput) (*LogoutResponse, error)
 	ResetPassword(ctx context.Context, input ResetPasswordInput) (*ResetPasswordResponse, error)
+	DeleteProduct(ctx context.Context, id string) (bool, error)
+	RestockProduct(ctx context.Context, id string, newStock int) (bool, error)
 }
 type QueryResolver interface {
 	Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error)
@@ -275,6 +280,18 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Mutation.CreateProduct(childComplexity, args["input"].(ProductInput)), true
 
+	case "Mutation.deleteProduct":
+		if e.complexity.Mutation.DeleteProduct == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_deleteProduct_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.DeleteProduct(childComplexity, args["id"].(string)), true
+
 	case "Mutation.login":
 		if e.complexity.Mutation.Login == nil {
 			break
@@ -322,6 +339,18 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 		}
 
 		return e.complexity.Mutation.ResetPassword(childComplexity, args["input"].(ResetPasswordInput)), true
+
+	case "Mutation.restockProduct":
+		if e.complexity.Mutation.RestockProduct == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_restockProduct_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.RestockProduct(childComplexity, args["id"].(string), args["newStock"].(int)), true
 
 	case "Mutation.signup":
 		if e.complexity.Mutation.Signup == nil {
@@ -446,6 +475,13 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 		}
 
 		return e.complexity.Product.Name(childComplexity), true
+
+	case "Product.outOfStock":
+		if e.complexity.Product.OutOfStock == nil {
+			break
+		}
+
+		return e.complexity.Product.OutOfStock(childComplexity), true
 
 	case "Product.price":
 		if e.complexity.Product.Price == nil {
@@ -722,6 +758,17 @@ func (ec *executionContext) field_Mutation_createProduct_args(ctx context.Contex
 	return args, nil
 }
 
+func (ec *executionContext) field_Mutation_deleteProduct_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := processArgField(ctx, rawArgs, "id", ec.unmarshalNID2string)
+	if err != nil {
+		return nil, err
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
@@ -763,6 +810,22 @@ func (ec *executionContext) field_Mutation_resetPassword_args(ctx context.Contex
 		return nil, err
 	}
 	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_restockProduct_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := processArgField(ctx, rawArgs, "id", ec.unmarshalNID2string)
+	if err != nil {
+		return nil, err
+	}
+	args["id"] = arg0
+	arg1, err := processArgField(ctx, rawArgs, "newStock", ec.unmarshalNInt2int)
+	if err != nil {
+		return nil, err
+	}
+	args["newStock"] = arg1
 	return args, nil
 }
 
@@ -1498,6 +1561,8 @@ func (ec *executionContext) fieldContext_Mutation_createProduct(ctx context.Cont
 				return ec.fieldContext_Product_stock(ctx, field)
 			case "sold":
 				return ec.fieldContext_Product_sold(ctx, field)
+			case "outOfStock":
+				return ec.fieldContext_Product_outOfStock(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Product", field.Name)
 		},
@@ -1898,6 +1963,116 @@ func (ec *executionContext) fieldContext_Mutation_resetPassword(ctx context.Cont
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Mutation_resetPassword_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_deleteProduct(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_deleteProduct(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().DeleteProduct(rctx, fc.Args["id"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_deleteProduct(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_deleteProduct_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_restockProduct(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_restockProduct(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().RestockProduct(rctx, fc.Args["id"].(string), fc.Args["newStock"].(int))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_restockProduct(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_restockProduct_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
 	}
@@ -2754,6 +2929,50 @@ func (ec *executionContext) fieldContext_Product_sold(_ context.Context, field g
 	return fc, nil
 }
 
+func (ec *executionContext) _Product_outOfStock(ctx context.Context, field graphql.CollectedField, obj *Product) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Product_outOfStock(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.OutOfStock, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Product_outOfStock(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Product",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_accounts(ctx, field)
 	if err != nil {
@@ -2872,6 +3091,8 @@ func (ec *executionContext) fieldContext_Query_products(ctx context.Context, fie
 				return ec.fieldContext_Product_stock(ctx, field)
 			case "sold":
 				return ec.fieldContext_Product_sold(ctx, field)
+			case "outOfStock":
+				return ec.fieldContext_Product_outOfStock(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Product", field.Name)
 		},
@@ -5793,6 +6014,20 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
+		case "deleteProduct":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_deleteProduct(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "restockProduct":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_restockProduct(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -6021,6 +6256,11 @@ func (ec *executionContext) _Product(ctx context.Context, sel ast.SelectionSet, 
 			}
 		case "sold":
 			out.Values[i] = ec._Product_sold(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "outOfStock":
+			out.Values[i] = ec._Product_outOfStock(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}

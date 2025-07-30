@@ -117,6 +117,7 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 			Price:       p.Price,
 			Stock:       uint32(p.Stock),
 			Sold:        uint32(p.Sold),
+			OutOfStock:  p.OutOfStock,
 		}
 	}
 
@@ -140,4 +141,36 @@ func (c *Client) UpdateStockAndSold(ctx context.Context, id string, quantity int
 	c.logs.Info(ctx, "Stock and sold updated for product: "+id)
 
 	return resp.Ok, nil
+}
+
+func (c *Client) DeleteProduct(ctx context.Context, id string) error {
+	c.logs.Info(ctx, "Soft-deleting product (set outOfStock=true): "+id)
+
+	req := &pb.DeleteProductRequest{Id: id}
+	_, err := c.service.DeleteProduct(ctx, req)
+	if err != nil {
+		c.logs.Error(ctx, "DeleteProduct failed: "+err.Error())
+		return err
+	}
+
+	c.logs.Info(ctx, "Product soft-deleted (outOfStock=true): "+id)
+	return nil
+}
+
+func (c *Client) RestockProduct(ctx context.Context, id string, newStock int) error {
+	c.logs.Info(ctx, "Restocking product: "+id)
+
+	req := &pb.RestockProductRequest{
+		ProductId: id,
+		NewStock:  int32(newStock),
+	}
+
+	_, err := c.service.RestockProduct(ctx, req)
+	if err != nil {
+		c.logs.Error(ctx, "RestockProduct failed: "+err.Error())
+		return err
+	}
+
+	c.logs.Info(ctx, "Product restocked: "+id)
+	return nil
 }

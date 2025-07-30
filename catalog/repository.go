@@ -22,6 +22,8 @@ type Repository interface {
 	ListProductsWithIDs(ctx context.Context, ids []string) ([]Product, error)
 	SearchProducts(ctx context.Context, query string, skip uint64, take uint64) ([]Product, error)
 	UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error)
+	DeleteProductByID(ctx context.Context, id string) error
+	RestockProduct(ctx context.Context, id string, newStock int) error
 }
 
 type elasticRepository struct {
@@ -145,6 +147,7 @@ func (p *elasticRepository) ListProducts(ctx context.Context, skip uint64, take 
 			Price:       product.Price,
 			Stock:       product.Stock,
 			Sold:        product.Sold,
+			OutOfStock:  product.OutOfStock,
 		})
 	}
 	Logs.Info(ctx, "Products listed: "+logger.IntToStr(len(products)))
@@ -298,6 +301,87 @@ func (p *elasticRepository) UpdateStockAndSold(ctx context.Context, id string, q
 	Logs.RemoteLogs(ctx, "Stock and sold updated for product: "+id, "catalog")
 	return true, nil
 }
+
+func (p *elasticRepository) DeleteProductByID(ctx context.Context, id string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Soft-deleting product (set outOfStock=true): " + id)
+
+	// Step 1: Check if product exists
+	exists, err := p.client.Exists().
+		Index("catalog").
+		Id(id).
+		Do(ctx)
+	if err != nil {
+		Logs.Error(ctx, "Error checking product existence: " + err.Error())
+		return err
+	}
+	if !exists {
+		Logs.Error(ctx, "Product not found for soft delete: " + id)
+		return errNotFound
+	}
+
+	// Step 2: Update outOfStock = true and stock = 0
+	script := elastic.NewScriptInline(`
+		ctx._source.out_of_stock = true;
+		ctx._source.stock = 0;
+	`).Lang("painless")
+
+	_, err = p.client.Update().
+		Index("catalog").
+		Id(id).
+		Script(script).
+		Refresh("true").
+		Do(ctx)
+
+	if err != nil {
+		Logs.Error(ctx, "Failed to soft-delete product: " + err.Error())
+		return err
+	}
+
+	Logs.Info(ctx, "Product soft-deleted (outOfStock=true): " + id)
+	return nil
+}
+
+func (p *elasticRepository) RestockProduct(ctx context.Context, id string, newStock int) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Restocking product: " + id)
+
+	// Check if product exists
+	exists, err := p.client.Exists().Index("catalog").Id(id).Do(ctx)
+	if err != nil {
+		Logs.Error(ctx, "Error checking product existence: " + err.Error())
+		return err
+	}
+	if !exists {
+		Logs.Error(ctx, "Product not found for restock: " + id)
+		return errNotFound
+	}
+
+	// Prepare script to restock
+	script := elastic.NewScriptInline(`
+		ctx._source.stock = params.newStock;
+		ctx._source.out_of_stock = false;
+	`).Lang("painless").Params(map[string]interface{}{
+		"newStock": newStock,
+	})
+
+	// Perform update
+	_, err = p.client.Update().
+		Index("catalog").
+		Id(id).
+		Script(script).
+		Refresh("true").
+		Do(ctx)
+	if err != nil {
+		Logs.Error(ctx, "Failed to restock product: " + err.Error())
+		return err
+	}
+
+	Logs.Info(ctx, "Successfully restocked product: " + id)
+	Logs.RemoteLogs(ctx, "Product restocked: "+id, "catalog")
+	return nil
+}
+
 
 // What is sniffing?
 // By default, the client tries to discover all nodes in your cluster by calling:

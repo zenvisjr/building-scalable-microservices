@@ -13,6 +13,7 @@ type Product {
     price: Float!
     stock: Int!
     sold: Int!
+    outOfStock: Boolean!
 }
 
 type Order {
@@ -86,6 +87,9 @@ type Mutation {
     refreshToken(input: RefreshTokenInput!): AuthResponse!
     logout(input: LogoutInput): LogoutResponse!
     resetPassword(input: ResetPasswordInput!): ResetPasswordResponse!
+
+    deleteProduct(id: ID!): Boolean!
+    restockProduct(id: ID!, newStock: Int!): Boolean!
 }
 
 input ResetPasswordInput {

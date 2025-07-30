@@ -104,6 +104,8 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 			Description: res.Description,
 			Price:       res.Price,
 			Stock:       int(res.Stock),
+			Sold:        int(res.Sold),
+			OutOfStock:  res.OutOfStock,
 		}}, nil
 	}
 
@@ -133,6 +135,7 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 			Price:       product.Price,
 			Stock:       int(product.Stock),
 			Sold:        int(product.Sold),
+			OutOfStock:  product.OutOfStock,
 		})
 	}
 	return products, nil

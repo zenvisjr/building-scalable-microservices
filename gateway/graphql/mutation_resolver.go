@@ -271,3 +271,29 @@ func (m *mutationResolver) ResetPassword(ctx context.Context, input ResetPasswor
 		Message: "Password reset successful for user: " + input.Email,
 	}, nil
 }
+
+func (m *mutationResolver) DeleteProduct(ctx context.Context, id string) (bool, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	err := m.server.catalogClient.DeleteProduct(ctx, id)
+	if err != nil {
+		Logs.Error(ctx, "Error from catalogClient.DeleteProduct: "+err.Error())
+		return false, err
+	}
+	return true, nil
+}
+
+func (m *mutationResolver) RestockProduct(ctx context.Context, id string, newStock int) (bool, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	err := m.server.catalogClient.RestockProduct(ctx, id, newStock)
+	if err != nil {
+		Logs.Error(ctx, "Error from catalogClient.RestockProduct: "+err.Error())
+		return false, err
+	}
+	return true, nil
+}

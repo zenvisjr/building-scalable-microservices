@@ -25,6 +25,8 @@ type Service interface {
 	GetProductsByIDs(ctx context.Context, ids []string) ([]Product, error)
 	SearchProducts(ctx context.Context, query string, skip uint64, take uint64) ([]Product, error)
 	UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error)
+	DeleteProduct(ctx context.Context, id string) error
+	RestockProduct(ctx context.Context, id string, newStock int) error
 }
 
 type catalogService struct {
@@ -116,4 +118,19 @@ func (s *catalogService) UpdateStockAndSold(ctx context.Context, id string, quan
 		return false, err
 	}
 	return ok, nil
+}
+
+
+func (s *catalogService) DeleteProduct(ctx context.Context, id string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Soft-deleting product (set outOfStock=true): " + id)
+
+	return s.repo.DeleteProductByID(ctx, id)
+}
+
+func (s *catalogService) RestockProduct(ctx context.Context, id string, newStock int) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Restocking product: " + id)
+
+	return s.repo.RestockProduct(ctx, id, newStock)
 }

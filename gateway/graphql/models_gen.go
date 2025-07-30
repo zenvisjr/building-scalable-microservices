@@ -78,6 +78,7 @@ type Product struct {
 	Price       float64 `json:"price"`
 	Stock       int     `json:"stock"`
 	Sold        int     `json:"sold"`
+	OutOfStock  bool    `json:"outOfStock"`
 }
 
 type ProductInput struct {
