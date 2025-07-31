@@ -9,12 +9,23 @@ type AccountInput struct {
 	Role     *string `json:"role,omitempty"`
 }
 
+type AccountsQueryInput struct {
+	ID         *string     `json:"id,omitempty"`
+	Name       *string     `json:"name,omitempty"`
+	Pagination *Pagination `json:"pagination,omitempty"`
+}
+
 type AuthResponse struct {
 	AccessToken  string `json:"accessToken"`
 	RefreshToken string `json:"refreshToken"`
 	UserID       string `json:"userId"`
 	Email        string `json:"email"`
 	Role         string `json:"role"`
+}
+
+type CurrentUsersQueryInput struct {
+	Role       *string     `json:"role,omitempty"`
+	Pagination *Pagination `json:"pagination,omitempty"`
 }
 
 type LoginInput struct {
@@ -82,11 +93,21 @@ type Product struct {
 	Score       float64 `json:"score"`
 }
 
+type ProductIDInput struct {
+	ProductID string `json:"productId"`
+}
+
 type ProductInput struct {
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	Stock       int     `json:"stock"`
+}
+
+type ProductsQueryInput struct {
+	Query      *string     `json:"query,omitempty"`
+	ID         *string     `json:"id,omitempty"`
+	Pagination *Pagination `json:"pagination,omitempty"`
 }
 
 type Query struct {
@@ -106,5 +127,20 @@ type ResetPasswordResponse struct {
 	Success bool   `json:"success"`
 }
 
+type RestockProductInput struct {
+	ProductID string `json:"productId"`
+	NewStock  int    `json:"newStock"`
+}
+
 type Subscription struct {
+}
+
+type SuggestProductsQueryInput struct {
+	Query string `json:"query"`
+	Size  *int   `json:"size,omitempty"`
+	UseAi *bool  `json:"useAI,omitempty"`
+}
+
+type UserIDInput struct {
+	UserID string `json:"userId"`
 }

@@ -90,12 +90,24 @@ type Mutation {
     logout(input: LogoutInput): LogoutResponse!
     resetPassword(input: ResetPasswordInput!): ResetPasswordResponse!
 
-    deleteProduct(id: ID!): Boolean!
-    restockProduct(id: ID!, newStock: Int!): Boolean!
+    deleteProduct(input: ProductIDInput!): Boolean!
+    restockProduct(input: RestockProductInput!): Boolean!
 
-    deactivateAccount(userId: ID!): String!
-    reactivateAccount(userId: ID!): String!
-    deleteAccount(userId: ID!): String!
+    deactivateAccount(input: UserIDInput!): String!
+    reactivateAccount(input: UserIDInput!): String!
+    deleteAccount(input: UserIDInput!): String!
+}
+
+input ProductIDInput {
+  productId: ID!
+}
+input RestockProductInput {
+  productId: ID!
+  newStock: Int!
+}
+
+input UserIDInput {
+  userId: ID!
 }
 
 input ResetPasswordInput {
@@ -113,11 +125,34 @@ type LogoutResponse {
 }
 
 type Query {
-    accounts(pagination: Pagination, id: ID, name: String): [Account!]!
-    products(pagination: Pagination, query: String, id: ID): [Product!]!
-    currentUsers(pagination: Pagination, role: String): [Account!]!
-    SuggestProducts(query: String!, size: Int, useAI: Boolean): [Product!]!
+    accounts(input: AccountsQueryInput): [Account!]!
+    products(input: ProductsQueryInput): [Product!]!
+    currentUsers(input: CurrentUsersQueryInput): [Account!]!
+    SuggestProducts(input: SuggestProductsQueryInput): [Product!]!
 
+}
+
+input AccountsQueryInput {
+    id: ID
+    name: String
+    pagination: Pagination
+}
+
+input ProductsQueryInput {
+    query: String
+    id: ID
+    pagination: Pagination
+}
+
+input CurrentUsersQueryInput {
+    role: String
+    pagination: Pagination
+}
+
+input SuggestProductsQueryInput {
+    query: String!
+    size: Int
+    useAI: Boolean
 }
 
 type Subscription {

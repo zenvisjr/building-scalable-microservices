@@ -1,431 +1,270 @@
-[2025-07-31T18:01:22Z] Logger service started....
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMkHHb1E2F185mXEpAoXnDyG
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkHHb1E2F185mXEpAoXnDyG
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkHHb1E2F185mXEpAoXnDyG
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMkHHb1E2F185mXEpAoXnDyG
+[2025-07-31T19:17:39Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:39Z] [mail] [INFO] Sending email to naruto@leaf.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: naruto@leaf.com
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMkiHUZbjbX1K9cGkE1idJVh
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkiHUZbjbX1K9cGkE1idJVh
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkiHUZbjbX1K9cGkE1idJVh
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMkiHUZbjbX1K9cGkE1idJVh
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sasuke@uchiha.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sasuke@uchiha.com
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMi6x9uspS3dCogy5GR87iTh
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMi6x9uspS3dCogy5GR87iTh
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMi6x9uspS3dCogy5GR87iTh
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMi6x9uspS3dCogy5GR87iTh
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sakura@leaf.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sakura@leaf.com
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMoMPDLX1zc5mu4layWBdb5r
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMoMPDLX1zc5mu4layWBdb5r
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMoMPDLX1zc5mu4layWBdb5r
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMoMPDLX1zc5mu4layWBdb5r
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: kakashi@leaf.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: kakashi@leaf.com
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMj74iVK0lqSALZO2s0iL1jL
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMj74iVK0lqSALZO2s0iL1jL
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMj74iVK0lqSALZO2s0iL1jL
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMj74iVK0lqSALZO2s0iL1jL
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: gaara@sand.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: gaara@sand.com
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMkH1BUbeJeiPKHgMRLlbHuT
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkH1BUbeJeiPKHgMRLlbHuT
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkH1BUbeJeiPKHgMRLlbHuT
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMkH1BUbeJeiPKHgMRLlbHuT
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: lee@leaf.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: lee@leaf.com
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMkbE3DXjRfQdtmQu3Xc0uBC
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkbE3DXjRfQdtmQu3Xc0uBC
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMkbE3DXjRfQdtmQu3Xc0uBC
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:39Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMkbE3DXjRfQdtmQu3Xc0uBC
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: hinata@leaf.com
+[2025-07-31T19:17:39Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: hinata@leaf.com
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMvx1XjJtJl52zU3NE7YbkPk
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMvx1XjJtJl52zU3NE7YbkPk
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMvx1XjJtJl52zU3NE7YbkPk
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMvx1XjJtJl52zU3NE7YbkPk
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: shikamaru@leaf.com
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: shikamaru@leaf.com
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMsKEa6m9iaJBD6CcBXGaKSa
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMsKEa6m9iaJBD6CcBXGaKSa
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMsKEa6m9iaJBD6CcBXGaKSa
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMsKEa6m9iaJBD6CcBXGaKSa
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: itachi@akatsuki.com
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: itachi@akatsuki.com
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30eYMvFmILEDCAeBqX45qXnGb2U
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMvFmILEDCAeBqX45qXnGb2U
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30eYMvFmILEDCAeBqX45qXnGb2U
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:17:40Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30eYMvFmILEDCAeBqX45qXnGb2U
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: tsunade@leaf.com
+[2025-07-31T19:17:40Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: tsunade@leaf.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Email sent successfully to naruto@leaf.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:40Z] [mail] [INFO] Sending email to sasuke@uchiha.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Email sent successfully to sasuke@uchiha.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:40Z] [mail] [INFO] Sending email to sakura@leaf.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Email sent successfully to sakura@leaf.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:40Z] [mail] [INFO] Sending email to kakashi@leaf.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Email sent successfully to kakashi@leaf.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:40Z] [mail] [INFO] Sending email to gaara@sand.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Email sent successfully to gaara@sand.com
+[2025-07-31T19:17:40Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:40Z] [mail] [INFO] Sending email to lee@leaf.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Email sent successfully to lee@leaf.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:41Z] [mail] [INFO] Sending email to hinata@leaf.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Email sent successfully to hinata@leaf.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:41Z] [mail] [INFO] Sending email to shikamaru@leaf.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Email sent successfully to shikamaru@leaf.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:41Z] [mail] [INFO] Sending email to itachi@akatsuki.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Email sent successfully to itachi@akatsuki.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:17:41Z] [mail] [INFO] Sending email to tsunade@leaf.com
+[2025-07-31T19:17:41Z] [mail] [INFO] Email sent successfully to tsunade@leaf.com
+[2025-07-31T19:45:48Z] Logger service started....
 --------------------------------------------------------------------------
-[2025-07-31T18:01:22Z] [order] [INFO] Starting order service...
-[2025-07-31T18:01:22Z] [catalog] [INFO] Starting catalog service...
-[2025-07-31T18:01:22Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.4:5432: connect: connection refused
-[2025-07-31T18:01:22Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
-[2025-07-31T18:01:22Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.4:5432: connect: connection refused
-[2025-07-31T18:01:22Z] [account] [INFO] Starting account service
-[2025-07-31T18:01:22Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.3:5432: connect: connection refused
-[2025-07-31T18:01:22Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.3:5432: connect: connection refused
-[2025-07-31T18:01:22Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.8:5432: connect: connection refused
-[2025-07-31T18:01:22Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.8:5432: connect: connection refused
-[2025-07-31T18:01:23Z] [gateway] [INFO] Starting GraphQL gateway service...
-[2025-07-31T18:01:23Z] [gateway] [INFO] Connected to account service
-[2025-07-31T18:01:23Z] [gateway] [INFO] Connected to catalog service
-[2025-07-31T18:01:23Z] [gateway] [INFO] Connected to OrderService at order:8080
-[2025-07-31T18:01:23Z] [gateway] [INFO] Connected to order service
-[2025-07-31T18:01:23Z] [gateway] [INFO] Connected to auth service
-[2025-07-31T18:01:23Z] [gateway] [INFO] Connected to NATS
-[2025-07-31T18:01:23Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
-[2025-07-31T18:01:23Z] [gateway] [INFO] GraphQL gateway listening on :8080
-[2025-07-31T18:01:27Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
-[2025-07-31T18:01:27Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
-[2025-07-31T18:01:27Z] [order] [INFO] Successfully connected to PostgreSQL
-[2025-07-31T18:01:27Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
-[2025-07-31T18:01:27Z] [order] [INFO] Creating order service with dependencies
-[2025-07-31T18:01:27Z] [order] [INFO] Starting gRPC server for order service on port 8080
-[2025-07-31T18:01:27Z] [account] [INFO] Successfully connected to PostgreSQL
-[2025-07-31T18:01:27Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
-[2025-07-31T18:01:27Z] [order] [INFO] Order gRPC server started on port 8080
-[2025-07-31T18:01:27Z] [account] [INFO] Starting gRPC server for account service on port 8080
-[2025-07-31T18:01:27Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
-[2025-07-31T18:01:27Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
-[2025-07-31T18:01:27Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
-[2025-07-31T18:01:27Z] [auth] [INFO] Auth gRPC server started on :8080
-[2025-07-31T18:01:32Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
-[2025-07-31T18:01:37Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
-[2025-07-31T18:01:37Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
-[2025-07-31T18:01:42Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
-[2025-07-31T18:01:42Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
-[2025-07-31T18:01:42Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
-[2025-07-31T18:01:42Z] [catalog] [INFO] Catalog index does not exist. Creating...
-[2025-07-31T18:01:42Z] [catalog] [INFO] Creating catalog index with autocomplete analyzer
-[2025-07-31T18:01:43Z] [catalog] [INFO] Catalog index created with autocomplete analyzer
-[2025-07-31T18:01:43Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
-[2025-07-31T18:01:55Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:01:55Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:01:55Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:55Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:55Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:55Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:55Z] [catalog] [INFO] Started embedding for product: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:55Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:55Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Kunai
-[2025-07-31T18:01:55Z] [gateway] [INFO] Product posted successfully with ID: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:57Z] [catalog] [INFO] got response from embed_service: Kunai
-[2025-07-31T18:01:57Z] [catalog] [INFO] got response from embed_service: Kunai
-[2025-07-31T18:01:57Z] [catalog] [INFO]  response sent from embed_service: Kunai
-[2025-07-31T18:01:57Z] [catalog] [INFO] Going to update the product with embedding: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:01:57Z] [catalog] [INFO] Embedding added to product: 30eP9iSCNBbbdEnzubbM8a0krHr
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Kunai
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Shuriken
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Explosive Tag
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Summoning Scroll
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Chakra Pill
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Sharingan Eye
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Rasengan
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Chidori
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Sand Gourd
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Byakugan Eye
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Shadow Clone Scroll
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Amaterasu Flames
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Flying Raijin Kunai
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Kusanagi Sword
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Rinnegan Eye
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Sage Cloak
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Healing Potion
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Basic Ninja Outfit
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Chakra Sensor
-[2025-07-31T18:02:39Z] [gateway] [INFO] Posting new product to catalog
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received PostProduct request
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Received product for indexing: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Indexing product: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product indexed successfully: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product queued for async embedding: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:39Z] [catalog] [INFO]  [/CatalogService/PostProduct]   Product created successfully: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:39Z] [catalog] [INFO] Started embedding for product: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:39Z] [gateway] [INFO] Product posted successfully with ID: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:39Z] [catalog] [INFO] Inside GetEmbeddingFromPython: Akatsuki Cloak
-[2025-07-31T18:02:39Z] [catalog] [INFO] got response from embed_service: Shuriken
-[2025-07-31T18:02:39Z] [catalog] [INFO] got response from embed_service: Shuriken
-[2025-07-31T18:02:39Z] [catalog] [INFO]  response sent from embed_service: Shuriken
-[2025-07-31T18:02:39Z] [catalog] [INFO] Going to update the product with embedding: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:39Z] [catalog] [INFO] Embedding added to product: 30ePFIKXxsz2Q4pNuoNy9pVauqj
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Chidori
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Chidori
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Kusanagi Sword
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Chidori
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Kusanagi Sword
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Kusanagi Sword
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFFWdA06pv6yjSuCnaZO34pQ
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Summoning Scroll
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Summoning Scroll
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Summoning Scroll
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFCYe2oUZpukY8JQlXqnU5tG
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Shadow Clone Scroll
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Shadow Clone Scroll
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFDv298NnJ5MSLPvfMsweNCU
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Shadow Clone Scroll
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Kunai
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Kunai
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Kunai
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFGj2ihrnE8HggqJAg6l2BGG
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFGDF6LqQuf4I2HtJTpi8oDi
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Chakra Pill
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Chakra Pill
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Chakra Pill
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Amaterasu Flames
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Amaterasu Flames
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Amaterasu Flames
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFFZwJI6celFTzk4w4Vupwe3
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFFz1xrqOb4R4EIY3pe3sbsk
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Byakugan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Byakugan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Sand Gourd
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Sand Gourd
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Byakugan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Sand Gourd
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFDxizfkd8ZNHHCXdG9hE42g
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFEFFje7gSsObyFg2ugVYmU1
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Sharingan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Sharingan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Sharingan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Rasengan
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFGfhwePPkJK7vqACgQHQXMa
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Rasengan
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Rasengan
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFHEU5RidzzriKLEttBhUsV4
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Explosive Tag
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Explosive Tag
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Explosive Tag
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Sage Cloak
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Sage Cloak
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Sage Cloak
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFCdPwBoCCSzLqqE8WcvRr58
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFD7jsOA8AzfrvPIgNwZCjDD
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Chakra Sensor
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Chakra Sensor
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Chakra Sensor
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Healing Potion
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Healing Potion
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Healing Potion
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Rinnegan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:40Z] [catalog] [INFO] got response from embed_service: Rinnegan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO]  response sent from embed_service: Rinnegan Eye
-[2025-07-31T18:02:40Z] [catalog] [INFO] Going to update the product with embedding: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFFEZm6fipksAr0DdPEtf7WO
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFIRCsjpUGQ1FWHvNqrX2Dy9
-[2025-07-31T18:02:40Z] [catalog] [INFO] Embedding added to product: 30ePFJF6yNyFwp3mmtKNPyVGRJL
-[2025-07-31T18:02:41Z] [catalog] [INFO] got response from embed_service: Basic Ninja Outfit
-[2025-07-31T18:02:41Z] [catalog] [INFO] got response from embed_service: Basic Ninja Outfit
-[2025-07-31T18:02:41Z] [catalog] [INFO]  response sent from embed_service: Basic Ninja Outfit
-[2025-07-31T18:02:41Z] [catalog] [INFO] Going to update the product with embedding: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:41Z] [catalog] [INFO] Embedding added to product: 30ePFGI0kaLHsN72zaFknLzZAxr
-[2025-07-31T18:02:41Z] [catalog] [INFO] got response from embed_service: Akatsuki Cloak
-[2025-07-31T18:02:41Z] [catalog] [INFO] got response from embed_service: Akatsuki Cloak
-[2025-07-31T18:02:41Z] [catalog] [INFO]  response sent from embed_service: Akatsuki Cloak
-[2025-07-31T18:02:41Z] [catalog] [INFO] Going to update the product with embedding: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:41Z] [catalog] [INFO] Embedding added to product: 30ePFGoC1PgGTHIAWniTraRUiiO
-[2025-07-31T18:02:43Z] [catalog] [INFO] got response from embed_service: Flying Raijin Kunai
-[2025-07-31T18:02:43Z] [catalog] [INFO] got response from embed_service: Flying Raijin Kunai
-[2025-07-31T18:02:43Z] [catalog] [INFO]  response sent from embed_service: Flying Raijin Kunai
-[2025-07-31T18:02:43Z] [catalog] [INFO] Going to update the product with embedding: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:02:43Z] [catalog] [INFO] Embedding added to product: 30ePFH8RtQC7IeQGpqQ8N2N1Qqc
-[2025-07-31T18:04:00Z] [gateway] [INFO] Suggesting products with prefix: weapon for a ninja
-[2025-07-31T18:04:00Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: weapon for a ninja
-[2025-07-31T18:04:00Z] [catalog] [INFO] Inside GetEmbeddingFromPython: weapon for a ninja
-[2025-07-31T18:04:01Z] [catalog] [INFO] got response from embed_service: weapon for a ninja
-[2025-07-31T18:04:01Z] [catalog] [INFO] got response from embed_service: weapon for a ninja
-[2025-07-31T18:04:01Z] [catalog] [INFO]  response sent from embed_service: weapon for a ninja
-[2025-07-31T18:04:01Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:04:01Z] [gateway] [INFO] Products suggested: count = 10
-[2025-07-31T18:04:42Z] [gateway] [INFO] Fetching products with pagination
-[2025-07-31T18:04:42Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Received GetProducts request
-[2025-07-31T18:04:42Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetching all products with pagination
-[2025-07-31T18:04:42Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Listing products
-[2025-07-31T18:04:42Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 21
-[2025-07-31T18:04:42Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 21 products
-[2025-07-31T18:04:42Z] [gateway] [INFO] Fetched products from catalog: count = 21
-[2025-07-31T18:05:42Z] [gateway] [INFO] Suggesting products with prefix: eyes that give special powers
-[2025-07-31T18:05:42Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: eyes that give special powers
-[2025-07-31T18:05:42Z] [catalog] [INFO] Inside GetEmbeddingFromPython: eyes that give special powers
-[2025-07-31T18:05:43Z] [catalog] [INFO] got response from embed_service: eyes that give special powers
-[2025-07-31T18:05:43Z] [catalog] [INFO] got response from embed_service: eyes that give special powers
-[2025-07-31T18:05:43Z] [catalog] [INFO]  response sent from embed_service: eyes that give special powers
-[2025-07-31T18:05:43Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:05:43Z] [gateway] [INFO] Products suggested: count = 10
-[2025-07-31T18:06:34Z] [gateway] [INFO] Suggesting products with prefix: heal after battle
-[2025-07-31T18:06:34Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: heal after battle
-[2025-07-31T18:06:35Z] [catalog] [INFO] Inside GetEmbeddingFromPython: heal after battle
-[2025-07-31T18:06:35Z] [catalog] [INFO] got response from embed_service: heal after battle
-[2025-07-31T18:06:35Z] [catalog] [INFO] got response from embed_service: heal after battle
-[2025-07-31T18:06:35Z] [catalog] [INFO]  response sent from embed_service: heal after battle
-[2025-07-31T18:06:35Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:06:35Z] [gateway] [INFO] Products suggested: count = 10
-[2025-07-31T18:07:08Z] [gateway] [INFO] Suggesting products with prefix: weapon for a ninja
-[2025-07-31T18:07:08Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: weapon for a ninja
-[2025-07-31T18:07:08Z] [catalog] [INFO] Inside GetEmbeddingFromPython: weapon for a ninja
-[2025-07-31T18:07:09Z] [catalog] [INFO] got response from embed_service: weapon for a ninja
-[2025-07-31T18:07:09Z] [catalog] [INFO] got response from embed_service: weapon for a ninja
-[2025-07-31T18:07:09Z] [catalog] [INFO]  response sent from embed_service: weapon for a ninja
-[2025-07-31T18:07:09Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:07:09Z] [gateway] [INFO] Products suggested: count = 10
-[2025-07-31T18:07:35Z] [gateway] [INFO] Suggesting products with prefix: item to cause explosions
-[2025-07-31T18:07:35Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: item to cause explosions
-[2025-07-31T18:07:35Z] [catalog] [INFO] Inside GetEmbeddingFromPython: item to cause explosions
-[2025-07-31T18:07:36Z] [catalog] [INFO] got response from embed_service: item to cause explosions
-[2025-07-31T18:07:36Z] [catalog] [INFO] got response from embed_service: item to cause explosions
-[2025-07-31T18:07:36Z] [catalog] [INFO]  response sent from embed_service: item to cause explosions
-[2025-07-31T18:07:36Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:07:36Z] [gateway] [INFO] Products suggested: count = 10
-[2025-07-31T18:08:05Z] [gateway] [INFO] Suggesting products with prefix: magical scroll to use jutsu
-[2025-07-31T18:08:06Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: magical scroll to use jutsu
-[2025-07-31T18:08:06Z] [catalog] [INFO] Inside GetEmbeddingFromPython: magical scroll to use jutsu
-[2025-07-31T18:08:07Z] [catalog] [INFO] got response from embed_service: magical scroll to use jutsu
-[2025-07-31T18:08:07Z] [catalog] [INFO] got response from embed_service: magical scroll to use jutsu
-[2025-07-31T18:08:07Z] [catalog] [INFO]  response sent from embed_service: magical scroll to use jutsu
-[2025-07-31T18:08:07Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:08:07Z] [gateway] [INFO] Products suggested: count = 10
-[2025-07-31T18:08:36Z] [gateway] [INFO] Suggesting products with prefix: clothes worn by powerful ninjas
-[2025-07-31T18:08:36Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: clothes worn by powerful ninjas
-[2025-07-31T18:08:36Z] [catalog] [INFO] Inside GetEmbeddingFromPython: clothes worn by powerful ninjas
-[2025-07-31T18:08:38Z] [catalog] [INFO] got response from embed_service: clothes worn by powerful ninjas
-[2025-07-31T18:08:38Z] [catalog] [INFO] got response from embed_service: clothes worn by powerful ninjas
-[2025-07-31T18:08:38Z] [catalog] [INFO]  response sent from embed_service: clothes worn by powerful ninjas
-[2025-07-31T18:08:38Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:08:38Z] [gateway] [INFO] Products suggested: count = 10
-[2025-07-31T18:09:00Z] [gateway] [INFO] Suggesting products with prefix: lightning based jutsu
-[2025-07-31T18:09:00Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Received SuggestProducts request for prefix: lightning based jutsu
-[2025-07-31T18:09:00Z] [catalog] [INFO] Inside GetEmbeddingFromPython: lightning based jutsu
-[2025-07-31T18:09:00Z] [catalog] [INFO] got response from embed_service: lightning based jutsu
-[2025-07-31T18:09:00Z] [catalog] [INFO] got response from embed_service: lightning based jutsu
-[2025-07-31T18:09:00Z] [catalog] [INFO]  response sent from embed_service: lightning based jutsu
-[2025-07-31T18:09:00Z] [catalog] [INFO]  [/CatalogService/SuggestProducts]   Products suggested: count = 10
-[2025-07-31T18:09:00Z] [gateway] [INFO] Products suggested: count = 10
+[2025-07-31T19:45:48Z] [catalog] [INFO] Starting catalog service...
+[2025-07-31T19:45:48Z] [order] [INFO] Starting order service...
+[2025-07-31T19:45:48Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T19:45:48Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-31T19:45:48Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-31T19:45:48Z] [account] [INFO] Starting account service
+[2025-07-31T19:45:48Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T19:45:48Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T19:45:48Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.7:5432: connect: connection refused
+[2025-07-31T19:45:48Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.7:5432: connect: connection refused
+[2025-07-31T19:45:48Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-31T19:45:48Z] [gateway] [INFO] Connected to account service
+[2025-07-31T19:45:48Z] [gateway] [INFO] Connected to catalog service
+[2025-07-31T19:45:48Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-31T19:45:48Z] [gateway] [INFO] Connected to order service
+[2025-07-31T19:45:48Z] [gateway] [INFO] Connected to auth service
+[2025-07-31T19:45:48Z] [gateway] [INFO] Connected to NATS
+[2025-07-31T19:45:48Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-31T19:45:48Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-31T19:45:53Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T19:45:53Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T19:45:53Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T19:45:53Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-31T19:45:53Z] [order] [INFO] Creating order service with dependencies
+[2025-07-31T19:45:53Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-31T19:45:53Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-31T19:45:53Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T19:45:53Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-31T19:45:53Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-31T19:45:53Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-31T19:45:53Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-31T19:45:53Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-31T19:45:53Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-31T19:45:58Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T19:46:03Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T19:46:03Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T19:46:08Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T19:46:08Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T19:46:08Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T19:46:08Z] [catalog] [INFO] Catalog index does not exist. Creating...
+[2025-07-31T19:46:08Z] [catalog] [INFO] Creating catalog index with autocomplete analyzer
+[2025-07-31T19:46:08Z] [catalog] [INFO] Catalog index created with autocomplete analyzer
+[2025-07-31T19:46:08Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-31T19:58:35Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30edLOZfDGidHMAfjeKNKsjDwXz
+[2025-07-31T19:58:35Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30edLOZfDGidHMAfjeKNKsjDwXz
+[2025-07-31T19:58:35Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30edLOZfDGidHMAfjeKNKsjDwXz
+[2025-07-31T19:58:35Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:58:35Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:58:35Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30edLOZfDGidHMAfjeKNKsjDwXz
+[2025-07-31T19:58:35Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: narutocom
+[2025-07-31T19:58:35Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: narutocom
+[2025-07-31T19:58:35Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:58:35Z] [mail] [INFO] Sending email to narutocom
+[2025-07-31T19:58:37Z] [mail] [ERROR] SendGrid error: status 400, body: {"errors":[{"message":"Does not contain a valid address.","field":"personalizations.0.to.0.email","help":"http://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/errors.html#message.personalizations.to"}]}
+[2025-07-31T19:59:04Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30edP2OSb14fvnGI3DwfjppmH3r
+[2025-07-31T19:59:04Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30edP2OSb14fvnGI3DwfjppmH3r
+[2025-07-31T19:59:04Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30edP2OSb14fvnGI3DwfjppmH3r
+[2025-07-31T19:59:04Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T19:59:04Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T19:59:04Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T19:59:04Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30edP2OSb14fvnGI3DwfjppmH3r
+[2025-07-31T19:59:04Z] [mail] [INFO] Sending email to 
+[2025-07-31T19:59:04Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: 
+[2025-07-31T19:59:04Z] [mail] [WARN] SendEmail called with empty fields
+[2025-07-31T19:59:04Z] [mail] [ERROR] Failed to send email from queue: email: missing required fields
+[2025-07-31T19:59:04Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: 
+[2025-07-31T20:05:55Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-31T20:05:56Z] [account] [INFO] Starting account service
+[2025-07-31T20:05:56Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-31T20:05:56Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-31T20:05:56Z] [catalog] [INFO] Starting catalog service...
+[2025-07-31T20:05:56Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:05:56Z] [order] [INFO] Starting order service...
+[2025-07-31T20:05:56Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.8:5432: connect: connection refused
+[2025-07-31T20:05:56Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.8:5432: connect: connection refused
+[2025-07-31T20:05:56Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-31T20:05:56Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-31T20:05:56Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-31T20:05:56Z] [gateway] [INFO] Connected to account service
+[2025-07-31T20:05:56Z] [gateway] [INFO] Connected to catalog service
+[2025-07-31T20:05:56Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-31T20:05:56Z] [gateway] [INFO] Connected to order service
+[2025-07-31T20:05:56Z] [gateway] [INFO] Connected to auth service
+[2025-07-31T20:05:56Z] [gateway] [INFO] Connected to NATS
+[2025-07-31T20:05:56Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-31T20:05:56Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-31T20:06:01Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T20:06:01Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-31T20:06:01Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-31T20:06:01Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:06:01Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:06:01Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T20:06:01Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-31T20:06:01Z] [order] [INFO] Creating order service with dependencies
+[2025-07-31T20:06:01Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-31T20:06:01Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-31T20:06:01Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-31T20:06:01Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-31T20:06:01Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-31T20:06:01Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-31T20:06:06Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:06:11Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:06:11Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:06:16Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:06:16Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:06:16Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:06:16Z] [catalog] [INFO] Catalog index does not exist. Creating...
+[2025-07-31T20:06:16Z] [catalog] [INFO] Creating catalog index with autocomplete analyzer
+[2025-07-31T20:06:46Z] [catalog] [INFO] Catalog index created with autocomplete analyzer
+[2025-07-31T20:06:46Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-31T20:07:07Z] [gateway] [ERROR] Validation failed: Email: email; Password: min; Role: oneof; 
+[2025-07-31T20:18:31Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-31T20:18:31Z] [order] [INFO] Starting order service...
+[2025-07-31T20:18:31Z] [account] [INFO] Starting account service
+[2025-07-31T20:18:31Z] [catalog] [INFO] Starting catalog service...
+[2025-07-31T20:18:31Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-31T20:18:31Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.8:5432: connect: connection refused
+[2025-07-31T20:18:31Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:18:31Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.4:5432: connect: connection refused
+[2025-07-31T20:18:31Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.8:5432: connect: connection refused
+[2025-07-31T20:18:31Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.7:5432: connect: connection refused
+[2025-07-31T20:18:31Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.7:5432: connect: connection refused
+[2025-07-31T20:18:32Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-31T20:18:32Z] [gateway] [INFO] Connected to account service
+[2025-07-31T20:18:32Z] [gateway] [INFO] Connected to catalog service
+[2025-07-31T20:18:32Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-31T20:18:32Z] [gateway] [INFO] Connected to order service
+[2025-07-31T20:18:32Z] [gateway] [INFO] Connected to auth service
+[2025-07-31T20:18:32Z] [gateway] [INFO] Connected to NATS
+[2025-07-31T20:18:32Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-31T20:18:32Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-31T20:18:36Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:18:36Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:18:36Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T20:18:36Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-31T20:18:36Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-31T20:18:36Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T20:18:36Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-31T20:18:36Z] [order] [INFO] Creating order service with dependencies
+[2025-07-31T20:18:36Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-31T20:18:36Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-31T20:18:36Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-31T20:18:36Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-31T20:18:36Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-31T20:18:36Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-31T20:18:41Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:18:46Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:18:46Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.5:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T20:18:51Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:18:51Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:18:51Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T20:18:51Z] [catalog] [INFO] Catalog index does not exist. Creating...
+[2025-07-31T20:18:51Z] [catalog] [INFO] Creating catalog index with autocomplete analyzer
+[2025-07-31T20:19:19Z] [gateway] [ERROR] Validation failed: Name: min; 
+[2025-07-31T20:19:21Z] [catalog] [INFO] Catalog index created with autocomplete analyzer
+[2025-07-31T20:19:21Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080

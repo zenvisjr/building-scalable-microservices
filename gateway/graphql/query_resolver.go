@@ -2,8 +2,10 @@ package graphql
 
 import (
 	"context"
+	"errors"
 	"time"
 
+	"github.com/zenvisjr/building-scalable-microservices/gateway/graphql/internal/validation"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
 )
 
@@ -11,8 +13,41 @@ type queryResolver struct {
 	server *Server
 }
 
-func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error) {
+func (p *Pagination) bounds() (uint64, uint64) {
+	skipValue := uint64(0)
+	takeValue := uint64(100)
+	if p.Skip != nil {
+		skipValue = uint64(*p.Skip)
+	}
+	if p.Take != nil {
+		takeValue = uint64(*p.Take)
+	}
+	return skipValue, takeValue
+
+}
+
+func safeBounds(p *Pagination) (uint64, uint64) {
+	if p != nil {
+		return p.bounds()
+	}
+	return 0, 100
+}
+
+func (q *queryResolver) Accounts(ctx context.Context, input *AccountsQueryInput) ([]*Account, error) {
 	Logs := logger.GetGlobalLogger()
+	validatedInput := validation.AccountsQueryInput{
+		ID:         *input.ID,
+		Name:       *input.Name,
+		Pagination: &validation.Pagination{
+			Skip: *input.Pagination.Skip,
+			Take: *input.Pagination.Take,
+		},
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
 
 	// user, ok := GetUserFromContext(ctx)
 	// if !ok {
@@ -29,8 +64,8 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 
 	// Logs.Info(ctx, "Admin "+user.Email+" is fetching accounts.")
 
-	if id != nil {
-		res, err := q.server.accountClient.GetAccount(ctx, *id)
+	if input.ID != nil {
+		res, err := q.server.accountClient.GetAccount(ctx, *input.ID)
 		if err != nil {
 			Logs.Error(ctx, "Error from accountClient.GetAccount: "+err.Error())
 			return nil, err
@@ -44,8 +79,8 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 		}}, nil
 	}
 
-	if name != nil {
-		res, err := q.server.accountClient.GetEmail(ctx, *name)
+	if input.Name != nil {
+		res, err := q.server.accountClient.GetEmail(ctx, *input.Name)
 		if err != nil {
 			Logs.Error(ctx, "Error from accountClient.GetEmail: "+err.Error())
 			return nil, err
@@ -57,13 +92,8 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 		}, nil
 	}
 
-	var (
-		skip uint64
-		take uint64
-	)
-	if pagination != nil {
-		skip, take = pagination.bounds()
-	}
+	skip, take := safeBounds(input.Pagination)
+
 	accountList, err := q.server.accountClient.GetAccounts(ctx, skip, take)
 	if err != nil {
 		Logs.Error(ctx, "Error from accountClient.GetAccounts: "+err.Error())
@@ -82,8 +112,23 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 	return accounts, nil
 }
 
-func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, query *string, id *string) ([]*Product, error) {
+func (q *queryResolver) Products(ctx context.Context, input *ProductsQueryInput) ([]*Product, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.ProductsQueryInput{
+		Query:      *input.Query,
+		ID:         *input.ID,
+		Pagination: &validation.Pagination{
+			Skip: *input.Pagination.Skip,
+			Take: *input.Pagination.Take,
+		},
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
@@ -94,8 +139,8 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 
 	// Logs.Info(ctx, "Admin "+user.Email+" is fetching products.")
 
-	if id != nil {
-		res, err := q.server.catalogClient.GetProduct(ctx, *id)
+	if input.ID != nil {
+		res, err := q.server.catalogClient.GetProduct(ctx, *input.ID)
 		if err != nil {
 			Logs.Error(ctx, "Error from catalogClient.GetProduct: "+err.Error())
 			return nil, err
@@ -111,16 +156,11 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 		}}, nil
 	}
 
-	var (
-		skip uint64
-		take uint64
-	)
-	if pagination != nil {
-		skip, take = pagination.bounds()
-	}
+	skip, take := safeBounds(input.Pagination)
+
 	var qu string
-	if query != nil {
-		qu = *query
+	if input.Query != nil {
+		qu = *input.Query
 	}
 
 	productList, err := q.server.catalogClient.GetProducts(ctx, skip, take, nil, qu)
@@ -144,21 +184,24 @@ func (q *queryResolver) Products(ctx context.Context, pagination *Pagination, qu
 
 }
 
-func (p Pagination) bounds() (uint64, uint64) {
-	skipValue := uint64(0)
-	takeValue := uint64(100)
-	if p.Skip != nil {
-		skipValue = uint64(*p.Skip)
-	}
-	if p.Take != nil {
-		takeValue = uint64(*p.Take)
-	}
-	return skipValue, takeValue
 
-}
 
-func (q *queryResolver) CurrentUsers(ctx context.Context, pagination *Pagination, role *string) ([]*Account, error) {
+func (q *queryResolver) CurrentUsers(ctx context.Context, input *CurrentUsersQueryInput) ([]*Account, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.CurrentUsersQueryInput{
+		Role:       *input.Role,
+		Pagination: &validation.Pagination{
+			Skip: *input.Pagination.Skip,
+			Take: *input.Pagination.Take,
+		},
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
@@ -173,12 +216,12 @@ func (q *queryResolver) CurrentUsers(ctx context.Context, pagination *Pagination
 		skip uint64
 		take uint64
 	)
-	if pagination != nil {
-		skip, take = pagination.bounds()
+	if input.Pagination != nil {
+		skip, take = input.Pagination.bounds()
 	}
 	var ro string
-	if role != nil {
-		ro = *role
+	if input.Role != nil {
+		ro = *input.Role
 	}
 
 	resp, err := q.server.AuthClient.GetCurrent(ctx, skip, take, ro)
@@ -203,21 +246,31 @@ func (q *queryResolver) CurrentUsers(ctx context.Context, pagination *Pagination
 	return accounts, nil
 }
 
-func (q *queryResolver) SuggestProducts(ctx context.Context, prefix string, size *int, useAI *bool) ([]*Product, error) {
+func (q *queryResolver) SuggestProducts(ctx context.Context, input *SuggestProductsQueryInput) ([]*Product, error) {
 	Logs := logger.GetGlobalLogger()
+	validatedInput := validation.SuggestProductsQueryInput{
+		Query:  input.Query,
+		Size:   *input.Size,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
 	s := 10
-	if size != nil {
-		s = *size
+	if input.Size != nil {
+		s = *input.Size
 	}
 
 	ai := false
-	if useAI != nil {
-		ai = *useAI
+	if input.UseAi != nil {
+		ai = *input.UseAi
 	}
-	res, err := q.server.catalogClient.SuggestProducts(ctx, prefix, s, ai)
+	res, err := q.server.catalogClient.SuggestProducts(ctx, input.Query, s, ai)
 	if err != nil {
 		Logs.Error(ctx, "Error from catalogClient.SuggestProducts: "+err.Error())
 		return nil, err

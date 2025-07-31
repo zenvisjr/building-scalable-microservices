@@ -11,7 +11,9 @@ import (
 	"github.com/zenvisjr/building-scalable-microservices/account" // ← gRPC client for Account
 	"github.com/zenvisjr/building-scalable-microservices/auth/pb"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
+	"github.com/go-playground/validator/v10"
 )
+
 
 type Service interface {
 	Signup(ctx context.Context, name string, email string, password string, role string, ac *account.Client) (*pb.AuthResponse, error)
@@ -52,9 +54,13 @@ func NewAuthService(jwtManager *JWTManager, repository Repository) Service {
 	}
 }
 
+var validate = validator.New()
+
 func (s *authService) Signup(ctx context.Context, name string, email string, password string, role string, ac *account.Client) (*pb.AuthResponse, error) {
 
 	Logs := logger.GetGlobalLogger()
+
+	
 	Logs.LocalOnlyInfo("Signup called for email: " + email)
 
 	//default role is user

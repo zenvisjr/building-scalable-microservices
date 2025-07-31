@@ -74,15 +74,15 @@ type ComplexityRoot struct {
 	Mutation struct {
 		CreateOrder       func(childComplexity int, input OrderInput) int
 		CreateProduct     func(childComplexity int, input ProductInput) int
-		DeactivateAccount func(childComplexity int, userID string) int
-		DeleteAccount     func(childComplexity int, userID string) int
-		DeleteProduct     func(childComplexity int, id string) int
+		DeactivateAccount func(childComplexity int, input UserIDInput) int
+		DeleteAccount     func(childComplexity int, input UserIDInput) int
+		DeleteProduct     func(childComplexity int, input ProductIDInput) int
 		Login             func(childComplexity int, input LoginInput) int
 		Logout            func(childComplexity int, input *LogoutInput) int
-		ReactivateAccount func(childComplexity int, userID string) int
+		ReactivateAccount func(childComplexity int, input UserIDInput) int
 		RefreshToken      func(childComplexity int, input RefreshTokenInput) int
 		ResetPassword     func(childComplexity int, input ResetPasswordInput) int
-		RestockProduct    func(childComplexity int, id string, newStock int) int
+		RestockProduct    func(childComplexity int, input RestockProductInput) int
 		Signup            func(childComplexity int, input AccountInput) int
 	}
 
@@ -120,10 +120,10 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Accounts        func(childComplexity int, pagination *Pagination, id *string, name *string) int
-		CurrentUsers    func(childComplexity int, pagination *Pagination, role *string) int
-		Products        func(childComplexity int, pagination *Pagination, query *string, id *string) int
-		SuggestProducts func(childComplexity int, query string, size *int, useAi *bool) int
+		Accounts        func(childComplexity int, input *AccountsQueryInput) int
+		CurrentUsers    func(childComplexity int, input *CurrentUsersQueryInput) int
+		Products        func(childComplexity int, input *ProductsQueryInput) int
+		SuggestProducts func(childComplexity int, input *SuggestProductsQueryInput) int
 	}
 
 	ResetPasswordResponse struct {
@@ -147,17 +147,17 @@ type MutationResolver interface {
 	RefreshToken(ctx context.Context, input RefreshTokenInput) (*AuthResponse, error)
 	Logout(ctx context.Context, input *LogoutInput) (*LogoutResponse, error)
 	ResetPassword(ctx context.Context, input ResetPasswordInput) (*ResetPasswordResponse, error)
-	DeleteProduct(ctx context.Context, id string) (bool, error)
-	RestockProduct(ctx context.Context, id string, newStock int) (bool, error)
-	DeactivateAccount(ctx context.Context, userID string) (string, error)
-	ReactivateAccount(ctx context.Context, userID string) (string, error)
-	DeleteAccount(ctx context.Context, userID string) (string, error)
+	DeleteProduct(ctx context.Context, input ProductIDInput) (bool, error)
+	RestockProduct(ctx context.Context, input RestockProductInput) (bool, error)
+	DeactivateAccount(ctx context.Context, input UserIDInput) (string, error)
+	ReactivateAccount(ctx context.Context, input UserIDInput) (string, error)
+	DeleteAccount(ctx context.Context, input UserIDInput) (string, error)
 }
 type QueryResolver interface {
-	Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error)
-	Products(ctx context.Context, pagination *Pagination, query *string, id *string) ([]*Product, error)
-	CurrentUsers(ctx context.Context, pagination *Pagination, role *string) ([]*Account, error)
-	SuggestProducts(ctx context.Context, query string, size *int, useAi *bool) ([]*Product, error)
+	Accounts(ctx context.Context, input *AccountsQueryInput) ([]*Account, error)
+	Products(ctx context.Context, input *ProductsQueryInput) ([]*Product, error)
+	CurrentUsers(ctx context.Context, input *CurrentUsersQueryInput) ([]*Account, error)
+	SuggestProducts(ctx context.Context, input *SuggestProductsQueryInput) ([]*Product, error)
 }
 type SubscriptionResolver interface {
 	OrderStatusChanged(ctx context.Context, orderID *string) (<-chan *OrderStatusUpdate, error)
@@ -307,7 +307,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeactivateAccount(childComplexity, args["userId"].(string)), true
+		return e.complexity.Mutation.DeactivateAccount(childComplexity, args["input"].(UserIDInput)), true
 
 	case "Mutation.deleteAccount":
 		if e.complexity.Mutation.DeleteAccount == nil {
@@ -319,7 +319,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteAccount(childComplexity, args["userId"].(string)), true
+		return e.complexity.Mutation.DeleteAccount(childComplexity, args["input"].(UserIDInput)), true
 
 	case "Mutation.deleteProduct":
 		if e.complexity.Mutation.DeleteProduct == nil {
@@ -331,7 +331,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteProduct(childComplexity, args["id"].(string)), true
+		return e.complexity.Mutation.DeleteProduct(childComplexity, args["input"].(ProductIDInput)), true
 
 	case "Mutation.login":
 		if e.complexity.Mutation.Login == nil {
@@ -367,7 +367,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ReactivateAccount(childComplexity, args["userId"].(string)), true
+		return e.complexity.Mutation.ReactivateAccount(childComplexity, args["input"].(UserIDInput)), true
 
 	case "Mutation.refreshToken":
 		if e.complexity.Mutation.RefreshToken == nil {
@@ -403,7 +403,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RestockProduct(childComplexity, args["id"].(string), args["newStock"].(int)), true
+		return e.complexity.Mutation.RestockProduct(childComplexity, args["input"].(RestockProductInput)), true
 
 	case "Mutation.signup":
 		if e.complexity.Mutation.Signup == nil {
@@ -574,7 +574,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Query.Accounts(childComplexity, args["pagination"].(*Pagination), args["id"].(*string), args["name"].(*string)), true
+		return e.complexity.Query.Accounts(childComplexity, args["input"].(*AccountsQueryInput)), true
 
 	case "Query.currentUsers":
 		if e.complexity.Query.CurrentUsers == nil {
@@ -586,7 +586,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Query.CurrentUsers(childComplexity, args["pagination"].(*Pagination), args["role"].(*string)), true
+		return e.complexity.Query.CurrentUsers(childComplexity, args["input"].(*CurrentUsersQueryInput)), true
 
 	case "Query.products":
 		if e.complexity.Query.Products == nil {
@@ -598,7 +598,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Query.Products(childComplexity, args["pagination"].(*Pagination), args["query"].(*string), args["id"].(*string)), true
+		return e.complexity.Query.Products(childComplexity, args["input"].(*ProductsQueryInput)), true
 
 	case "Query.SuggestProducts":
 		if e.complexity.Query.SuggestProducts == nil {
@@ -610,7 +610,7 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 			return 0, false
 		}
 
-		return e.complexity.Query.SuggestProducts(childComplexity, args["query"].(string), args["size"].(*int), args["useAI"].(*bool)), true
+		return e.complexity.Query.SuggestProducts(childComplexity, args["input"].(*SuggestProductsQueryInput)), true
 
 	case "ResetPasswordResponse.message":
 		if e.complexity.ResetPasswordResponse.Message == nil {
@@ -647,14 +647,21 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	ec := executionContext{opCtx, e, 0, 0, make(chan graphql.DeferredResult)}
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
 		ec.unmarshalInputAccountInput,
+		ec.unmarshalInputAccountsQueryInput,
+		ec.unmarshalInputCurrentUsersQueryInput,
 		ec.unmarshalInputLoginInput,
 		ec.unmarshalInputLogoutInput,
 		ec.unmarshalInputOrderInput,
 		ec.unmarshalInputOrderedProductInput,
 		ec.unmarshalInputPagination,
+		ec.unmarshalInputProductIDInput,
 		ec.unmarshalInputProductInput,
+		ec.unmarshalInputProductsQueryInput,
 		ec.unmarshalInputRefreshTokenInput,
 		ec.unmarshalInputResetPasswordInput,
+		ec.unmarshalInputRestockProductInput,
+		ec.unmarshalInputSuggestProductsQueryInput,
+		ec.unmarshalInputUserIDInput,
 	)
 	first := true
 
@@ -833,33 +840,33 @@ func (ec *executionContext) field_Mutation_createProduct_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_deactivateAccount_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "userId", ec.unmarshalNID2string)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNUserIDInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐUserIDInput)
 	if err != nil {
 		return nil, err
 	}
-	args["userId"] = arg0
+	args["input"] = arg0
 	return args, nil
 }
 
 func (ec *executionContext) field_Mutation_deleteAccount_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "userId", ec.unmarshalNID2string)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNUserIDInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐUserIDInput)
 	if err != nil {
 		return nil, err
 	}
-	args["userId"] = arg0
+	args["input"] = arg0
 	return args, nil
 }
 
 func (ec *executionContext) field_Mutation_deleteProduct_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "id", ec.unmarshalNID2string)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNProductIDInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐProductIDInput)
 	if err != nil {
 		return nil, err
 	}
-	args["id"] = arg0
+	args["input"] = arg0
 	return args, nil
 }
 
@@ -888,11 +895,11 @@ func (ec *executionContext) field_Mutation_logout_args(ctx context.Context, rawA
 func (ec *executionContext) field_Mutation_reactivateAccount_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "userId", ec.unmarshalNID2string)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNUserIDInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐUserIDInput)
 	if err != nil {
 		return nil, err
 	}
-	args["userId"] = arg0
+	args["input"] = arg0
 	return args, nil
 }
 
@@ -921,16 +928,11 @@ func (ec *executionContext) field_Mutation_resetPassword_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_restockProduct_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "id", ec.unmarshalNID2string)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalNRestockProductInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐRestockProductInput)
 	if err != nil {
 		return nil, err
 	}
-	args["id"] = arg0
-	arg1, err := processArgField(ctx, rawArgs, "newStock", ec.unmarshalNInt2int)
-	if err != nil {
-		return nil, err
-	}
-	args["newStock"] = arg1
+	args["input"] = arg0
 	return args, nil
 }
 
@@ -948,21 +950,11 @@ func (ec *executionContext) field_Mutation_signup_args(ctx context.Context, rawA
 func (ec *executionContext) field_Query_SuggestProducts_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "query", ec.unmarshalNString2string)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalOSuggestProductsQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐSuggestProductsQueryInput)
 	if err != nil {
 		return nil, err
 	}
-	args["query"] = arg0
-	arg1, err := processArgField(ctx, rawArgs, "size", ec.unmarshalOInt2ᚖint)
-	if err != nil {
-		return nil, err
-	}
-	args["size"] = arg1
-	arg2, err := processArgField(ctx, rawArgs, "useAI", ec.unmarshalOBoolean2ᚖbool)
-	if err != nil {
-		return nil, err
-	}
-	args["useAI"] = arg2
+	args["input"] = arg0
 	return args, nil
 }
 
@@ -980,58 +972,33 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 func (ec *executionContext) field_Query_accounts_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "pagination", ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalOAccountsQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐAccountsQueryInput)
 	if err != nil {
 		return nil, err
 	}
-	args["pagination"] = arg0
-	arg1, err := processArgField(ctx, rawArgs, "id", ec.unmarshalOID2ᚖstring)
-	if err != nil {
-		return nil, err
-	}
-	args["id"] = arg1
-	arg2, err := processArgField(ctx, rawArgs, "name", ec.unmarshalOString2ᚖstring)
-	if err != nil {
-		return nil, err
-	}
-	args["name"] = arg2
+	args["input"] = arg0
 	return args, nil
 }
 
 func (ec *executionContext) field_Query_currentUsers_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "pagination", ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalOCurrentUsersQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐCurrentUsersQueryInput)
 	if err != nil {
 		return nil, err
 	}
-	args["pagination"] = arg0
-	arg1, err := processArgField(ctx, rawArgs, "role", ec.unmarshalOString2ᚖstring)
-	if err != nil {
-		return nil, err
-	}
-	args["role"] = arg1
+	args["input"] = arg0
 	return args, nil
 }
 
 func (ec *executionContext) field_Query_products_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
-	arg0, err := processArgField(ctx, rawArgs, "pagination", ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination)
+	arg0, err := processArgField(ctx, rawArgs, "input", ec.unmarshalOProductsQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐProductsQueryInput)
 	if err != nil {
 		return nil, err
 	}
-	args["pagination"] = arg0
-	arg1, err := processArgField(ctx, rawArgs, "query", ec.unmarshalOString2ᚖstring)
-	if err != nil {
-		return nil, err
-	}
-	args["query"] = arg1
-	arg2, err := processArgField(ctx, rawArgs, "id", ec.unmarshalOID2ᚖstring)
-	if err != nil {
-		return nil, err
-	}
-	args["id"] = arg2
+	args["input"] = arg0
 	return args, nil
 }
 
@@ -2155,7 +2122,7 @@ func (ec *executionContext) _Mutation_deleteProduct(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteProduct(rctx, fc.Args["id"].(string))
+		return ec.resolvers.Mutation().DeleteProduct(rctx, fc.Args["input"].(ProductIDInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2210,7 +2177,7 @@ func (ec *executionContext) _Mutation_restockProduct(ctx context.Context, field 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RestockProduct(rctx, fc.Args["id"].(string), fc.Args["newStock"].(int))
+		return ec.resolvers.Mutation().RestockProduct(rctx, fc.Args["input"].(RestockProductInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2265,7 +2232,7 @@ func (ec *executionContext) _Mutation_deactivateAccount(ctx context.Context, fie
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeactivateAccount(rctx, fc.Args["userId"].(string))
+		return ec.resolvers.Mutation().DeactivateAccount(rctx, fc.Args["input"].(UserIDInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2320,7 +2287,7 @@ func (ec *executionContext) _Mutation_reactivateAccount(ctx context.Context, fie
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ReactivateAccount(rctx, fc.Args["userId"].(string))
+		return ec.resolvers.Mutation().ReactivateAccount(rctx, fc.Args["input"].(UserIDInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2375,7 +2342,7 @@ func (ec *executionContext) _Mutation_deleteAccount(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteAccount(rctx, fc.Args["userId"].(string))
+		return ec.resolvers.Mutation().DeleteAccount(rctx, fc.Args["input"].(UserIDInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3368,7 +3335,7 @@ func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Accounts(rctx, fc.Args["pagination"].(*Pagination), fc.Args["id"].(*string), fc.Args["name"].(*string))
+		return ec.resolvers.Query().Accounts(rctx, fc.Args["input"].(*AccountsQueryInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3437,7 +3404,7 @@ func (ec *executionContext) _Query_products(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Products(rctx, fc.Args["pagination"].(*Pagination), fc.Args["query"].(*string), fc.Args["id"].(*string))
+		return ec.resolvers.Query().Products(rctx, fc.Args["input"].(*ProductsQueryInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3510,7 +3477,7 @@ func (ec *executionContext) _Query_currentUsers(ctx context.Context, field graph
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CurrentUsers(rctx, fc.Args["pagination"].(*Pagination), fc.Args["role"].(*string))
+		return ec.resolvers.Query().CurrentUsers(rctx, fc.Args["input"].(*CurrentUsersQueryInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3579,7 +3546,7 @@ func (ec *executionContext) _Query_SuggestProducts(ctx context.Context, field gr
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().SuggestProducts(rctx, fc.Args["query"].(string), fc.Args["size"].(*int), fc.Args["useAI"].(*bool))
+		return ec.resolvers.Query().SuggestProducts(rctx, fc.Args["input"].(*SuggestProductsQueryInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -5933,6 +5900,81 @@ func (ec *executionContext) unmarshalInputAccountInput(ctx context.Context, obj 
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputAccountsQueryInput(ctx context.Context, obj any) (AccountsQueryInput, error) {
+	var it AccountsQueryInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"id", "name", "pagination"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "id":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+			data, err := ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ID = data
+		case "name":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Name = data
+		case "pagination":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("pagination"))
+			data, err := ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Pagination = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputCurrentUsersQueryInput(ctx context.Context, obj any) (CurrentUsersQueryInput, error) {
+	var it CurrentUsersQueryInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"role", "pagination"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "role":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("role"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Role = data
+		case "pagination":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("pagination"))
+			data, err := ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Pagination = data
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputLoginInput(ctx context.Context, obj any) (LoginInput, error) {
 	var it LoginInput
 	asMap := map[string]any{}
@@ -6096,6 +6138,33 @@ func (ec *executionContext) unmarshalInputPagination(ctx context.Context, obj an
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputProductIDInput(ctx context.Context, obj any) (ProductIDInput, error) {
+	var it ProductIDInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"productId"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "productId":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productId"))
+			data, err := ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ProductID = data
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputProductInput(ctx context.Context, obj any) (ProductInput, error) {
 	var it ProductInput
 	asMap := map[string]any{}
@@ -6138,6 +6207,47 @@ func (ec *executionContext) unmarshalInputProductInput(ctx context.Context, obj 
 				return it, err
 			}
 			it.Stock = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputProductsQueryInput(ctx context.Context, obj any) (ProductsQueryInput, error) {
+	var it ProductsQueryInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"query", "id", "pagination"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "query":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("query"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Query = data
+		case "id":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+			data, err := ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ID = data
+		case "pagination":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("pagination"))
+			data, err := ec.unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐPagination(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Pagination = data
 		}
 	}
 
@@ -6199,6 +6309,108 @@ func (ec *executionContext) unmarshalInputResetPasswordInput(ctx context.Context
 				return it, err
 			}
 			it.Password = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputRestockProductInput(ctx context.Context, obj any) (RestockProductInput, error) {
+	var it RestockProductInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"productId", "newStock"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "productId":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productId"))
+			data, err := ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ProductID = data
+		case "newStock":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newStock"))
+			data, err := ec.unmarshalNInt2int(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.NewStock = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputSuggestProductsQueryInput(ctx context.Context, obj any) (SuggestProductsQueryInput, error) {
+	var it SuggestProductsQueryInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"query", "size", "useAI"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "query":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("query"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Query = data
+		case "size":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("size"))
+			data, err := ec.unmarshalOInt2ᚖint(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Size = data
+		case "useAI":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("useAI"))
+			data, err := ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.UseAi = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputUserIDInput(ctx context.Context, obj any) (UserIDInput, error) {
+	var it UserIDInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"userId"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "userId":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
+			data, err := ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.UserID = data
 		}
 	}
 
@@ -7665,6 +7877,11 @@ func (ec *executionContext) marshalNProduct2ᚖgithubᚗcomᚋzenvisjrᚋbuildin
 	return ec._Product(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalNProductIDInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐProductIDInput(ctx context.Context, v any) (ProductIDInput, error) {
+	res, err := ec.unmarshalInputProductIDInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNProductInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐProductInput(ctx context.Context, v any) (ProductInput, error) {
 	res, err := ec.unmarshalInputProductInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -7694,6 +7911,11 @@ func (ec *executionContext) marshalNResetPasswordResponse2ᚖgithubᚗcomᚋzenv
 	return ec._ResetPasswordResponse(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalNRestockProductInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐRestockProductInput(ctx context.Context, v any) (RestockProductInput, error) {
+	res, err := ec.unmarshalInputRestockProductInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v any) (string, error) {
 	res, err := graphql.UnmarshalString(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -7708,6 +7930,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) unmarshalNUserIDInput2githubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐUserIDInput(ctx context.Context, v any) (UserIDInput, error) {
+	res, err := ec.unmarshalInputUserIDInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {
@@ -7963,6 +8190,14 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
+func (ec *executionContext) unmarshalOAccountsQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐAccountsQueryInput(ctx context.Context, v any) (*AccountsQueryInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputAccountsQueryInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v any) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -7991,6 +8226,14 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	_ = ctx
 	res := graphql.MarshalBoolean(*v)
 	return res
+}
+
+func (ec *executionContext) unmarshalOCurrentUsersQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐCurrentUsersQueryInput(ctx context.Context, v any) (*CurrentUsersQueryInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputCurrentUsersQueryInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalOID2ᚖstring(ctx context.Context, v any) (*string, error) {
@@ -8063,6 +8306,14 @@ func (ec *executionContext) unmarshalOPagination2ᚖgithubᚗcomᚋzenvisjrᚋbu
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalOProductsQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐProductsQueryInput(ctx context.Context, v any) (*ProductsQueryInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputProductsQueryInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v any) (*string, error) {
 	if v == nil {
 		return nil, nil
@@ -8079,6 +8330,14 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	_ = ctx
 	res := graphql.MarshalString(*v)
 	return res
+}
+
+func (ec *executionContext) unmarshalOSuggestProductsQueryInput2ᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐSuggestProductsQueryInput(ctx context.Context, v any) (*SuggestProductsQueryInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputSuggestProductsQueryInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {

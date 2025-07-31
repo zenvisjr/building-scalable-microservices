@@ -5,6 +5,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/zenvisjr/building-scalable-microservices/gateway/graphql/internal/validation"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
 	"github.com/zenvisjr/building-scalable-microservices/order"
 )
@@ -43,6 +44,18 @@ func (m *mutationResolver) CreateProduct(ctx context.Context, input ProductInput
 	// }
 	// Logs.Info(ctx, "User "+user.Email+" is creating a product.")
 
+	validatedInput := validation.ProductInput{
+		Name:        input.Name,
+		Description: input.Description,
+		Price:       input.Price,
+		Stock:       input.Stock,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
@@ -69,8 +82,27 @@ func (m *mutationResolver) CreateProduct(ctx context.Context, input ProductInput
 	return newProduct, nil
 }
 
+	
+
 func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*Order, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.OrderInput{
+		AccountID: input.AccountID,
+		Products:  make([]*validation.OrderedProductInput, len(input.Products)),
+	}
+	for i, product := range input.Products {
+		validatedInput.Products[i] = &validation.OrderedProductInput{
+			ID:       product.ID,
+			Quantity: product.Quantity,
+		}
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
 
@@ -123,6 +155,18 @@ func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*
 
 func (m *mutationResolver) Signup(ctx context.Context, input AccountInput) (*AuthResponse, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.AccountInput{
+		Name:     input.Name,
+		Email:    input.Email,
+		Password: input.Password,
+		Role:     *input.Role,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 	authResp, err := m.server.AuthClient.Signup(ctx, input.Name, input.Email, input.Password, *input.Role)
@@ -142,6 +186,16 @@ func (m *mutationResolver) Signup(ctx context.Context, input AccountInput) (*Aut
 
 func (m *mutationResolver) Login(ctx context.Context, input LoginInput) (*AuthResponse, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.LoginInput{
+		Email:    input.Email,
+		Password: input.Password,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
@@ -163,6 +217,16 @@ func (m *mutationResolver) Login(ctx context.Context, input LoginInput) (*AuthRe
 
 func (m *mutationResolver) RefreshToken(ctx context.Context, input RefreshTokenInput) (*AuthResponse, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.RefreshTokenInput{
+		UserID: input.UserID,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
@@ -183,6 +247,16 @@ func (m *mutationResolver) RefreshToken(ctx context.Context, input RefreshTokenI
 
 func (m *mutationResolver) Logout(ctx context.Context, input *LogoutInput) (*LogoutResponse, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.LogoutInput{
+		UserID: input.UserID,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
@@ -248,6 +322,17 @@ func (m *mutationResolver) Logout(ctx context.Context, input *LogoutInput) (*Log
 
 func (m *mutationResolver) ResetPassword(ctx context.Context, input ResetPasswordInput) (*ResetPasswordResponse, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.ResetPasswordInput{
+		Email:    input.Email,
+		Password: input.Password,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return nil, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
@@ -272,12 +357,22 @@ func (m *mutationResolver) ResetPassword(ctx context.Context, input ResetPasswor
 	}, nil
 }
 
-func (m *mutationResolver) DeleteProduct(ctx context.Context, id string) (bool, error) {
+func (m *mutationResolver) DeleteProduct(ctx context.Context, input ProductIDInput) (bool, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.ProductIDInput{
+		ProductID: input.ProductID,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return false, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-	err := m.server.catalogClient.DeleteProduct(ctx, id)
+	err := m.server.catalogClient.DeleteProduct(ctx, input.ProductID)
 	if err != nil {
 		Logs.Error(ctx, "Error from catalogClient.DeleteProduct: "+err.Error())
 		return false, err
@@ -285,12 +380,23 @@ func (m *mutationResolver) DeleteProduct(ctx context.Context, id string) (bool, 
 	return true, nil
 }
 
-func (m *mutationResolver) RestockProduct(ctx context.Context, id string, newStock int) (bool, error) {
+func (m *mutationResolver) RestockProduct(ctx context.Context, input RestockProductInput) (bool, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.RestockProductInput{
+		ProductID: input.ProductID,
+		NewStock:  input.NewStock,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return false, errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-	err := m.server.catalogClient.RestockProduct(ctx, id, newStock)
+	err := m.server.catalogClient.RestockProduct(ctx, input.ProductID, input.NewStock)
 	if err != nil {
 		Logs.Error(ctx, "Error from catalogClient.RestockProduct: "+err.Error())
 		return false, err
@@ -298,8 +404,18 @@ func (m *mutationResolver) RestockProduct(ctx context.Context, id string, newSto
 	return true, nil
 }
 
-func (m *mutationResolver) DeactivateAccount(ctx context.Context, id string) (string, error) {
+func (m *mutationResolver) DeactivateAccount(ctx context.Context, input UserIDInput) (string, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.UserIDInput{
+		UserID: input.UserID,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return "", errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
@@ -313,7 +429,7 @@ func (m *mutationResolver) DeactivateAccount(ctx context.Context, id string) (st
 	// 	return "", errors.New("unauthorized: you can only deactivate your account")
 	// }
 
-	resp, err := m.server.AuthClient.DeactivateAccount(ctx, id)
+	resp, err := m.server.AuthClient.DeactivateAccount(ctx, input.UserID)
 	if err != nil {
 		Logs.Error(ctx, "Error from AuthClient.DeactivateAccount: "+err.Error())
 		return "", err
@@ -321,13 +437,22 @@ func (m *mutationResolver) DeactivateAccount(ctx context.Context, id string) (st
 	return resp.Message, nil
 }
 
-func (m *mutationResolver) ReactivateAccount(ctx context.Context, id string) (string, error) {
+func (m *mutationResolver) ReactivateAccount(ctx context.Context, input UserIDInput) (string, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.UserIDInput{
+		UserID: input.UserID,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return "", errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-
-	resp, err := m.server.AuthClient.ReactivateAccount(ctx, id)
+	resp, err := m.server.AuthClient.ReactivateAccount(ctx, input.UserID)
 	if err != nil {
 		Logs.Error(ctx, "Error from AuthClient.ReactivateAccount: "+err.Error())
 		return "", err
@@ -335,8 +460,18 @@ func (m *mutationResolver) ReactivateAccount(ctx context.Context, id string) (st
 	return resp.Message, nil
 }
 
-func (m *mutationResolver) DeleteAccount(ctx context.Context, id string) (string, error) {
+func (m *mutationResolver) DeleteAccount(ctx context.Context, input UserIDInput) (string, error) {
 	Logs := logger.GetGlobalLogger()
+
+	validatedInput := validation.UserIDInput{
+		UserID: input.UserID,
+	}
+
+	if err := validation.ValidateStruct(validatedInput); err != nil {
+		Logs.Error(ctx, "Validation failed: "+err.Error())
+		return "", errors.New("invalid input: " + err.Error())
+	}
+
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
@@ -345,12 +480,12 @@ func (m *mutationResolver) DeleteAccount(ctx context.Context, id string) (string
 		return "", errors.New("unauthenticated: please login to delete account")
 	}
 
-	if user.ID != id {
+	if user.ID != input.UserID {
 		Logs.Error(ctx, "Unauthorized: you can only delete your account")
 		return "", errors.New("unauthorized: you can only delete your account")
 	}
 
-	resp, err := m.server.AuthClient.DeleteAccount(ctx, id)
+	resp, err := m.server.AuthClient.DeleteAccount(ctx, input.UserID)
 	if err != nil {
 		Logs.Error(ctx, "Error from AuthClient.DeleteAccount: "+err.Error())
 		return "", err
