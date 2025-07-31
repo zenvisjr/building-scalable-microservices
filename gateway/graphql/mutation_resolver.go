@@ -71,7 +71,7 @@ func (m *mutationResolver) CreateProduct(ctx context.Context, input ProductInput
 
 func (m *mutationResolver) CreateOrder(ctx context.Context, input OrderInput) (*Order, error) {
 	Logs := logger.GetGlobalLogger()
-	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
 
 	// user, ok := GetUserFromContext(ctx)

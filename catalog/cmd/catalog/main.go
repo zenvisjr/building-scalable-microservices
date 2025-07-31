@@ -56,7 +56,7 @@ func main() {
 			}
 			return err
 		},
-		retry.Attempts(5),
+		retry.Attempts(10),
 		retry.Delay(5*time.Second),
 		retry.DelayType(retry.FixedDelay),
 	)
@@ -65,20 +65,17 @@ func main() {
 		Logs.Fatal(ctx, "Unrecoverable DB error: "+err.Error())
 	}
 
+	// 🧠 Call this to ensure index is created if not present
+	if err := r.EnsureCatalogIndex(context.Background()); err != nil {
+		Logs.Fatal(ctx, "Failed to ensure catalog index: "+err.Error())
+	}
+
 	// Start gRPC server
 	Logs.Info(ctx, "Starting gRPC server for catalog microservice on port 8080")
 	s := catalog.NewCatalogService(r)
 	if err := catalog.ListenGRPC(s, 8080); err != nil {
 		Logs.Fatal(ctx, "Failed to start gRPC server: "+err.Error())
 	}
-
-	//adding metrics
-	go func() {
-		http.Handle("/metrics", promhttp.Handler())
-		if err := http.ListenAndServe(":9002", nil); err != nil {
-			Logs.Fatal(ctx, "Failed to start metrics server: "+err.Error())
-		}
-	}()
 
 }
 

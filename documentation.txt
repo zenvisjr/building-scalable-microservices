@@ -64,6 +64,9 @@ docker compose up -d <service-name>
 
 remove all containers
  docker compose down -v --remove-orphans
+ delete unused images
+ docker system prune -a --volumes
+
 
 
 error in logger
@@ -145,3 +148,19 @@ SELECT * FROM accounts;
 
 while writng script for elastic search please check if ur using correct bson names for the fielsa
 i was using outOfStco when bson was out_of_stock
+
+
+
+pip install openai elasticsearch python-dotenv
+
+enter elastic db in docker
+docker exec -it building-scalable-microservices_catalog_db_1 sh
+to check the index
+curl -X GET 'http://catalog_db:9200/catalog/_mapping?pretty'
+
+for elastic db v8+ we need mandatory authentication otherwise we wont be able to connect to it
+ELASTIC_PASSWORD: "your_password_here"  # Set a password
+xpack.security.http.ssl.enabled: "false"  # Disable SSL for HTTP
+
+add this while strting elastic server
+elastic.SetBasicAuth("elastic", "your_password_here"),

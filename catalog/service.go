@@ -16,6 +16,7 @@ type Product struct {
 	Stock       uint32  `json:"stock"`
 	Sold        uint32  `json:"sold"`
 	OutOfStock  bool    `json:"out_of_stock"`
+	Score       float64 `json:"score"`
 }
 
 type Service interface {
@@ -27,6 +28,7 @@ type Service interface {
 	UpdateStockAndSold(ctx context.Context, id string, quantity int) (bool, error)
 	DeleteProduct(ctx context.Context, id string) error
 	RestockProduct(ctx context.Context, id string, newStock int) error
+	SuggestProducts(ctx context.Context, prefix string, size int, useAI bool) ([]Product, error)
 }
 
 type catalogService struct {
@@ -133,4 +135,24 @@ func (s *catalogService) RestockProduct(ctx context.Context, id string, newStock
 	Logs.LocalOnlyInfo("Restocking product: " + id)
 
 	return s.repo.RestockProduct(ctx, id, newStock)
+}
+
+
+func (s *catalogService) SuggestProducts(ctx context.Context, prefix string, size int, useAI bool) ([]Product, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Suggesting products with prefix: " + prefix)
+
+	if useAI {
+		products, err := s.repo.AISuggest(ctx, prefix, size)
+		if err != nil {
+			Logs.Error(ctx, "Failed to suggest products using AI: "+err.Error())
+			return nil, err
+		}
+		return products, nil
+	}
+	products, err := s.repo.SuggestProducts(ctx, prefix, size)
+	if err != nil {
+		Logs.Error(ctx, "Failed to suggest products: "+err.Error())
+	}
+	return products, err
 }

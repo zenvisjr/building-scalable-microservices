@@ -174,3 +174,36 @@ func (c *Client) RestockProduct(ctx context.Context, id string, newStock int) er
 	c.logs.Info(ctx, "Product restocked: "+id)
 	return nil
 }
+
+func (c *Client) SuggestProducts(ctx context.Context, prefix string, size int, useAI bool) ([]Product, error) {
+	c.logs.Info(ctx, "Suggesting products with prefix: "+prefix)
+
+	req := &pb.SuggestProductsRequest{
+		Query: prefix,
+		Size:  int32(size),
+		UseAi: useAI,
+	}
+
+	resp, err := c.service.SuggestProducts(ctx, req)
+	if err != nil {
+		c.logs.Error(ctx, "SuggestProducts failed: "+err.Error())
+		return nil, err
+	}
+
+	c.logs.Info(ctx, "Products suggested: count = "+logger.IntToStr(len(resp.Products)))
+
+	products := make([]Product, len(resp.Products))
+	for i, p := range resp.Products {
+		products[i] = Product{
+			ID:          p.Id,
+			Name:        p.Name,
+			Description: p.Description,
+			Price:       p.Price,
+			Stock:       uint32(p.Stock),
+			Sold:        uint32(p.Sold),
+			OutOfStock:  p.OutOfStock,
+		}
+	}
+
+	return products, nil
+}

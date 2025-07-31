@@ -10,8 +10,7 @@ service CatalogService {
     rpc UpdateStockAndSold(UpdateStockRequest) returns (UpdateStockResponse);
     rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse);
     rpc RestockProduct(RestockProductRequest) returns (RestockProductResponse);
-
-
+    rpc SuggestProducts(SuggestProductsRequest) returns (SuggestProductsResponse);
 }
 
 message Product {
@@ -22,6 +21,7 @@ message Product {
     uint32 stock = 5;
     uint32 sold = 6;
     bool out_of_stock = 7;
+    double score = 8;
 }
 
 message PostProductRequest {
@@ -78,4 +78,14 @@ message RestockProductRequest {
 
 message RestockProductResponse {
     bool ok = 1;
+}
+
+message SuggestProductsRequest {
+    string query = 1;
+    int32 size = 2;
+    bool use_ai = 3;
+}
+
+message SuggestProductsResponse {
+    repeated Product products = 1;
 }

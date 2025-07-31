@@ -25,6 +25,7 @@ const (
 	CatalogService_UpdateStockAndSold_FullMethodName = "/CatalogService/UpdateStockAndSold"
 	CatalogService_DeleteProduct_FullMethodName      = "/CatalogService/DeleteProduct"
 	CatalogService_RestockProduct_FullMethodName     = "/CatalogService/RestockProduct"
+	CatalogService_SuggestProducts_FullMethodName    = "/CatalogService/SuggestProducts"
 )
 
 // CatalogServiceClient is the client API for CatalogService service.
@@ -37,6 +38,7 @@ type CatalogServiceClient interface {
 	UpdateStockAndSold(ctx context.Context, in *UpdateStockRequest, opts ...grpc.CallOption) (*UpdateStockResponse, error)
 	DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*DeleteProductResponse, error)
 	RestockProduct(ctx context.Context, in *RestockProductRequest, opts ...grpc.CallOption) (*RestockProductResponse, error)
+	SuggestProducts(ctx context.Context, in *SuggestProductsRequest, opts ...grpc.CallOption) (*SuggestProductsResponse, error)
 }
 
 type catalogServiceClient struct {
@@ -107,6 +109,16 @@ func (c *catalogServiceClient) RestockProduct(ctx context.Context, in *RestockPr
 	return out, nil
 }
 
+func (c *catalogServiceClient) SuggestProducts(ctx context.Context, in *SuggestProductsRequest, opts ...grpc.CallOption) (*SuggestProductsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SuggestProductsResponse)
+	err := c.cc.Invoke(ctx, CatalogService_SuggestProducts_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CatalogServiceServer is the server API for CatalogService service.
 // All implementations must embed UnimplementedCatalogServiceServer
 // for forward compatibility.
@@ -117,6 +129,7 @@ type CatalogServiceServer interface {
 	UpdateStockAndSold(context.Context, *UpdateStockRequest) (*UpdateStockResponse, error)
 	DeleteProduct(context.Context, *DeleteProductRequest) (*DeleteProductResponse, error)
 	RestockProduct(context.Context, *RestockProductRequest) (*RestockProductResponse, error)
+	SuggestProducts(context.Context, *SuggestProductsRequest) (*SuggestProductsResponse, error)
 	mustEmbedUnimplementedCatalogServiceServer()
 }
 
@@ -144,6 +157,9 @@ func (UnimplementedCatalogServiceServer) DeleteProduct(context.Context, *DeleteP
 }
 func (UnimplementedCatalogServiceServer) RestockProduct(context.Context, *RestockProductRequest) (*RestockProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RestockProduct not implemented")
+}
+func (UnimplementedCatalogServiceServer) SuggestProducts(context.Context, *SuggestProductsRequest) (*SuggestProductsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SuggestProducts not implemented")
 }
 func (UnimplementedCatalogServiceServer) mustEmbedUnimplementedCatalogServiceServer() {}
 func (UnimplementedCatalogServiceServer) testEmbeddedByValue()                        {}
@@ -274,6 +290,24 @@ func _CatalogService_RestockProduct_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CatalogService_SuggestProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SuggestProductsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatalogServiceServer).SuggestProducts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CatalogService_SuggestProducts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatalogServiceServer).SuggestProducts(ctx, req.(*SuggestProductsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CatalogService_ServiceDesc is the grpc.ServiceDesc for CatalogService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +338,10 @@ var CatalogService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RestockProduct",
 			Handler:    _CatalogService_RestockProduct_Handler,
+		},
+		{
+			MethodName: "SuggestProducts",
+			Handler:    _CatalogService_SuggestProducts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

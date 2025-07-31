@@ -180,3 +180,33 @@ func (g *grpcServer) RestockProduct(ctx context.Context, req *pb.RestockProductR
 
 	return &pb.RestockProductResponse{}, nil
 }
+
+func (g *grpcServer) SuggestProducts(ctx context.Context, req *pb.SuggestProductsRequest) (*pb.SuggestProductsResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Received SuggestProducts request for prefix: "+req.GetQuery())
+
+	resp, err := g.service.SuggestProducts(ctx, req.GetQuery(), int(req.GetSize()), req.GetUseAi())
+	if err != nil {
+		Logs.Error(ctx, "SuggestProducts failed: "+err.Error())
+		return nil, err
+	}
+
+	Logs.Info(ctx, "Products suggested: count = "+logger.IntToStr(len(resp)))
+
+	products := make([]*pb.Product, len(resp))
+	for i, p := range resp {
+		products[i] = &pb.Product{
+			Id:          p.ID,
+			Name:        p.Name,
+			Description: p.Description,
+			Price:       p.Price,
+			Stock:       p.Stock,
+			Sold:        p.Sold,
+			OutOfStock:  p.OutOfStock,
+		}
+	}
+
+	return &pb.SuggestProductsResponse{
+		Products: products,
+	}, nil
+}

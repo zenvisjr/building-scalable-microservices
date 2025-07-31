@@ -36,10 +36,10 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 			return nil, err
 		}
 		return []*Account{{
-			ID:    res.ID,
-			Name:  res.Name,
-			Email: res.Email,
-			Role:  res.Role,
+			ID:       res.ID,
+			Name:     res.Name,
+			Email:    res.Email,
+			Role:     res.Role,
 			IsActive: res.IsActive,
 		}}, nil
 	}
@@ -72,10 +72,10 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 	var accounts []*Account
 	for _, account := range accountList {
 		accounts = append(accounts, &Account{
-			ID:    account.ID,
-			Name:  account.Name,
-			Email: account.Email,
-			Role:  account.Role,
+			ID:       account.ID,
+			Name:     account.Name,
+			Email:    account.Email,
+			Role:     account.Role,
 			IsActive: account.IsActive,
 		})
 	}
@@ -201,4 +201,40 @@ func (q *queryResolver) CurrentUsers(ctx context.Context, pagination *Pagination
 		})
 	}
 	return accounts, nil
+}
+
+func (q *queryResolver) SuggestProducts(ctx context.Context, prefix string, size *int, useAI *bool) ([]*Product, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
+
+	s := 10
+	if size != nil {
+		s = *size
+	}
+
+	ai := false
+	if useAI != nil {
+		ai = *useAI
+	}
+	res, err := q.server.catalogClient.SuggestProducts(ctx, prefix, s, ai)
+	if err != nil {
+		Logs.Error(ctx, "Error from catalogClient.SuggestProducts: "+err.Error())
+		return nil, err
+	}
+	var products []*Product
+	for _, product := range res {
+		products = append(products, &Product{
+			ID:          product.ID,
+			Name:        product.Name,
+			Description: product.Description,
+			Price:       product.Price,
+			Stock:       int(product.Stock),
+			Sold:        int(product.Sold),
+			OutOfStock:  product.OutOfStock,
+			Score:       product.Score,
+		})
+	}
+	return products, nil
+
 }

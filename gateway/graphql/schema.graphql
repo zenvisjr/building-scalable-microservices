@@ -15,6 +15,7 @@ type Product {
     stock: Int!
     sold: Int!
     outOfStock: Boolean!
+    score: Float!
 }
 
 type Order {
@@ -115,6 +116,8 @@ type Query {
     accounts(pagination: Pagination, id: ID, name: String): [Account!]!
     products(pagination: Pagination, query: String, id: ID): [Product!]!
     currentUsers(pagination: Pagination, role: String): [Account!]!
+    SuggestProducts(query: String!, size: Int, useAI: Boolean): [Product!]!
+
 }
 
 type Subscription {

@@ -114,14 +114,16 @@ type ComplexityRoot struct {
 		Name        func(childComplexity int) int
 		OutOfStock  func(childComplexity int) int
 		Price       func(childComplexity int) int
+		Score       func(childComplexity int) int
 		Sold        func(childComplexity int) int
 		Stock       func(childComplexity int) int
 	}
 
 	Query struct {
-		Accounts     func(childComplexity int, pagination *Pagination, id *string, name *string) int
-		CurrentUsers func(childComplexity int, pagination *Pagination, role *string) int
-		Products     func(childComplexity int, pagination *Pagination, query *string, id *string) int
+		Accounts        func(childComplexity int, pagination *Pagination, id *string, name *string) int
+		CurrentUsers    func(childComplexity int, pagination *Pagination, role *string) int
+		Products        func(childComplexity int, pagination *Pagination, query *string, id *string) int
+		SuggestProducts func(childComplexity int, query string, size *int, useAi *bool) int
 	}
 
 	ResetPasswordResponse struct {
@@ -155,6 +157,7 @@ type QueryResolver interface {
 	Accounts(ctx context.Context, pagination *Pagination, id *string, name *string) ([]*Account, error)
 	Products(ctx context.Context, pagination *Pagination, query *string, id *string) ([]*Product, error)
 	CurrentUsers(ctx context.Context, pagination *Pagination, role *string) ([]*Account, error)
+	SuggestProducts(ctx context.Context, query string, size *int, useAi *bool) ([]*Product, error)
 }
 type SubscriptionResolver interface {
 	OrderStatusChanged(ctx context.Context, orderID *string) (<-chan *OrderStatusUpdate, error)
@@ -540,6 +543,13 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Product.Price(childComplexity), true
 
+	case "Product.score":
+		if e.complexity.Product.Score == nil {
+			break
+		}
+
+		return e.complexity.Product.Score(childComplexity), true
+
 	case "Product.sold":
 		if e.complexity.Product.Sold == nil {
 			break
@@ -589,6 +599,18 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 		}
 
 		return e.complexity.Query.Products(childComplexity, args["pagination"].(*Pagination), args["query"].(*string), args["id"].(*string)), true
+
+	case "Query.SuggestProducts":
+		if e.complexity.Query.SuggestProducts == nil {
+			break
+		}
+
+		args, err := ec.field_Query_SuggestProducts_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.SuggestProducts(childComplexity, args["query"].(string), args["size"].(*int), args["useAI"].(*bool)), true
 
 	case "ResetPasswordResponse.message":
 		if e.complexity.ResetPasswordResponse.Message == nil {
@@ -920,6 +942,27 @@ func (ec *executionContext) field_Mutation_signup_args(ctx context.Context, rawA
 		return nil, err
 	}
 	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_SuggestProducts_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := processArgField(ctx, rawArgs, "query", ec.unmarshalNString2string)
+	if err != nil {
+		return nil, err
+	}
+	args["query"] = arg0
+	arg1, err := processArgField(ctx, rawArgs, "size", ec.unmarshalOInt2ᚖint)
+	if err != nil {
+		return nil, err
+	}
+	args["size"] = arg1
+	arg2, err := processArgField(ctx, rawArgs, "useAI", ec.unmarshalOBoolean2ᚖbool)
+	if err != nil {
+		return nil, err
+	}
+	args["useAI"] = arg2
 	return args, nil
 }
 
@@ -1690,6 +1733,8 @@ func (ec *executionContext) fieldContext_Mutation_createProduct(ctx context.Cont
 				return ec.fieldContext_Product_sold(ctx, field)
 			case "outOfStock":
 				return ec.fieldContext_Product_outOfStock(ctx, field)
+			case "score":
+				return ec.fieldContext_Product_score(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Product", field.Name)
 		},
@@ -3265,6 +3310,50 @@ func (ec *executionContext) fieldContext_Product_outOfStock(_ context.Context, f
 	return fc, nil
 }
 
+func (ec *executionContext) _Product_score(ctx context.Context, field graphql.CollectedField, obj *Product) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Product_score(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Score, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalNFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Product_score(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Product",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_accounts(ctx, field)
 	if err != nil {
@@ -3387,6 +3476,8 @@ func (ec *executionContext) fieldContext_Query_products(ctx context.Context, fie
 				return ec.fieldContext_Product_sold(ctx, field)
 			case "outOfStock":
 				return ec.fieldContext_Product_outOfStock(ctx, field)
+			case "score":
+				return ec.fieldContext_Product_score(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Product", field.Name)
 		},
@@ -3468,6 +3559,79 @@ func (ec *executionContext) fieldContext_Query_currentUsers(ctx context.Context,
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Query_currentUsers_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_SuggestProducts(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_SuggestProducts(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().SuggestProducts(rctx, fc.Args["query"].(string), fc.Args["size"].(*int), fc.Args["useAI"].(*bool))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*Product)
+	fc.Result = res
+	return ec.marshalNProduct2ᚕᚖgithubᚗcomᚋzenvisjrᚋbuildingᚑscalableᚑmicroservicesᚋgatewayᚋgraphqlᚐProductᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_SuggestProducts(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Product_id(ctx, field)
+			case "name":
+				return ec.fieldContext_Product_name(ctx, field)
+			case "description":
+				return ec.fieldContext_Product_description(ctx, field)
+			case "price":
+				return ec.fieldContext_Product_price(ctx, field)
+			case "stock":
+				return ec.fieldContext_Product_stock(ctx, field)
+			case "sold":
+				return ec.fieldContext_Product_sold(ctx, field)
+			case "outOfStock":
+				return ec.fieldContext_Product_outOfStock(ctx, field)
+			case "score":
+				return ec.fieldContext_Product_score(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Product", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_SuggestProducts_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
 	}
@@ -6586,6 +6750,11 @@ func (ec *executionContext) _Product(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
+		case "score":
+			out.Values[i] = ec._Product_score(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -6682,6 +6851,28 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_currentUsers(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "SuggestProducts":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_SuggestProducts(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&fs.Invalids, 1)
 				}
