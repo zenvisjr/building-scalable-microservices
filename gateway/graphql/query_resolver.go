@@ -40,6 +40,7 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 			Name:  res.Name,
 			Email: res.Email,
 			Role:  res.Role,
+			IsActive: res.IsActive,
 		}}, nil
 	}
 
@@ -75,6 +76,7 @@ func (q *queryResolver) Accounts(ctx context.Context, pagination *Pagination, id
 			Name:  account.Name,
 			Email: account.Email,
 			Role:  account.Role,
+			IsActive: account.IsActive,
 		})
 	}
 	return accounts, nil

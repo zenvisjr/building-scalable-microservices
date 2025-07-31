@@ -3,6 +3,7 @@ type Account {
     name: String!
     email: String!
     role: String!
+    isActive: Boolean!
     orders: [Order!]!
 }
 
@@ -90,6 +91,10 @@ type Mutation {
 
     deleteProduct(id: ID!): Boolean!
     restockProduct(id: ID!, newStock: Int!): Boolean!
+
+    deactivateAccount(userId: ID!): String!
+    reactivateAccount(userId: ID!): String!
+    deleteAccount(userId: ID!): String!
 }
 
 input ResetPasswordInput {

@@ -201,7 +201,7 @@ func (m *mutationResolver) Logout(ctx context.Context, input *LogoutInput) (*Log
 	// Step 2: Handle specific user logout (when input provided)
 	if input != nil && input.UserID != "" {
 		targetUserId := input.UserID
-		
+
 		// Check if user is trying to logout someone else
 		if userId != targetUserId {
 			// Only admin can logout other users
@@ -266,7 +266,7 @@ func (m *mutationResolver) ResetPassword(ctx context.Context, input ResetPasswor
 		Logs.Error(ctx, "Error from AuthClient.ResetPassword: "+err.Error())
 		return nil, err
 	}
-	Logs.Info(ctx, "Password reset successful for user: " + input.Email)
+	Logs.Info(ctx, "Password reset successful for user: "+input.Email)
 	return &ResetPasswordResponse{
 		Message: "Password reset successful for user: " + input.Email,
 	}, nil
@@ -296,4 +296,64 @@ func (m *mutationResolver) RestockProduct(ctx context.Context, id string, newSto
 		return false, err
 	}
 	return true, nil
+}
+
+func (m *mutationResolver) DeactivateAccount(ctx context.Context, id string) (string, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	// user, ok := GetUserFromContext(ctx)
+	// if !ok {
+	// 	return "", errors.New("unauthenticated: please login to deactivate account")
+	// }
+
+	// if user.ID != id {
+	// 	Logs.Error(ctx, "Unauthorized: you can only deactivate your account")
+	// 	return "", errors.New("unauthorized: you can only deactivate your account")
+	// }
+
+	resp, err := m.server.AuthClient.DeactivateAccount(ctx, id)
+	if err != nil {
+		Logs.Error(ctx, "Error from AuthClient.DeactivateAccount: "+err.Error())
+		return "", err
+	}
+	return resp.Message, nil
+}
+
+func (m *mutationResolver) ReactivateAccount(ctx context.Context, id string) (string, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+
+	resp, err := m.server.AuthClient.ReactivateAccount(ctx, id)
+	if err != nil {
+		Logs.Error(ctx, "Error from AuthClient.ReactivateAccount: "+err.Error())
+		return "", err
+	}
+	return resp.Message, nil
+}
+
+func (m *mutationResolver) DeleteAccount(ctx context.Context, id string) (string, error) {
+	Logs := logger.GetGlobalLogger()
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	user, ok := GetUserFromContext(ctx)
+	if !ok {
+		return "", errors.New("unauthenticated: please login to delete account")
+	}
+
+	if user.ID != id {
+		Logs.Error(ctx, "Unauthorized: you can only delete your account")
+		return "", errors.New("unauthorized: you can only delete your account")
+	}
+
+	resp, err := m.server.AuthClient.DeleteAccount(ctx, id)
+	if err != nil {
+		Logs.Error(ctx, "Error from AuthClient.DeleteAccount: "+err.Error())
+		return "", err
+	}
+	return resp.Message, nil
 }

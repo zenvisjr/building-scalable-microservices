@@ -12,13 +12,16 @@ service AuthService {
   rpc Logout(LogoutRequest) returns (LogoutResponse);
   rpc GetCurrent(GetCurrentRequest) returns (GetCurrentResponse);
   rpc ResetPassword(ResetPasswordRequest) returns (AuthResponse);
+  rpc DeactivateAccount(UpdateAccountRequest) returns (UpdateAccountResponse);
+  rpc ReactivateAccount(UpdateAccountRequest) returns (UpdateAccountResponse);
+  rpc DeleteAccount(UpdateAccountRequest) returns (UpdateAccountResponse);
 }
 
 message SignupRequest {
   string name = 1;
   string email = 2;
   string password = 3;
-  string role = 4; // typically "user" or "admin"
+  string role = 4; // "user" or "admin"
 }
 
 message LoginRequest {
@@ -77,4 +80,12 @@ message ResetPasswordRequest {
   string email = 1;
   string password = 2;
   string user_id = 3;
+}
+
+message UpdateAccountRequest {
+  string user_id = 1;
+}
+
+message UpdateAccountResponse {
+  string message = 1;
 }

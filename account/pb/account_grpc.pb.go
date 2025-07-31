@@ -26,6 +26,9 @@ const (
 	AccountService_GetEmailForAuth_FullMethodName       = "/AccountService/GetEmailForAuth"
 	AccountService_IncrementTokenVersion_FullMethodName = "/AccountService/IncrementTokenVersion"
 	AccountService_UpdatePassword_FullMethodName        = "/AccountService/UpdatePassword"
+	AccountService_DeactivateAccount_FullMethodName     = "/AccountService/DeactivateAccount"
+	AccountService_ReactivateAccount_FullMethodName     = "/AccountService/ReactivateAccount"
+	AccountService_DeleteAccount_FullMethodName         = "/AccountService/DeleteAccount"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -39,6 +42,9 @@ type AccountServiceClient interface {
 	GetEmailForAuth(ctx context.Context, in *GetEmailForAuthRequest, opts ...grpc.CallOption) (*GetEmailForAuthResponse, error)
 	IncrementTokenVersion(ctx context.Context, in *IncrementTokenVersionRequest, opts ...grpc.CallOption) (*IncrementTokenVersionResponse, error)
 	UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*UpdatePasswordResponse, error)
+	DeactivateAccount(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*UpdateAccountResponse, error)
+	ReactivateAccount(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*UpdateAccountResponse, error)
+	DeleteAccount(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*UpdateAccountResponse, error)
 }
 
 type accountServiceClient struct {
@@ -119,6 +125,36 @@ func (c *accountServiceClient) UpdatePassword(ctx context.Context, in *UpdatePas
 	return out, nil
 }
 
+func (c *accountServiceClient) DeactivateAccount(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*UpdateAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateAccountResponse)
+	err := c.cc.Invoke(ctx, AccountService_DeactivateAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) ReactivateAccount(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*UpdateAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateAccountResponse)
+	err := c.cc.Invoke(ctx, AccountService_ReactivateAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) DeleteAccount(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*UpdateAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateAccountResponse)
+	err := c.cc.Invoke(ctx, AccountService_DeleteAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility.
@@ -130,6 +166,9 @@ type AccountServiceServer interface {
 	GetEmailForAuth(context.Context, *GetEmailForAuthRequest) (*GetEmailForAuthResponse, error)
 	IncrementTokenVersion(context.Context, *IncrementTokenVersionRequest) (*IncrementTokenVersionResponse, error)
 	UpdatePassword(context.Context, *UpdatePasswordRequest) (*UpdatePasswordResponse, error)
+	DeactivateAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountResponse, error)
+	ReactivateAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountResponse, error)
+	DeleteAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -160,6 +199,15 @@ func (UnimplementedAccountServiceServer) IncrementTokenVersion(context.Context, 
 }
 func (UnimplementedAccountServiceServer) UpdatePassword(context.Context, *UpdatePasswordRequest) (*UpdatePasswordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePassword not implemented")
+}
+func (UnimplementedAccountServiceServer) DeactivateAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeactivateAccount not implemented")
+}
+func (UnimplementedAccountServiceServer) ReactivateAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReactivateAccount not implemented")
+}
+func (UnimplementedAccountServiceServer) DeleteAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccount not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 func (UnimplementedAccountServiceServer) testEmbeddedByValue()                        {}
@@ -308,6 +356,60 @@ func _AccountService_UpdatePassword_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_DeactivateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).DeactivateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_DeactivateAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).DeactivateAccount(ctx, req.(*UpdateAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_ReactivateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).ReactivateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_ReactivateAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).ReactivateAccount(ctx, req.(*UpdateAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_DeleteAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).DeleteAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_DeleteAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).DeleteAccount(ctx, req.(*UpdateAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,6 +444,18 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdatePassword",
 			Handler:    _AccountService_UpdatePassword_Handler,
+		},
+		{
+			MethodName: "DeactivateAccount",
+			Handler:    _AccountService_DeactivateAccount_Handler,
+		},
+		{
+			MethodName: "ReactivateAccount",
+			Handler:    _AccountService_ReactivateAccount_Handler,
+		},
+		{
+			MethodName: "DeleteAccount",
+			Handler:    _AccountService_DeleteAccount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

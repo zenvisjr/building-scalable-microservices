@@ -11,6 +11,10 @@ import (
 
 // var Logs = logger.GetGlobalLogger()
 
+var (
+	errAccountDeactivated = fmt.Errorf("Account is not active")
+)
+
 type Repository interface {
 	Close()
 	PutAccount(ctx context.Context, acc Account) error
@@ -20,6 +24,9 @@ type Repository interface {
 	GetAccountForAuth(ctx context.Context, email string) (*Account, error)
 	IncrementTokenVersion(ctx context.Context, userID string) error
 	UpdatePassword(ctx context.Context, email string, password_hash string) error
+	DeactivateAccount(ctx context.Context, userID string) error
+	ReactivateAccount(ctx context.Context, userID string) error
+	DeleteAccount(ctx context.Context, userID string) error
 }
 
 type postgresRepository struct {
@@ -74,23 +81,22 @@ func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error 
 func (p *postgresRepository) GetAccountByID(ctx context.Context, id string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching account by ID: " + id)
-	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, role FROM accounts WHERE id = $1", id)
+	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, role, is_active FROM accounts WHERE id = $1", id)
 	a := &Account{}
-	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.Role)
+	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.Role, &a.IsActive)
 	if err != nil {
 		Logs.Error(ctx, "Account fetch failed: "+err.Error())
 		return nil, err
 	}
-
 	Logs.Info(ctx, "Fetched account with ID: "+a.ID)
 	return a, nil
 }
 
 func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limit uint64) ([]Account, error) {
 	Logs := logger.GetGlobalLogger()
-	Logs.LocalOnlyInfo("Listing accounts with limit and skip")
+	// Logs.LocalOnlyInfo("Listing accounts with limit and skip")
 
-	rows, err := p.db.QueryContext(ctx, "SELECT id, name, email, role FROM accounts ORDER BY id DESC LIMIT $1 OFFSET $2", limit, skip)
+	rows, err := p.db.QueryContext(ctx, "SELECT id, name, email, role, is_active FROM accounts ORDER BY id DESC LIMIT $1 OFFSET $2", limit, skip)
 	if err != nil {
 		Logs.Error(ctx, "Failed to list accounts: "+err.Error())
 		return nil, err
@@ -100,7 +106,7 @@ func (p *postgresRepository) ListAccounts(ctx context.Context, skip uint64, limi
 	accounts := []Account{}
 	for rows.Next() {
 		a := &Account{}
-		if err := rows.Scan(&a.ID, &a.Name, &a.Email, &a.Role); err != nil {
+		if err := rows.Scan(&a.ID, &a.Name, &a.Email, &a.Role, &a.IsActive); err != nil {
 			Logs.Error(ctx, "Failed to scan account row: "+err.Error())
 			return nil, err
 		}
@@ -132,13 +138,17 @@ func (p *postgresRepository) GetEmailByName(ctx context.Context, name string) (s
 func (p *postgresRepository) GetAccountForAuth(ctx context.Context, email string) (*Account, error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Fetching account for auth with email: " + email)
-	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, password_hash, role, token_version FROM accounts WHERE email = $1", email)
+	row := p.db.QueryRowContext(ctx, "SELECT id, name, email, password_hash, role, token_version, is_active FROM accounts WHERE email = $1", email)
 	a := &Account{}
-	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.PasswordHash, &a.Role, &a.TokenVersion)
+	err := row.Scan(&a.ID, &a.Name, &a.Email, &a.PasswordHash, &a.Role, &a.TokenVersion, &a.IsActive)
 	if err != nil {
 		Logs.Error(ctx, "Account fetch failed: "+err.Error())
 		return nil, err
 	}
+	// if !a.IsActive {
+	// 	Logs.Error(ctx, "Account is not active")
+	// 	return nil, errAccountDeactivated
+	// }
 
 	Logs.Info(ctx, "Fetched account for auth with ID: "+a.ID)
 	return a, nil
@@ -167,4 +177,31 @@ func (p *postgresRepository) UpdatePassword(ctx context.Context, email string, p
 	}
 
 	return nil
+}
+
+func (p *postgresRepository) DeactivateAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Deactivating account for user: " + userID)
+
+	query := `UPDATE accounts SET is_active = false WHERE id = $1`
+	_, err := p.db.ExecContext(ctx, query, userID)
+	return err
+}
+
+func (p *postgresRepository) ReactivateAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Reactivating account for user: " + userID)
+
+	query := `UPDATE accounts SET is_active = true WHERE id = $1`
+	_, err := p.db.ExecContext(ctx, query, userID)
+	return err
+}
+
+func (p *postgresRepository) DeleteAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Deleting account for user: " + userID)
+
+	query := `DELETE FROM accounts WHERE id = $1`
+	_, err := p.db.ExecContext(ctx, query, userID)
+	return err
 }

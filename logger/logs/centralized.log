@@ -3527,3 +3527,595 @@
 [2025-07-30T20:35:01Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Products listed: 39
 [2025-07-30T20:35:01Z] [catalog] [INFO]  [/CatalogService/GetProducts]   Fetched 39 products
 [2025-07-30T20:35:01Z] [gateway] [INFO] Fetched products from catalog: count = 39
+[2025-07-31T09:33:13Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-31T09:33:13Z] [order] [INFO] Starting order service...
+[2025-07-31T09:33:13Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T09:33:13Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T09:33:13Z] [account] [INFO] Starting account service
+[2025-07-31T09:33:13Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-31T09:33:13Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-31T09:33:13Z] [catalog] [INFO] Starting catalog service...
+[2025-07-31T09:33:13Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:33:13Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T09:33:13Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T09:33:13Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-31T09:33:13Z] [gateway] [INFO] Connected to account service
+[2025-07-31T09:33:13Z] [gateway] [INFO] Connected to catalog service
+[2025-07-31T09:33:13Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-31T09:33:13Z] [gateway] [INFO] Connected to order service
+[2025-07-31T09:33:13Z] [gateway] [INFO] Connected to auth service
+[2025-07-31T09:33:13Z] [gateway] [INFO] Connected to NATS
+[2025-07-31T09:33:13Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-31T09:33:13Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-31T09:33:18Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T09:33:18Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-31T09:33:18Z] [order] [INFO] Creating order service with dependencies
+[2025-07-31T09:33:18Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-31T09:33:18Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-31T09:33:18Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T09:33:18Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-31T09:33:18Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-31T09:33:18Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T09:33:18Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T09:33:18Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-31T09:33:18Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-31T09:33:18Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-31T09:33:18Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-31T09:33:23Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:33:23Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:33:23Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-31T09:33:23Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:33:23Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-31T09:35:39Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-31T09:35:40Z] [order] [INFO] Starting order service...
+[2025-07-31T09:35:40Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T09:35:40Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T09:35:40Z] [catalog] [INFO] Starting catalog service...
+[2025-07-31T09:35:40Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:35:40Z] [account] [INFO] Starting account service
+[2025-07-31T09:35:40Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T09:35:40Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T09:35:40Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-31T09:35:40Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-31T09:35:40Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-31T09:35:40Z] [gateway] [INFO] Connected to account service
+[2025-07-31T09:35:40Z] [gateway] [INFO] Connected to catalog service
+[2025-07-31T09:35:40Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-31T09:35:40Z] [gateway] [INFO] Connected to order service
+[2025-07-31T09:35:40Z] [gateway] [INFO] Connected to auth service
+[2025-07-31T09:35:40Z] [gateway] [INFO] Connected to NATS
+[2025-07-31T09:35:40Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-31T09:35:40Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-31T09:35:45Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T09:35:45Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-31T09:35:45Z] [order] [INFO] Creating order service with dependencies
+[2025-07-31T09:35:45Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-31T09:35:45Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-31T09:35:45Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T09:35:45Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.6:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T09:35:45Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T09:35:45Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-31T09:35:45Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-31T09:35:45Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-31T09:35:45Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-31T09:35:45Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-31T09:35:45Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-31T09:35:50Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:35:50Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:35:50Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-31T09:35:50Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T09:35:50Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: naruto@leaf.com
+[2025-07-31T09:37:08Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:08Z] [mail] [INFO] Sending email to naruto@leaf.com
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sasuke@uchiha.com
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sasuke@uchiha.com
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPlda0JB485mITpzEOtpyPAEJ
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlda0JB485mITpzEOtpyPAEJ
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlda0JB485mITpzEOtpyPAEJ
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPlda0JB485mITpzEOtpyPAEJ
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sakura@leaf.com
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sakura@leaf.com
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPldiItEmRhEQfN1NmO3xCwXR
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPldiItEmRhEQfN1NmO3xCwXR
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPldiItEmRhEQfN1NmO3xCwXR
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPldiItEmRhEQfN1NmO3xCwXR
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: kakashi@leaf.com
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: kakashi@leaf.com
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPldWzn8OUA5fXCoPg9XQGTDd
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPldWzn8OUA5fXCoPg9XQGTDd
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPldWzn8OUA5fXCoPg9XQGTDd
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPldWzn8OUA5fXCoPg9XQGTDd
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: gaara@sand.com
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: gaara@sand.com
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPlb220TULL2OOHydhTvKb7lY
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlb220TULL2OOHydhTvKb7lY
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlb220TULL2OOHydhTvKb7lY
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPlb220TULL2OOHydhTvKb7lY
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: lee@leaf.com
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: lee@leaf.com
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPlgBTxoaXldWC17EGczQE05V
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlgBTxoaXldWC17EGczQE05V
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPlgBTxoaXldWC17EGczQE05V
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:08Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPlgBTxoaXldWC17EGczQE05V
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: hinata@leaf.com
+[2025-07-31T09:37:08Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: hinata@leaf.com
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPljwUjcz4hYnkwMsxI1kD93n
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPljwUjcz4hYnkwMsxI1kD93n
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPljwUjcz4hYnkwMsxI1kD93n
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPljwUjcz4hYnkwMsxI1kD93n
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: shikamaru@leaf.com
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: shikamaru@leaf.com
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPllB3kT6g64sClTvy9DLIcTh
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPllB3kT6g64sClTvy9DLIcTh
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPllB3kT6g64sClTvy9DLIcTh
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPllB3kT6g64sClTvy9DLIcTh
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: itachi@akatsuki.com
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: itachi@akatsuki.com
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dPloxQrD2eeVWflVAuVxpNGAe
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPloxQrD2eeVWflVAuVxpNGAe
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dPloxQrD2eeVWflVAuVxpNGAe
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T09:37:09Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dPloxQrD2eeVWflVAuVxpNGAe
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: tsunade@leaf.com
+[2025-07-31T09:37:09Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: tsunade@leaf.com
+[2025-07-31T09:37:09Z] [mail] [INFO] Email sent successfully to naruto@leaf.com
+[2025-07-31T09:37:09Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:09Z] [mail] [INFO] Sending email to sasuke@uchiha.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Email sent successfully to sasuke@uchiha.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:10Z] [mail] [INFO] Sending email to sakura@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Email sent successfully to sakura@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:10Z] [mail] [INFO] Sending email to kakashi@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Email sent successfully to kakashi@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:10Z] [mail] [INFO] Sending email to gaara@sand.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Email sent successfully to gaara@sand.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:10Z] [mail] [INFO] Sending email to lee@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Email sent successfully to lee@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:10Z] [mail] [INFO] Sending email to hinata@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Email sent successfully to hinata@leaf.com
+[2025-07-31T09:37:10Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:10Z] [mail] [INFO] Sending email to shikamaru@leaf.com
+[2025-07-31T09:37:11Z] [mail] [INFO] Email sent successfully to shikamaru@leaf.com
+[2025-07-31T09:37:11Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:11Z] [mail] [INFO] Sending email to itachi@akatsuki.com
+[2025-07-31T09:37:11Z] [mail] [INFO] Email sent successfully to itachi@akatsuki.com
+[2025-07-31T09:37:11Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T09:37:11Z] [mail] [INFO] Sending email to tsunade@leaf.com
+[2025-07-31T09:37:11Z] [mail] [INFO] Email sent successfully to tsunade@leaf.com
+[2025-07-31T09:42:09Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:42:09Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:42:09Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-31T09:42:09Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: naruto@leaf.com
+[2025-07-31T09:42:09Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-31T09:42:09Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: naruto@leaf.com
+[2025-07-31T09:42:20Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzk1NTgyOSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGRQbGd5NElsc1dLaTFFNXFjMndqR21yUlYiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.hD2e-Cqlm3WfRXQjLzTzI10w3Z7ZZeikOXbWUAymRB4
+[2025-07-31T09:42:20Z] [auth] [ERROR] Failed to parse token: invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:20Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in service: invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:20Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:20Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:20Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzk1NTgyOSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGRQbGd5NElsc1dLaTFFNXFjMndqR21yUlYiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.hD2e-Cqlm3WfRXQjLzTzI10w3Z7ZZeikOXbWUAymRB4
+[2025-07-31T09:42:20Z] [auth] [ERROR] Failed to parse token: invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:20Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in service: invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:20Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:20Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = invalid character 'È' looking for beginning of value
+[2025-07-31T09:42:51Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzk1NTgyOSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGRQbGd5NElsc1dLaTFFNXFjMndqR21yUlYiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.hD2e-Cqlm3WfRXQjLzTzI10w3Z7ZZeikOXbWUAymRB4
+[2025-07-31T09:42:51Z] [auth] [INFO] claim extracted user = 30dPlgy4IlsWKi1E5qc2wjGmrRV | email = naruto@leaf.com | role = user
+[2025-07-31T09:42:51Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:42:51Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:42:51Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-31T09:42:51Z] [auth] [INFO]  [/auth.AuthService/Verify]   Fetched email: naruto@leaf.com
+[2025-07-31T09:42:51Z] [auth] [INFO]  [/auth.AuthService/Verify]   User verified in service: 30dPlgy4IlsWKi1E5qc2wjGmrRV | email = naruto@leaf.com | role = user
+[2025-07-31T09:42:51Z] [gateway] [INFO] User verified in middleware: naruto@leaf.com | role: user
+[2025-07-31T09:42:51Z] [gateway] [INFO] User authenticated: naruto@leaf.com | role: user | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzk1NTgyOSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGRQbGd5NElsc1dLaTFFNXFjMndqR21yUlYiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.hD2e-Cqlm3WfRXQjLzTzI10w3Z7ZZeikOXbWUAymRB4
+[2025-07-31T09:42:51Z] [gateway] [INFO] Injected user into context: naruto@leaf.com | role: user | token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzk1NTgyOSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGRQbGd5NElsc1dLaTFFNXFjMndqR21yUlYiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.hD2e-Cqlm3WfRXQjLzTzI10w3Z7ZZeikOXbWUAymRB4
+[2025-07-31T09:42:51Z] [auth] [INFO]  [/auth.AuthService/DeleteAccount]   Deleting account for user: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:42:51Z] [auth] [INFO]  [/auth.AuthService/DeleteAccount]   Deleted account for user ID: 30dPlgy4IlsWKi1E5qc2wjGmrRV
+[2025-07-31T09:43:33Z] [account] [INFO]  [/AccountService/GetAccounts]   Returned 9 accounts from DB
+[2025-07-31T09:43:33Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched accounts count: 9
+[2025-07-31T09:43:33Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched 9 accounts
+[2025-07-31T09:43:33Z] [gateway] [INFO] Fetched 9 accounts
+[2025-07-31T09:44:45Z] [account] [ERROR]  [/AccountService/GetAccount]   Account fetch failed: sql: no rows in result set
+[2025-07-31T09:44:45Z] [account] [ERROR]  [/AccountService/GetAccount]   Failed to get account by ID: sql: no rows in result set
+[2025-07-31T09:44:45Z] [account] [ERROR]  [/AccountService/GetAccount]   GetAccount service error: sql: no rows in result set
+[2025-07-31T09:44:45Z] [gateway] [ERROR] GetAccount RPC failed: rpc error: code = Unknown desc = sql: no rows in result set
+[2025-07-31T09:44:45Z] [gateway] [ERROR] Error from accountClient.GetAccount: rpc error: code = Unknown desc = sql: no rows in result set
+[2025-07-31T09:46:28Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   Deactivating account for user: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:28Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   Deactivated account for user ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:28Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:28Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   Incremented token version for user ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:28Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   User logged out successfully: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:49Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:49Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:49Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dPlhJ6BduLnBPjKTS2CQzR9oM
+[2025-07-31T09:46:49Z] [gateway] [INFO] Fetched account: Sasuke Uchiha
+[2025-07-31T10:00:03Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-31T10:00:03Z] [account] [INFO] Starting account service
+[2025-07-31T10:00:03Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T10:00:03Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T10:00:03Z] [order] [INFO] Starting order service...
+[2025-07-31T10:00:03Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-31T10:00:03Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-31T10:00:03Z] [catalog] [INFO] Starting catalog service...
+[2025-07-31T10:00:03Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:00:03Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-31T10:00:03Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.5:5432: connect: connection refused
+[2025-07-31T10:00:03Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-31T10:00:03Z] [gateway] [INFO] Connected to account service
+[2025-07-31T10:00:03Z] [gateway] [INFO] Connected to catalog service
+[2025-07-31T10:00:03Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-31T10:00:03Z] [gateway] [INFO] Connected to order service
+[2025-07-31T10:00:03Z] [gateway] [INFO] Connected to auth service
+[2025-07-31T10:00:03Z] [gateway] [INFO] Connected to NATS
+[2025-07-31T10:00:03Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-31T10:00:03Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-31T10:00:08Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T10:00:08Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-31T10:00:08Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-31T10:00:08Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T10:00:08Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-31T10:00:08Z] [order] [INFO] Creating order service with dependencies
+[2025-07-31T10:00:08Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-31T10:00:08Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-31T10:00:08Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T10:00:08Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T10:00:08Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-31T10:00:08Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-31T10:00:08Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-31T10:00:08Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-31T10:00:13Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:00:13Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:00:13Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-31T10:00:13Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:00:13Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: naruto@leaf.com
+[2025-07-31T10:00:14Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:14Z] [mail] [INFO] Sending email to naruto@leaf.com
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZsNtAWjt69B8RvBhncStyN9
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZsNtAWjt69B8RvBhncStyN9
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZsNtAWjt69B8RvBhncStyN9
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZsNtAWjt69B8RvBhncStyN9
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sasuke@uchiha.com
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sasuke@uchiha.com
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZsC6zTQIBi8PMB167Dp7WlJ
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZsC6zTQIBi8PMB167Dp7WlJ
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZsC6zTQIBi8PMB167Dp7WlJ
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZsC6zTQIBi8PMB167Dp7WlJ
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sakura@leaf.com
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sakura@leaf.com
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZnNjfctO1KUkDD51GmvhdLB
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZnNjfctO1KUkDD51GmvhdLB
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZnNjfctO1KUkDD51GmvhdLB
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:14Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZnNjfctO1KUkDD51GmvhdLB
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: kakashi@leaf.com
+[2025-07-31T10:00:14Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: kakashi@leaf.com
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSa0PxEZKNTtYHY28jjCIIYlx
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSa0PxEZKNTtYHY28jjCIIYlx
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSa0PxEZKNTtYHY28jjCIIYlx
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSa0PxEZKNTtYHY28jjCIIYlx
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: gaara@sand.com
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: gaara@sand.com
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZsvLJ4dYLwlGHeMYKG7BsIj
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZsvLJ4dYLwlGHeMYKG7BsIj
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZsvLJ4dYLwlGHeMYKG7BsIj
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZsvLJ4dYLwlGHeMYKG7BsIj
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: lee@leaf.com
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: lee@leaf.com
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZzdOGPK5xsPBFEb7v7vciSh
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZzdOGPK5xsPBFEb7v7vciSh
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZzdOGPK5xsPBFEb7v7vciSh
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZzdOGPK5xsPBFEb7v7vciSh
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: hinata@leaf.com
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: hinata@leaf.com
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZxzZD9dUYw5InieoT05pSIs
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZxzZD9dUYw5InieoT05pSIs
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZxzZD9dUYw5InieoT05pSIs
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZxzZD9dUYw5InieoT05pSIs
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: shikamaru@leaf.com
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: shikamaru@leaf.com
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZt1A1ET6jQOzrYOly0EVzsz
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZt1A1ET6jQOzrYOly0EVzsz
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZt1A1ET6jQOzrYOly0EVzsz
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZt1A1ET6jQOzrYOly0EVzsz
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: itachi@akatsuki.com
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: itachi@akatsuki.com
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dSZwtcHI9mvjIX2r3UJ8I4wQA
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZwtcHI9mvjIX2r3UJ8I4wQA
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dSZwtcHI9mvjIX2r3UJ8I4wQA
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:00:15Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dSZwtcHI9mvjIX2r3UJ8I4wQA
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: tsunade@leaf.com
+[2025-07-31T10:00:15Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: tsunade@leaf.com
+[2025-07-31T10:00:15Z] [mail] [INFO] Email sent successfully to naruto@leaf.com
+[2025-07-31T10:00:15Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:15Z] [mail] [INFO] Sending email to sasuke@uchiha.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Email sent successfully to sasuke@uchiha.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:16Z] [mail] [INFO] Sending email to sakura@leaf.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Email sent successfully to sakura@leaf.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:16Z] [mail] [INFO] Sending email to kakashi@leaf.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Email sent successfully to kakashi@leaf.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:16Z] [mail] [INFO] Sending email to gaara@sand.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Email sent successfully to gaara@sand.com
+[2025-07-31T10:00:16Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:16Z] [mail] [INFO] Sending email to lee@leaf.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Email sent successfully to lee@leaf.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:17Z] [mail] [INFO] Sending email to hinata@leaf.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Email sent successfully to hinata@leaf.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:17Z] [mail] [INFO] Sending email to shikamaru@leaf.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Email sent successfully to shikamaru@leaf.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:17Z] [mail] [INFO] Sending email to itachi@akatsuki.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Email sent successfully to itachi@akatsuki.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:00:17Z] [mail] [INFO] Sending email to tsunade@leaf.com
+[2025-07-31T10:00:17Z] [mail] [INFO] Email sent successfully to tsunade@leaf.com
+[2025-07-31T10:00:41Z] [account] [ERROR]  [/AccountService/GetAccount]   Account fetch failed: sql: no rows in result set
+[2025-07-31T10:00:41Z] [account] [ERROR]  [/AccountService/GetAccount]   Failed to get account by ID: sql: no rows in result set
+[2025-07-31T10:00:41Z] [account] [ERROR]  [/AccountService/GetAccount]   GetAccount service error: sql: no rows in result set
+[2025-07-31T10:00:41Z] [gateway] [ERROR] GetAccount RPC failed: rpc error: code = Unknown desc = sql: no rows in result set
+[2025-07-31T10:00:41Z] [gateway] [ERROR] Error from accountClient.GetAccount: rpc error: code = Unknown desc = sql: no rows in result set
+[2025-07-31T10:00:50Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:50Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:50Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-31T10:00:50Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: naruto@leaf.com
+[2025-07-31T10:00:50Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-31T10:00:50Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: naruto@leaf.com
+[2025-07-31T10:00:57Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:57Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:57Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dSZrpnGjWdPtSwTo8BzPSPbUk
+[2025-07-31T10:00:57Z] [gateway] [INFO] Fetched account: Naruto Uzumaki
+[2025-07-31T10:03:43Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzk1NTgyOSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGRQbGd5NElsc1dLaTFFNXFjMndqR21yUlYiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.hD2e-Cqlm3WfRXQjLzTzI10w3Z7ZZeikOXbWUAymRB4
+[2025-07-31T10:03:43Z] [auth] [ERROR] Failed to parse token: Token is expired
+[2025-07-31T10:03:43Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in service: Token is expired
+[2025-07-31T10:03:43Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: Token is expired
+[2025-07-31T10:03:43Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = Token is expired
+[2025-07-31T10:03:43Z] [gateway] [INFO] Calling authClient.VerifyToken from middleware with token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcnV0b0BsZWFmLmNvbSIsImV4cCI6MTc1Mzk1NTgyOSwicm9sZSI6InVzZXIiLCJzdWIiOiIzMGRQbGd5NElsc1dLaTFFNXFjMndqR21yUlYiLCJ0b2tlbl92ZXJzaW9uIjoxfQ.hD2e-Cqlm3WfRXQjLzTzI10w3Z7ZZeikOXbWUAymRB4
+[2025-07-31T10:03:43Z] [auth] [ERROR] Failed to parse token: Token is expired
+[2025-07-31T10:03:43Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in service: Token is expired
+[2025-07-31T10:03:43Z] [auth] [ERROR]  [/auth.AuthService/Verify]   Failed to verify token in server: Token is expired
+[2025-07-31T10:03:43Z] [gateway] [ERROR] Failed to verify token: rpc error: code = Unknown desc = Token is expired
+[2025-07-31T10:04:04Z] [account] [INFO]  [/AccountService/GetAccounts]   Returned 10 accounts from DB
+[2025-07-31T10:04:04Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched accounts count: 10
+[2025-07-31T10:04:04Z] [account] [INFO]  [/AccountService/GetAccounts]   Fetched 10 accounts
+[2025-07-31T10:04:04Z] [gateway] [INFO] Fetched 10 accounts
+[2025-07-31T10:08:06Z] Logger service started....
+--------------------------------------------------------------------------
+[2025-07-31T10:08:06Z] [account] [INFO] Starting account service
+[2025-07-31T10:08:06Z] [account] [ERROR] Failed to ping DB: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T10:08:06Z] [account] [WARN] Failed to connect to database: dial tcp 172.18.0.2:5432: connect: connection refused
+[2025-07-31T10:08:06Z] [catalog] [INFO] Starting catalog service...
+[2025-07-31T10:08:06Z] [order] [INFO] Starting order service...
+[2025-07-31T10:08:06Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:08:06Z] [order] [ERROR] Failed to ping the database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-31T10:08:06Z] [order] [ERROR] Failed to connect to database: dial tcp 172.18.0.6:5432: connect: connection refused
+[2025-07-31T10:08:06Z] [auth] [ERROR] Failed to ping DB: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T10:08:06Z] [auth] [WARN] Failed to connect to refresh_tokens database: dial tcp 172.18.0.3:5432: connect: connection refused
+[2025-07-31T10:08:06Z] [gateway] [INFO] Starting GraphQL gateway service...
+[2025-07-31T10:08:06Z] [gateway] [INFO] Connected to account service
+[2025-07-31T10:08:06Z] [gateway] [INFO] Connected to catalog service
+[2025-07-31T10:08:06Z] [gateway] [INFO] Connected to OrderService at order:8080
+[2025-07-31T10:08:06Z] [gateway] [INFO] Connected to order service
+[2025-07-31T10:08:06Z] [gateway] [INFO] Connected to auth service
+[2025-07-31T10:08:06Z] [gateway] [INFO] Connected to NATS
+[2025-07-31T10:08:06Z] [gateway] [INFO] Enabling WebSocket transport for subscriptions
+[2025-07-31T10:08:06Z] [gateway] [INFO] GraphQL gateway listening on :8080
+[2025-07-31T10:08:11Z] [account] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T10:08:11Z] [account] [INFO] Connected to database: postgres://zenvis:467578@account_db/zenvis?sslmode=disable
+[2025-07-31T10:08:11Z] [account] [INFO] Starting gRPC server for account service on port 8080
+[2025-07-31T10:08:11Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T10:08:11Z] [catalog] [ERROR] Failed to connect to Elasticsearch: health check timeout: Head "http://catalog_db:9200": dial tcp 172.18.0.7:9200: connect: connection refused: no Elasticsearch node available
+[2025-07-31T10:08:11Z] [order] [INFO] Successfully connected to PostgreSQL
+[2025-07-31T10:08:11Z] [order] [INFO] Connected to database: postgres://zenvis:467578@order_db/zenvis?sslmode=disable
+[2025-07-31T10:08:11Z] [order] [INFO] Creating order service with dependencies
+[2025-07-31T10:08:11Z] [order] [INFO] Starting gRPC server for order service on port 8080
+[2025-07-31T10:08:11Z] [order] [INFO] Order gRPC server started on port 8080
+[2025-07-31T10:08:11Z] [auth] [INFO] Successfully connected to access_token PostgreSQL
+[2025-07-31T10:08:11Z] [auth] [INFO] Connected to refresh_tokens database: postgres://zenvis:467578@refresh_tokens_db/zenvis?sslmode=disable
+[2025-07-31T10:08:11Z] [auth] [INFO] Starting gRPC server for auth service on port 8080
+[2025-07-31T10:08:11Z] [auth] [INFO] Auth gRPC server started on :8080
+[2025-07-31T10:08:16Z] [catalog] [INFO] Connecting to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:08:17Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:08:17Z] [catalog] [Connected to Elasticsearch at http://catalog_db:9200] catalog
+[2025-07-31T10:08:17Z] [catalog] [INFO] Connected to Elasticsearch at http://catalog_db:9200
+[2025-07-31T10:08:17Z] [catalog] [INFO] Starting gRPC server for catalog microservice on port 8080
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: naruto@leaf.com
+[2025-07-31T10:08:33Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:33Z] [mail] [INFO] Sending email to naruto@leaf.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaXxVg5JmCqufhpMdLDYq5CA
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaXxVg5JmCqufhpMdLDYq5CA
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaXxVg5JmCqufhpMdLDYq5CA
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaXxVg5JmCqufhpMdLDYq5CA
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sasuke@uchiha.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sasuke@uchiha.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaafAvU8ygg54G1dlaKR6c28
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaafAvU8ygg54G1dlaKR6c28
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaafAvU8ygg54G1dlaKR6c28
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaafAvU8ygg54G1dlaKR6c28
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: sakura@leaf.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: sakura@leaf.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaThq3wgpFjC6Xw61aRZbGTp
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaThq3wgpFjC6Xw61aRZbGTp
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaThq3wgpFjC6Xw61aRZbGTp
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaThq3wgpFjC6Xw61aRZbGTp
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: kakashi@leaf.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: kakashi@leaf.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaWpHOqUvE2R0ST861Cj1LP0
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaWpHOqUvE2R0ST861Cj1LP0
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaWpHOqUvE2R0ST861Cj1LP0
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaWpHOqUvE2R0ST861Cj1LP0
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: gaara@sand.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: gaara@sand.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaT9z29jClpXpXABQK1Gfi2I
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaT9z29jClpXpXABQK1Gfi2I
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaT9z29jClpXpXABQK1Gfi2I
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaT9z29jClpXpXABQK1Gfi2I
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: lee@leaf.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: lee@leaf.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaVRxiNGeQZEfxSLAUsaGVWm
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaVRxiNGeQZEfxSLAUsaGVWm
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaVRxiNGeQZEfxSLAUsaGVWm
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaVRxiNGeQZEfxSLAUsaGVWm
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: hinata@leaf.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: hinata@leaf.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaZQ86AES4cBHvLly2Q1KNQa
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaZQ86AES4cBHvLly2Q1KNQa
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaZQ86AES4cBHvLly2Q1KNQa
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaZQ86AES4cBHvLly2Q1KNQa
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: shikamaru@leaf.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: shikamaru@leaf.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaTBAu2us4Gl3359vQzcopoJ
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaTBAu2us4Gl3359vQzcopoJ
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaTBAu2us4Gl3359vQzcopoJ
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaTBAu2us4Gl3359vQzcopoJ
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: itachi@akatsuki.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: itachi@akatsuki.com
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Inserted account with ID: 30dTaa1lnOGYtDRPlQnmZdjPLV8
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaa1lnOGYtDRPlQnmZdjPLV8
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   New account created with ID: 30dTaa1lnOGYtDRPlQnmZdjPLV8
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job publishing to NATS
+[2025-07-31T10:08:33Z] [account] [INFO]  [/AccountService/PostAccount]   Email job published to NATS
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Account created with ID: 30dTaa1lnOGYtDRPlQnmZdjPLV8
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Refresh token stored successfully for user: tsunade@leaf.com
+[2025-07-31T10:08:33Z] [auth] [INFO]  [/auth.AuthService/Signup]   Signup successful for user: tsunade@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to naruto@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to sasuke@uchiha.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to sasuke@uchiha.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to sakura@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to sakura@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to kakashi@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to kakashi@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to gaara@sand.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to gaara@sand.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to lee@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to lee@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to hinata@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to hinata@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to shikamaru@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to shikamaru@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to itachi@akatsuki.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to itachi@akatsuki.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Received email job from NATS
+[2025-07-31T10:08:34Z] [mail] [INFO] Sending email to tsunade@leaf.com
+[2025-07-31T10:08:34Z] [mail] [INFO] Email sent successfully to tsunade@leaf.com
+[2025-07-31T10:08:47Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:08:47Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:08:47Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:08:47Z] [gateway] [INFO] Fetched account: Naruto Uzumaki
+[2025-07-31T10:09:03Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   Deactivating account for user: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:03Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   Deactivated account for user ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:03Z] [account] [INFO]  [/AccountService/IncrementTokenVersion]   Incremented token version for user ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:03Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   Incremented token version for user ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:03Z] [auth] [INFO]  [/auth.AuthService/DeactivateAccount]   User logged out successfully: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:09Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:09Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:09Z] [account] [INFO]  [/AccountService/GetAccount]   Fetched account with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:09Z] [gateway] [INFO] Fetched account: Naruto Uzumaki
+[2025-07-31T10:09:20Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:20Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:20Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-31T10:09:20Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: naruto@leaf.com
+[2025-07-31T10:09:20Z] [auth] [ERROR]  [/auth.AuthService/Login]   Account is not active
+[2025-07-31T10:09:20Z] [gateway] [ERROR] Error from AuthClient.Login: rpc error: code = Unknown desc = account is not active
+[2025-07-31T10:09:34Z] [auth] [INFO]  [/auth.AuthService/ReactivateAccount]   Reactivating account for user: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:34Z] [auth] [INFO]  [/auth.AuthService/ReactivateAccount]   Reactivated account for user ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:38Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:38Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched account for auth with ID: 30dTaYGWuafpGCDv9uqfTbBLS9t
+[2025-07-31T10:09:38Z] [account] [INFO]  [/AccountService/GetEmailForAuth]   Fetched email: naruto@leaf.com
+[2025-07-31T10:09:38Z] [auth] [INFO]  [/auth.AuthService/Login]   Fetched email: naruto@leaf.com
+[2025-07-31T10:09:38Z] [auth] [INFO]  [/auth.AuthService/Login]   Refresh token stored successfully for user: naruto@leaf.com
+[2025-07-31T10:09:38Z] [auth] [INFO]  [/auth.AuthService/Login]   Login successful for user: naruto@leaf.com

@@ -115,3 +115,15 @@ func (g *grpcServer) ResetPassword(ctx context.Context, req *pb.ResetPasswordReq
 	}
 	return resp, nil
 }
+
+func (g *grpcServer) DeactivateAccount(ctx context.Context, req *pb.UpdateAccountRequest) (*pb.UpdateAccountResponse, error) {
+	return g.service.DeactivateAccount(ctx, req.GetUserId(), g.accountClient)
+}
+
+func (g *grpcServer) ReactivateAccount(ctx context.Context, req *pb.UpdateAccountRequest) (*pb.UpdateAccountResponse, error) {
+	return g.service.ReactivateAccount(ctx, req.GetUserId(), g.accountClient)
+}
+
+func (g *grpcServer) DeleteAccount(ctx context.Context, req *pb.UpdateAccountRequest) (*pb.UpdateAccountResponse, error) {
+	return g.service.DeleteAccount(ctx, req.GetUserId(), g.accountClient)
+}

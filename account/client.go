@@ -84,6 +84,7 @@ func (c *Client) GetAccount(ctx context.Context, id string) (*Account, error) {
 		Name: resp.Account.Name,
 		Email: resp.Account.Email,
 		Role: resp.Account.Role,
+		IsActive: resp.Account.IsActive,
 	}, nil
 }
 
@@ -106,6 +107,7 @@ func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64) ([]A
 			Name: acc.Name,
 			Email: acc.Email,
 			Role: acc.Role,
+			IsActive: acc.IsActive,
 		}
 	}
 	return accounts, nil
@@ -146,6 +148,7 @@ func (c *Client) GetEmailForAuth(ctx context.Context, email string) (*Account, e
 		PasswordHash: resp.PasswordHash,
 		Role: resp.Role,
 		TokenVersion: resp.TokenVersion,
+		IsActive: resp.IsActive,
 	}, nil
 }
 
@@ -172,5 +175,46 @@ func(c *Client) UpdatePassword(ctx context.Context, email string, password strin
 		return err
 	}
 	Logs.Info(ctx, "Updated password for email in client: "+email)
+	return nil
+}
+
+func(c *Client) DeactivateAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Deactivating account for user ID: " + userID)
+
+	_, err := c.service.DeactivateAccount(ctx, &pb.UpdateAccountRequest{UserId: userID})
+	if err != nil {
+		Logs.Error(ctx, "DeactivateAccount RPC failed: "+err.Error())
+		return err
+	}
+	Logs.Info(ctx, "Deactivated account for user ID: "+userID)
+	return nil
+}
+
+func(c *Client) ReactivateAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Reactivating account for user ID: " + userID)
+
+	_, err := c.service.ReactivateAccount(ctx, &pb.UpdateAccountRequest{UserId: userID})
+	if err != nil {
+		Logs.Error(ctx, "ReactivateAccount RPC failed: "+err.Error())
+		return err
+	}
+	Logs.Info(ctx, "Reactivated account for user ID: "+userID)
+	return nil
+}
+
+
+
+func(c *Client) DeleteAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Deleting account for user ID: " + userID)
+
+	_, err := c.service.DeleteAccount(ctx, &pb.UpdateAccountRequest{UserId: userID})
+	if err != nil {
+		Logs.Error(ctx, "DeleteAccount RPC failed: "+err.Error())
+		return err
+	}
+	Logs.Info(ctx, "Deleted account for user ID: "+userID)
 	return nil
 }

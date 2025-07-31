@@ -10,6 +10,9 @@ service AccountService {
     rpc GetEmailForAuth (GetEmailForAuthRequest) returns (GetEmailForAuthResponse);
     rpc IncrementTokenVersion (IncrementTokenVersionRequest) returns (IncrementTokenVersionResponse);
     rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordResponse);
+    rpc DeactivateAccount (UpdateAccountRequest) returns (UpdateAccountResponse);
+    rpc ReactivateAccount (UpdateAccountRequest) returns (UpdateAccountResponse);
+    rpc DeleteAccount (UpdateAccountRequest) returns (UpdateAccountResponse);
 }
 
 message Account {
@@ -18,6 +21,7 @@ message Account {
     string email = 3;
     string role = 5;
     int32 token_version = 6;
+    bool is_active = 7;
 }
 
 message PostAccountRequest {
@@ -66,6 +70,7 @@ message GetEmailForAuthResponse {
     string password_hash = 4;
     string role = 5;
     int32 token_version = 6;
+    bool is_active = 7;
 }
 
 message IncrementTokenVersionRequest {
@@ -82,4 +87,11 @@ message UpdatePasswordRequest {
 message UpdatePasswordResponse {
     bool ok = 1;
 }
-    
+
+message UpdateAccountRequest {
+    string user_id = 1;
+}
+message UpdateAccountResponse {
+    bool ok = 1;
+}
+

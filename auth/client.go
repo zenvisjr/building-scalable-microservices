@@ -142,3 +142,42 @@ func(c *Client) ResetPassword(ctx context.Context, email, password, userId strin
 	}
 	return resp, nil
 }
+
+func (c *Client) DeactivateAccount(ctx context.Context, userId string) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Calling Auth gRPC service for deactivate account: " + userId)
+	resp, err := c.service.DeactivateAccount(ctx, &pb.UpdateAccountRequest{
+		UserId: userId,
+	})
+	if err != nil {
+		Logs.Error(ctx, "Failed to deactivate account: "+err.Error())
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (c *Client) ReactivateAccount(ctx context.Context, userId string) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Calling Auth gRPC service for reactivate account: " + userId)
+	resp, err := c.service.ReactivateAccount(ctx, &pb.UpdateAccountRequest{
+		UserId: userId,
+	})
+	if err != nil {
+		Logs.Error(ctx, "Failed to reactivate account: "+err.Error())
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (c *Client) DeleteAccount(ctx context.Context, userId string) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Calling Auth gRPC service for delete account: " + userId)
+	resp, err := c.service.DeleteAccount(ctx, &pb.UpdateAccountRequest{
+		UserId: userId,
+	})
+	if err != nil {
+		Logs.Error(ctx, "Failed to delete account: "+err.Error())
+		return nil, err
+	}
+	return resp, nil
+}

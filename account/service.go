@@ -15,6 +15,7 @@ type Account struct {
 	PasswordHash string `json:"password_hash"`
 	Role         string `json:"role"`
 	TokenVersion int32  `json:"token_version"`
+	IsActive     bool   `json:"is_active"`
 }
 
 type Service interface {
@@ -25,6 +26,9 @@ type Service interface {
 	GetEmailForAuth(ctx context.Context, email string) (*Account, error)
 	IncrementTokenVersion(ctx context.Context, userID string) error
 	UpdatePassword(ctx context.Context, email string, password string) error
+	DeactivateAccount(ctx context.Context, userID string) error
+	ReactivateAccount(ctx context.Context, userID string) error
+	DeleteAccount(ctx context.Context, userID string) error
 }
 
 type accountService struct {
@@ -162,3 +166,27 @@ func (a *accountService) UpdatePassword(ctx context.Context, email string, passw
 	Logs.Info(ctx, "Updated password for email in service: "+email)
 	return nil
 }
+
+func (a *accountService) DeactivateAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Got deactivate account request in service for user: " + userID)
+
+	return a.repo.DeactivateAccount(ctx, userID)
+}
+
+func (a *accountService) ReactivateAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Got reactivate account request in service for user: " + userID)
+
+	return a.repo.ReactivateAccount(ctx, userID)
+}
+
+
+func (a *accountService) DeleteAccount(ctx context.Context, userID string) error {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Got delete account request in service for user: " + userID)
+
+	return a.repo.DeleteAccount(ctx, userID)
+}
+
+

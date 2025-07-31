@@ -137,6 +137,7 @@ func (g *grpcServer) GetAccount(ctx context.Context, req *pb.GetAccountRequest) 
 			Name:  acc.Name,
 			Email: acc.Email,
 			Role: acc.Role,
+			IsActive: acc.IsActive,
 		},
 	}, nil
 }
@@ -160,6 +161,7 @@ func (g *grpcServer) GetAccounts(ctx context.Context, req *pb.GetAccountsRequest
 			Name:  acc.Name,
 			Email: acc.Email,
 			Role: acc.Role,
+			IsActive: acc.IsActive,
 		}
 	}
 
@@ -202,6 +204,7 @@ func (g *grpcServer) GetEmailForAuth(ctx context.Context, req *pb.GetEmailForAut
 		PasswordHash: email.PasswordHash,
 		Role: email.Role,
 		TokenVersion: email.TokenVersion,
+		IsActive: email.IsActive,
 	}, nil
 }
 
@@ -231,3 +234,38 @@ func(g *grpcServer) UpdatePassword(ctx context.Context, req *pb.UpdatePasswordRe
 
 	return &pb.UpdatePasswordResponse{Ok: true}, nil
 }
+
+func(g *grpcServer) DeactivateAccount(ctx context.Context, req *pb.UpdateAccountRequest) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Received DeactivateAccount gRPC request for user ID: " + req.GetUserId())
+
+	if err := g.service.DeactivateAccount(ctx, req.GetUserId()); err != nil {
+		Logs.Error(ctx, "DeactivateAccount service error: "+err.Error())
+		return nil, err
+	}
+
+	return &pb.UpdateAccountResponse{Ok: true}, nil
+}
+
+func(g *grpcServer) ReactivateAccount(ctx context.Context, req *pb.UpdateAccountRequest) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Received ReactivateAccount gRPC request for user ID: " + req.GetUserId())
+
+	if err := g.service.ReactivateAccount(ctx, req.GetUserId()); err != nil {
+		Logs.Error(ctx, "ReactivateAccount service error: "+err.Error())
+		return nil, err
+	}
+	return &pb.UpdateAccountResponse{Ok: true}, nil
+}
+
+func(g *grpcServer) DeleteAccount(ctx context.Context, req *pb.UpdateAccountRequest) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.LocalOnlyInfo("Received DeleteAccount gRPC request for user ID: " + req.GetUserId())
+
+	if err := g.service.DeleteAccount(ctx, req.GetUserId()); err != nil {
+		Logs.Error(ctx, "DeleteAccount service error: "+err.Error())
+		return nil, err
+	}
+	return &pb.UpdateAccountResponse{Ok: true}, nil
+}
+	

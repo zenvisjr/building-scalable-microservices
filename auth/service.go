@@ -23,6 +23,9 @@ type Service interface {
 	// LogoutAll(ctx context.Context, userId string) error
 	GetCurrentUsers(ctx context.Context, ac *account.Client, skip uint64, take uint64, role string) ([]*User, error)
 	ResetPasswordForAccount(ctx context.Context, email string, password string, userId string, ac *account.Client) (*pb.AuthResponse, error)
+	DeactivateAccount(ctx context.Context, userId string, ac *account.Client) (*pb.UpdateAccountResponse, error)
+	ReactivateAccount(ctx context.Context, userId string, ac *account.Client) (*pb.UpdateAccountResponse, error)
+	DeleteAccount(ctx context.Context, userId string, ac *account.Client) (*pb.UpdateAccountResponse, error)
 }
 
 type User struct {
@@ -125,27 +128,33 @@ func (s *authService) Login(ctx context.Context, email string, password string, 
 		return nil, errors.New("failed to validate account")
 	}
 
-	// Step 2: Validate password
+	// Step 2: Check if account is active
+	if !account.IsActive {
+		Logs.Error(ctx, "Account is not active")
+		return nil, errors.New("account is not active")
+	}
+
+	// Step 3: Validate password
 	if account.PasswordHash == "" || !s.jwtManager.ValidatePassword(password, account.PasswordHash) {
 		Logs.Error(ctx, "Invalid password")
 		return nil, errors.New("invalid password")
 	}
 
-	// Step 3: Generate Access Token
+	// Step 4: Generate Access Token
 	accessToken, err := s.jwtManager.GenerateAccessToken(account.ID, account.Email, account.Role, account.TokenVersion)
 	if err != nil {
 		Logs.Error(ctx, "Failed to generate access token: "+err.Error())
 		return nil, err
 	}
 
-	// Step 4: Generate Refresh Token
+	// Step 5: Generate Refresh Token
 	refreshToken, err := s.jwtManager.GenerateRefreshToken(account.ID, account.Email, account.Role, account.TokenVersion)
 	if err != nil {
 		Logs.Error(ctx, "Failed to generate refresh token: "+err.Error())
 		return nil, err
 	}
 
-	// Step 5: Store Refresh Token in DB
+	// Step 6: Store Refresh Token in DB
 	if err := s.repository.StoreRefreshToken(ctx, refreshToken, account.ID); err != nil {
 		Logs.Error(ctx, "Failed to store refresh token: "+err.Error())
 		return nil, err
@@ -280,7 +289,7 @@ func (s *authService) VerifyToken(ctx context.Context, token string, ac *account
 	// Step 2: Get latest account info from DB
 	account, err := ac.GetEmailForAuth(ctx, email) // or use userID if you have it
 	if err != nil {
-		Logs.Error(ctx, "Failed to fetch account for token verification: "+err.Error())
+		Logs.Error(ctx, "Failed to fetch account for token verification, account does not exist: "+err.Error())
 		return nil, err
 	}
 
@@ -400,10 +409,10 @@ func (s *authService) GetCurrentUsers(ctx context.Context, ac *account.Client, s
 
 func (s *authService) ResetPasswordForAccount(ctx context.Context, email string, password string, userId string, ac *account.Client) (*pb.AuthResponse, error) {
 	Logs := logger.GetGlobalLogger()
-	Logs.Info(ctx, "ResetPasswordForAccount called for email: " + email)
+	Logs.Info(ctx, "ResetPasswordForAccount called for email: "+email)
 
 	// Step 1: Call AccountService to create user (password will be hashed there)
-	 err := ac.UpdatePassword(ctx, email, password)
+	err := ac.UpdatePassword(ctx, email, password)
 	if err != nil {
 		Logs.Error(ctx, "Password reset failed: "+err.Error())
 		return nil, err
@@ -465,4 +474,52 @@ func (s *authService) ResetPasswordForAccount(ctx context.Context, email string,
 		Email:        account.Email,
 		Role:         account.Role,
 	}, nil
+}
+
+func (s *authService) DeactivateAccount(ctx context.Context, userId string, ac *account.Client) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Deactivating account for user: "+userId)
+	if err := ac.DeactivateAccount(ctx, userId); err != nil {
+		Logs.Error(ctx, "Failed to deactivate account: "+err.Error())
+		return nil, err
+	}
+
+	if err := s.Logout(ctx, userId, ac); err != nil {
+		Logs.Error(ctx, "Failed to logout: "+err.Error())
+		return nil, err
+	}
+
+	return &pb.UpdateAccountResponse{Message: "Account deactivated successfully, Please reactivate to use again"}, nil
+}
+
+func (s *authService) ReactivateAccount(ctx context.Context, userId string, ac *account.Client) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Reactivating account for user: "+userId)
+	if err := ac.ReactivateAccount(ctx, userId); err != nil {
+		Logs.Error(ctx, "Failed to reactivate account: "+err.Error())
+		return nil, err
+	}
+	return &pb.UpdateAccountResponse{Message: "Account reactivated successfully, Please login again"}, nil
+}
+
+func (s *authService) DeleteAccount(ctx context.Context, userId string, ac *account.Client) (*pb.UpdateAccountResponse, error) {
+	Logs := logger.GetGlobalLogger()
+	Logs.Info(ctx, "Deleting account for user: "+userId)
+	if err := ac.DeleteAccount(ctx, userId); err != nil {
+		Logs.Error(ctx, "Failed to delete account: "+err.Error())
+		return nil, err
+	}
+
+	// Step 1: Delete all refresh tokens
+	if err := s.repository.DeleteRefreshToken(ctx, userId); err != nil {
+		Logs.Error(ctx, "Failed to delete refresh token: "+err.Error())
+		return nil, err
+	}
+
+	// Step 2: Remove from cache
+	s.mu.Lock()
+	delete(s.loggedInUsers, userId)
+	s.mu.Unlock()
+
+	return &pb.UpdateAccountResponse{Message: "Account deleted successfully"}, nil
 }
