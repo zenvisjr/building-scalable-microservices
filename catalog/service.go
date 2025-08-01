@@ -50,7 +50,7 @@ func (s *catalogService) PostProduct(ctx context.Context, name, description stri
 		Price:       price,
 		Stock:       uint32(stock),
 	}
-	if err := s.repo.PutProduct(ctx, product); err != nil {
+	if err := s.repo.CreateProduct(ctx, product); err != nil {
 		Logs.Error(ctx, "Failed to store new product: "+err.Error())
 		return nil, err
 	}

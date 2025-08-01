@@ -57,7 +57,7 @@ func (o *orderService) PostOrder(ctx context.Context, accountID string, orders [
 
 	Logs.LocalOnlyInfo(fmt.Sprintf("Prepared order: TotalPrice=%.2f, Products=%d", order.TotalPrice, len(order.Products)))
 
-	err := o.repo.PutOrder(ctx, *order)
+	err := o.repo.CreateOrder(ctx, *order)
 	if err != nil {
 		Logs.Error(ctx, "Failed to save order: "+err.Error())
 		return nil, err

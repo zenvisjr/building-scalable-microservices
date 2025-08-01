@@ -68,7 +68,7 @@ func (a *accountService) PostAccount(ctx context.Context, name string, email, pl
 		Role:         role,
 		TokenVersion: 1,
 	}
-	err = a.repo.PutAccount(ctx, *account)
+	err = a.repo.CreateAccount(ctx, *account)
 	if err != nil {
 		Logs.Error(ctx, "Failed to store new account: "+err.Error())
 		return nil, err

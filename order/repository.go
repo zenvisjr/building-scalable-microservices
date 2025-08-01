@@ -12,7 +12,7 @@ import (
 
 type Repository interface {
 	Close()
-	PutOrder(ctx context.Context, order Order) error
+	CreateOrder(ctx context.Context, order Order) error
 	ListOrdersForAccount(ctx context.Context, accountID string) ([]Order, error)
 }
 
@@ -44,7 +44,7 @@ func (p *postgresRepository) Close() {
 	Logs.LocalOnlyInfo("Closing PostgreSQL connection")
 	p.db.Close()
 }
-func (p *postgresRepository) PutOrder(ctx context.Context, order Order) (err error) {
+func (p *postgresRepository) CreateOrder(ctx context.Context, order Order) (err error) {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo(fmt.Sprintf("Inserting order ID: %s with %d products", order.ID, len(order.Products)))
 

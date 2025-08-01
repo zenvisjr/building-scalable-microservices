@@ -17,7 +17,7 @@ var (
 
 type Repository interface {
 	Close()
-	PutAccount(ctx context.Context, acc Account) error
+	CreateAccount(ctx context.Context, acc Account) error
 	GetAccountByID(ctx context.Context, id string) (*Account, error)
 	ListAccounts(ctx context.Context, skip uint64, limit uint64) ([]Account, error)
 	GetEmailByName(ctx context.Context, name string) (string, error)
@@ -62,7 +62,7 @@ func (p *postgresRepository) Ping() error {
 	return p.db.Ping()
 }
 
-func (p *postgresRepository) PutAccount(ctx context.Context, acc Account) error {
+func (p *postgresRepository) CreateAccount(ctx context.Context, acc Account) error {
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Inserting new account into DB")
 

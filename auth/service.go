@@ -11,9 +11,7 @@ import (
 	"github.com/zenvisjr/building-scalable-microservices/account" // ← gRPC client for Account
 	"github.com/zenvisjr/building-scalable-microservices/auth/pb"
 	"github.com/zenvisjr/building-scalable-microservices/logger"
-	"github.com/go-playground/validator/v10"
 )
-
 
 type Service interface {
 	Signup(ctx context.Context, name string, email string, password string, role string, ac *account.Client) (*pb.AuthResponse, error)
@@ -54,13 +52,10 @@ func NewAuthService(jwtManager *JWTManager, repository Repository) Service {
 	}
 }
 
-var validate = validator.New()
-
 func (s *authService) Signup(ctx context.Context, name string, email string, password string, role string, ac *account.Client) (*pb.AuthResponse, error) {
 
 	Logs := logger.GetGlobalLogger()
 
-	
 	Logs.LocalOnlyInfo("Signup called for email: " + email)
 
 	//default role is user
@@ -117,11 +112,6 @@ func (s *authService) Login(ctx context.Context, email string, password string, 
 	Logs := logger.GetGlobalLogger()
 	Logs.LocalOnlyInfo("Login called for email: " + email)
 
-	if email == "" || password == "" {
-		Logs.Error(ctx, "Invalid email or password")
-		return nil, errors.New("invalid email or password")
-	}
-
 	if _, ok := s.loggedInUsers[email]; ok {
 		Logs.Error(ctx, "User already logged in")
 		return nil, errors.New("user already logged in")
@@ -138,12 +128,6 @@ func (s *authService) Login(ctx context.Context, email string, password string, 
 	if !account.IsActive {
 		Logs.Error(ctx, "Account is not active")
 		return nil, errors.New("account is not active")
-	}
-
-	// Step 3: Validate password
-	if account.PasswordHash == "" || !s.jwtManager.ValidatePassword(password, account.PasswordHash) {
-		Logs.Error(ctx, "Invalid password")
-		return nil, errors.New("invalid password")
 	}
 
 	// Step 4: Generate Access Token

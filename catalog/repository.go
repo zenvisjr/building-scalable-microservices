@@ -16,7 +16,7 @@ var (
 
 type Repository interface {
 	// Close()
-	PutProduct(ctx context.Context, product Product) error
+	CreateProduct(ctx context.Context, product Product) error
 	GetProductByID(ctx context.Context, id string) (*Product, error)
 	ListProducts(ctx context.Context, skip uint64, take uint64) ([]Product, error)
 	ListProductsWithIDs(ctx context.Context, ids []string) ([]Product, error)
@@ -179,7 +179,7 @@ func NewElasticRepository(url string) (Repository, error) {
 // 	return nil
 // }
 
-func (p *elasticRepository) PutProduct(ctx context.Context, product Product) error {
+func (p *elasticRepository) CreateProduct(ctx context.Context, product Product) error {
 	Logs := logger.GetGlobalLogger()
 	Logs.Info(ctx, "Received product for indexing: "+product.ID)
 

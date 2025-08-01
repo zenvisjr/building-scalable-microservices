@@ -1,4 +1,4 @@
-# 🚀 grpc-elastic-graphql-scalable-robust-microservice
+# 🚀 grpc-go-elastic-graphql-scalable-robust-microservice
 
 **Scalable. Modular. Production-Ready Microservice Architecture built with Go, GraphQL, gRPC, NATS, Elasticsearch, and PostgreSQL**
 
@@ -10,19 +10,35 @@
 
 ## 🌞 Table of Contents
 
-* 🌞 [Overview](#overview)
-* 🔥 [Features](#features)
-* 🧱 [Microservices Overview](#microservices-overview)
-* 🗂 [Project Structure](#project-structure)
-* 🚀 [Getting Started](#getting-started)
+1. [☀️ Overview](#-overview)
+2. [🔥 Features](#-features)
+3. [🧱 Microservices](#-microservices)
 
-  * 🌟 [Prerequisites](#prerequisites)
-  * ⚙️ [Installation & Setup](#installation--setup)
-* 🌐 [API Documentation (GraphQL)](#api-documentation-graphql)
-* 📦 [Architecture](#architecture)
+   * [1. Account Service](#1-account-service)
+   * [2. Auth Service](#2-auth-service)
+   * [3. Catalog Service](#3-catalog-service)
+   * [4. Order Service](#4-order-service)
+   * [5. Logger Service](#5-logger-service)
+   * [6. GraphQL Gateway](#6-graphql-gateway)
+   * [7. Mail Service](#7-mail-service)
+4. [📂 Project Structure](#-project-structure)
+5. [🛠️ Tech Stack](#-tech-stack)
+6. [🚀 Getting Started](#-getting-started)
 
-  * 🧠 [System Overview](#system-overview)
-* 🤝 [Contributing](#contributing)
+   * [Prerequisites](#-prerequisites)
+   * [Installation & Setup](#-installation--setup)
+7. [🧱 System Architecture](#-system-architecture)
+
+   * [gRPC Connection Flow](#grpc-connection-flow)
+   * [GraphQL Query](#graphql-query)
+   * [GraphQL Mutation](#graphql-mutation)
+   * [Flow of Request from End User](#flow-of-request-from-end-user)
+   * [Docker Compose Architecture](#docker-compose-architecture)
+8. [🌐 API Documentation (GraphQL)](#-api-documentation-graphql)
+9. [🤝 Contributing](#-contributing)
+10. [👨‍💻 Author](#-author)
+
+---
 
 ---
 
@@ -32,73 +48,69 @@ This project demonstrates a **robust microservice-based system** using Go, desig
 
 ---
 
-Here's the **updated and detailed `🔥 Features` section** for your project `grpc-elastic-graphql-scalable-robust-microservice`, including the new features you've implemented:
-
----
-
 ## 🔥 Features
 
-✅ **GraphQL Gateway with Resolver-Based Architecture**
+`GraphQL Gateway with Resolver-Based Architecture`
 Client-facing GraphQL layer that delegates all queries/mutations to internal services via gRPC. Includes pagination, validation, and centralized access point.
 
-✅ **gRPC-Based Communication Between Services**
+`gRPC-Based Communication Between Services`
 All microservices interact using efficient gRPC, enabling type-safe contracts and faster communication compared to REST.
 
-✅ **gRPC Logging Interceptor**
+`gRPC Logging Interceptor`
 Every gRPC call across services is automatically intercepted and logged, capturing metadata, errors, duration, and more.
 
-✅ **Centralized Logging Microservice (gRPC-Based)**
+`Centralized Logging Microservice (gRPC-Based)`
 Custom gRPC logging service aggregates logs from all microservices into a single location for easier debugging and observability.
 
-✅ **Local Structured Logging with Zap**
+`Local Structured Logging with Zap`
 Each service uses Uber’s `zap` logger for performant, structured local logs—configurable for development and production.
 
-✅ **Mail Microservice**
+`Mail Microservice`
 Standalone microservice for sending email notifications—can support OTP, signup emails, and alerts.
 
-✅ **Asynchronous Email Queuing with NATS**
+`Asynchronous Email Queuing with NATS`
 Emails are queued via NATS JetStream, ensuring reliable delivery and decoupling from business logic.
 
-✅ **Template Rendering Engine**
+`Template Rendering Engine`
 Supports both HTML and plain-text email templates using Go’s template engine.
 
-✅ **JWT Authentication & Role-Based Authorization**
+`JWT Authentication & Role-Based Authorization`
 Secure token-based login flow with admin/user roles. Tokens include versioning support to invalidate on logout/reset.
 
-✅ **Token Versioning for Logout/Reset Invalidation**
+`Token Versioning for Logout/Reset Invalidation`
 Every JWT token includes a version field checked against DB to support real-time revocation without blacklists.
 
-✅ **NATS JetStream for Event-Driven Updates**
+`NATS JetStream for Event-Driven Updates`
 Product/order events (like stock update or order placed) are propagated across services asynchronously and reliably.
 
-✅ **Elasticsearch for Full-Text & Semantic Search**
+`Elasticsearch for Full-Text & Semantic Search`
 Products are indexed and searchable via Elasticsearch; supports multi-field search and OpenAI embeddings.
 
-✅ **AI-Powered Semantic Search Ready**
+`AI-Powered Semantic Search Ready`
 Integrated with OpenAI embedding API for intelligent, semantic product suggestions.
 
-✅ **PostgreSQL for Relational Data Persistence**
+`PostgreSQL for Relational Data Persistence`
 Each microservice uses PostgreSQL with its own schema and indexes, optimized for transactional operations.
 
-✅ **Input Validation at GraphQL Entry Point**
+`Input Validation at GraphQL Entry Point`
 All mutations and queries are validated at the gateway using Go Validator, improving performance and security.
 
-✅ **Dockerized Setup with Health Checks**
+`Dockerized Setup with Health Checks`
 Every service runs in a Docker container with robust healthchecks to ensure availability and stability.
 
-✅ **Clean, Modular Architecture**
+`Clean, Modular Architecture`
 Clear separation of concerns across layers: GraphQL API, service logic, DB access, and infrastructure.
 
-✅ **Scalable & Extendable Microservices Design**
+`Scalable & Extendable Microservices Design`
 Each microservice is self-contained, testable, and designed to scale horizontally.
 
-✅ **Testing & Debugging Support**
+`Testing & Debugging Support`
 Central logs, interceptors, and request validation make it easy to monitor and test the system behavior.
 
 
 ---
 
-## 🧱 Microservices Overview
+## 🧱 Microservices
 
 | Service     | Responsibilities                                                              |
 | ----------- | ----------------------------------------------------------------------------- |
@@ -245,6 +257,87 @@ docker-compose up --build
 Visit GraphQL playground at `http://localhost:8000/graphql`
 
 ---
+
+To add and describe your 5 architecture diagrams in your `README.md`, follow this structure:
+
+---
+
+## 🧱 System Architecture
+
+Below are visual diagrams to understand how different components of the `grpc-go-elastic-graphql-scalable-robust-microservice` work together.
+
+---
+
+
+### 🛰️ gRPC Connection Flow
+
+![gRPC Architecture](resources/grpc-flow.png)
+
+**Explanation:**
+
+* Each microservice has a gRPC client and server.
+* GraphQL Gateway communicates with gRPC clients.
+* Services connect to their respective DBs and also communicate with each other when needed.
+* Logger is shared across all for centralized logging.
+* NATS JetStream acts as the async message broker between services (e.g., order → mail, catalog updates).
+
+---
+
+### 📥 GraphQL Query
+
+![GraphQL Query Flow](resources/query.png)
+
+**Explanation:**
+
+* Central `Query` block branches into GraphQL queries like `accounts`, `products`, `suggestedProducts`, etc.
+* These query resolvers interact with their corresponding gRPC services and databases.
+
+---
+### 🔄 GraphQL Mutation
+
+![GraphQL Mutation Flow](resources/mutation.png)
+
+**Explanation:**
+
+* The central `Mutation` block shows all GraphQL mutations supported by the system.
+* Each mutation (circle) calls a resolver, which in turn calls gRPC services and DB operations.
+* Rectangle nodes are the named services; dotted rectangles represent DB-level operations.
+
+**📝 Note:**
+
+* *Circle*: GraphQL mutation you call
+* *Rectangle*: Service layer function
+* *Dotted Rectangle*: DB operation (internal DB operations may exist but are not shown here)
+* If a rectangle is missing, service and DB method name are the same
+
+---
+
+### 🔁 Flow of Request from End User
+
+![Flow of Request](resources/request-flow.png)
+
+**Explanation:**
+
+* Shows how a user request (query or mutation) flows through the system.
+* Begins at the frontend → GraphQL Gateway → Client → Server → Service Layer → Repository → DB.
+* Clean separation of concerns ensures modularity and debuggability.
+
+---
+
+
+### 🐳 Docker-Compose Architecture
+
+![Docker Compose](resources/docker.png)
+
+**Explanation:**
+
+* Each microservice (account, catalog, order, auth, mail, logger, GraphQL) and DB (PostgreSQL/Elastic) runs in its own container.
+* Managed using a unified `docker-compose.yml` file.
+* Ensures isolated environments and inter-service networking for clean deployment.
+
+---
+
+
 
 ## 🌐 API Documentation (GraphQL)
 
