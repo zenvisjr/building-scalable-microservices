@@ -266,6 +266,10 @@ To add and describe your 5 architecture diagrams in your `README.md`, follow thi
 
 Below are visual diagrams to understand how different components of the `grpc-go-elastic-graphql-scalable-robust-microservice` work together.
 
+You can view the full interactive architecture diagram here:  
+👉 [System Architecture Diagram](https://whimsical.com/grpc-go-graphql-scalable-backend-microserive-NQKvc15tobk6ygW5VxBi28)
+
+
 ---
 
 
